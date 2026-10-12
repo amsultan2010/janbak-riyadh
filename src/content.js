@@ -4,8 +4,8 @@
 // One short note above each places list.
 export const CATEGORY_NOTES = {
   'hospitals': {
-    ar: 'لطلب الإسعاف اتصل بالرقم 997. يُلزم النظام المستشفيات الخاصة بعلاج الحالات الطارئة الخطرة دون مطالبة مالية قبل تقديم العلاج. بعض المستشفيات الحكومية تخدم فئات محددة في الحالات غير الطارئة.',
-    en: 'For an ambulance call 997. By law, private hospitals must treat serious emergencies without asking for payment first. Some government hospitals serve specific groups for non-urgent care.',
+    ar: 'لطلب الإسعاف اتصل بالرقم 997. يُلزم النظام المستشفيات الخاصة بعلاج الحالات الطارئة الخطرة دون مطالبة مالية قبل تقديم العلاج. تذكر وزارة الصحة أن أقسام الطوارئ في مستشفياتها تُغطّى بالمناوبات خارج الدوام وفي عطلة نهاية الأسبوع.',
+    en: 'For an ambulance call 997. By law, private hospitals must treat serious emergencies without asking for payment first. The Ministry of Health says emergency departments in its hospitals are covered by on-call rotas outside working hours and at weekends.',
   },
   'urgent-care': {
     ar: 'مراكز تابعة لوزارة الصحة للحالات العاجلة التي لا تستوجب الذهاب إلى المستشفى. في الحالات الخطرة توجّه إلى طوارئ أقرب مستشفى أو اتصل بالرقم 997.',
@@ -24,8 +24,8 @@ export const CATEGORY_NOTES = {
     en: 'Call the centre before you go to check that it can take you.',
   },
   'mental-health': {
-    ar: 'للاستشارة النفسية أو لحجز موعد اتصل أولاً بالرقم 937، مجاناً وعلى مدار الساعة.',
-    en: 'For a psychological consultation or an appointment, call 937 first. It is free and answers day and night.',
+    ar: 'للاستشارة النفسية أو لحجز موعد اتصل أولاً بالرقم 937، على مدار الساعة.',
+    en: 'For a psychological consultation or an appointment, call 937 first. It answers day and night.',
   },
   'supermarkets': {
     ar: 'فروع السلاسل الكبرى وأسواق أخرى.',
@@ -78,8 +78,8 @@ export const LINES = [
         number: '937',
         name: { ar: 'وزارة الصحة', en: 'Ministry of Health' },
         text: {
-          ar: 'استشارات طبية مجانية من أطباء على مدار الساعة، وإرشادات لحالات التسمم.',
-          en: 'Free medical advice from doctors, day and night. Also gives guidance for suspected poisoning.',
+          ar: 'استشارات طبية من أطباء على مدار الساعة، وإرشادات لحالات التسمم.',
+          en: 'Medical advice from doctors, day and night. Also gives guidance for suspected poisoning.',
         },
       },
       {
@@ -97,8 +97,8 @@ export const LINES = [
         number: '937',
         name: { ar: 'الاستشارات النفسية عبر 937', en: 'Psychological consultations on 937' },
         text: {
-          ar: 'اطلب استشارة نفسية أو موعداً في العيادات الحكومية. مجاناً وعلى مدار الساعة.',
-          en: 'Ask for a psychological consultation or an appointment at a government clinic. Free, day and night.',
+          ar: 'اطلب استشارة نفسية أو موعداً في العيادات الحكومية. على مدار الساعة.',
+          en: 'Ask for a psychological consultation or an appointment at a government clinic. Day and night.',
         },
       },
     ],
@@ -118,7 +118,18 @@ export const LINES = [
       {
         number: '19922',
         name: { ar: 'هيئة حقوق الإنسان', en: 'Human Rights Commission' },
-        text: { ar: 'استقبال شكاوى حقوق الإنسان.', en: 'Receives human rights complaints.' },
+        text: {
+          ar: 'استقبال شكاوى حقوق الإنسان. من الأحد إلى الخميس، 8:30 ص إلى 12 منتصف الليل.',
+          en: 'Receives human rights complaints. Sunday to Thursday, 8:30 am to midnight.',
+        },
+      },
+      {
+        number: '116111',
+        name: { ar: 'خط مساندة الطفل', en: 'Child helpline' },
+        text: {
+          ar: 'خط مجاني يقدّم للأطفال المشورة والمساندة بسرية.',
+          en: 'A free line giving children advice and support in confidence.',
+        },
       },
     ],
   },
@@ -164,8 +175,8 @@ export const LINES = [
         number: '19911',
         name: { ar: 'وزارة الموارد البشرية والتنمية الاجتماعية', en: 'Ministry of Human Resources' },
         text: {
-          ar: 'استفسارات وشكاوى العمل: الأجور والعقود والخلافات مع صاحب العمل.',
-          en: 'Labour questions and complaints: wages, contracts, disputes with an employer.',
+          ar: 'خدمة العملاء: استفسارات وبلاغات العمل والخدمات الاجتماعية. من الأحد إلى الخميس، 8 ص إلى 5 م.',
+          en: 'Customer service for labour and social-services questions and reports. Sunday to Thursday, 8 am to 5 pm.',
         },
       },
       {
