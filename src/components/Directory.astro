@@ -48,7 +48,7 @@ const total = groups.reduce((n, g) => n + g.items.length, 0);
                   </a>
                 )}
                 {item.page && (
-                  <a class="btn btn-fill" href={path(lang, item.page)}>
+                  <a class="btn btn-fill" href={path(lang, item.page) + (item.query ?? '')}>
                     {t('link.view')}
                   </a>
                 )}

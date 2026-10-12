@@ -10,7 +10,7 @@ Arabic is the default at `/`, English is the same path under `/en/`.
 
 | Page | Path | What is on it |
 | --- | --- | --- |
-| Places (home) | `/` | The explorer: map, search and filters over all 1,570 places |
+| Places (home) | `/` | The explorer: map, search and filters over all 2,003 places |
 | One category | `/places/<category>/` | The same explorer preset to one category, with a plain list as fallback |
 | Numbers | `/numbers/` | Emergency, health, mental health, family, utilities, residents; search and section filter |
 | Ways to help | `/help/` | Blood donation, volunteering, licensed donation platforms |
@@ -27,7 +27,7 @@ covers police, Civil Defense and traffic; 998 and 999 are for regions without a 
   list at full height on a wide screen. Pins carry the category icon and cluster when dense.
 - Search covers name, district, address and type in both languages, and ignores Arabic
   spelling variants (hamza, ta marbuta, diacritics).
-- Filters: any mix of the nine categories, a district (193 Riyadh districts, 148 with drawn
+- Filters: any mix of the eight categories, a district (193 Riyadh districts, 148 with drawn
   boundaries from OpenStreetMap), open now, open 24 hours, and "only inside the map view".
   Choosing a district also moves the map to it. The current filters live in the address bar, so a view can be shared as a link.
 - Location: browser GPS, one of 150 districts, or a tap on the map. Saved on the device only.
@@ -46,15 +46,23 @@ covers police, Civil Defense and traffic; 998 and 999 are for regions without a 
 
 | Category | Places | On the map | With hours | Main source |
 | --- | --- | --- | --- | --- |
-| Hospitals | 54 | 53 | 33 | Hospital sites, Ministry of Health records |
-| Urgent care | 24 | 24 | 24 | Ministry of Health on-duty list |
+| Hospitals and urgent care: hospital emergency | 54 | 53 | 33 | Hospital sites, Ministry of Health records |
+| Hospitals and urgent care: urgent care | 24 | 24 | 24 | Ministry of Health on-duty list |
 | Pharmacies | 205 | 205 | 72 | Chain locators, OpenStreetMap |
-| Blood donation | 23 | 23 | 7 | Ministry of Health directory, hospital sites |
-| Dialysis | 7 | 7 | 6 | Operators' sites |
+| Blood donation and dialysis: blood donation | 23 | 23 | 7 | Ministry of Health directory, hospital sites |
+| Blood donation and dialysis: dialysis | 7 | 7 | 6 | Operators' sites |
 | Mental health | 15 | 15 | 7 | Ministry of Health guide, clinic listings |
 | Supermarkets | 392 | 392 | 248 | Chain locators, OpenStreetMap |
 | Fuel stations | 722 | 722 | 5 | Chain locators, OpenStreetMap |
+| Public transport: metro stations | 83 | 83 | 83 | OpenStreetMap; hours from rpt.sa |
+| Public transport: bus stops | 348 | 348 | 0 | OpenStreetMap |
+| Public transport: SAR train stations | 2 | 2 | 0 | OpenStreetMap; names and phone from sar.com.sa |
 | Embassies | 128 | 91 | 57 | Embassy sites, OpenStreetMap |
+
+A category can hold more than one kind of place (`kinds` in `src/categories.js`). Each kind
+keeps its own pictogram and label on every row and pin, and the category page has a strip to
+pick one kind. The old single pages (`/places/urgent-care/` and so on) redirect in `vercel.json`.
+A place open round the clock gets the one filled amber label in its row.
 
 `research/*.json` is the first pass, with a source per entry. `research/verify/*.json` is the
 second pass: each entry re-checked against the facility's own site or the Ministry, with
@@ -82,6 +90,13 @@ What the second pass found:
   Philippines could not be confirmed from an official page (sites down or blocking access).
 
 Other known gaps:
+
+- Metro: 83 of the operator's 85 stations are in OpenStreetMap, and the names are OpenStreetMap's,
+  not checked against the operator's list (rpt.sa blocks automated access). Every station
+  carries the network's published hours and the customer care number 19933.
+- Bus stops: 348 named stops out of roughly 3,000. Unnamed stops in OpenStreetMap are left out.
+  A stop shows no open or closed status; the bus service window is in the category note.
+- SAR publishes no coordinates, so its two Riyadh stations are matched to OpenStreetMap by position.
 
 - Fuel station hours are not published by any chain.
 - 37 embassies have no map pin (they get a Google Maps search link instead).
@@ -115,8 +130,8 @@ to 150 ms state changes and is off under reduced-motion.
 
 ## Tech
 
-- Astro, static output: 28 pages plus a 404. No server, so it scales with the CDN.
-- About 6 KB of script on first load, then one 58 KB data file per language and the map
+- Astro, static output: 26 pages plus a 404. No server, so it scales with the CDN.
+- About 6 KB of script on first load, then one 75 KB data file per language and the map
   library (about 430 KB compressed, cached) in the background.
 - Largest page (fuel, 722 rows) is about 40 KB compressed.
 - `vercel.json` sets long cache lifetimes for hashed assets.

@@ -81,7 +81,7 @@ function setMode(map, satellite) {
   }
 }
 
-// A round pin in the ground green carrying the category's pictogram, drawn at twice the size for sharp screens.
+// A round pin in the ground green carrying the kind's pictogram, drawn at twice the size for sharp screens.
 function pinImage(markup) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="38.5" fill="${GROUND}" stroke="${INK}" stroke-width="5"/><g transform="translate(18 18) scale(2)">${markup}</g></svg>`;
   const image = new Image(84, 84);
@@ -99,7 +99,7 @@ function hazardImage() {
 
 const loadZones = () => fetch('/data/zones.json').then((res) => (res.ok ? res.json() : [])).catch(() => []);
 
-export async function createMap(container, { cats, popup, onMove, satellite }) {
+export async function createMap(container, { kinds, popup, onMove, satellite }) {
   const [gl, style, zones] = await Promise.all([loadLibrary(), loadStyle(satellite), loadZones()]);
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const map = new gl.Map({
@@ -121,8 +121,8 @@ export async function createMap(container, { cats, popup, onMove, satellite }) {
     map.once('error', (e) => reject(e.error));
   });
   container.classList.add('is-ready');
-  const pins = await Promise.all(cats.map((cat) => pinImage(cat.pic)));
-  cats.forEach((cat, i) => map.addImage(`pin-${cat.id}`, pins[i], { pixelRatio: 2 }));
+  const pins = await Promise.all(kinds.map((kind) => pinImage(kind.pic)));
+  kinds.forEach((kind, i) => map.addImage(`pin-${kind.id}`, pins[i], { pixelRatio: 2 }));
 
   // Marked zones: a red shape over the area, under the place pins, with a warning sign that grows with the map.
   if (zones.length) {
@@ -154,10 +154,10 @@ export async function createMap(container, { cats, popup, onMove, satellite }) {
   }
 
   const empty = { type: 'FeatureCollection', features: [] };
-  // Each cluster counts its places per category, so a cluster of one kind can wear that kind's icon.
-  const counts = Object.fromEntries(cats.map((c, i) => [`n${i}`, ['+', ['case', ['==', ['get', 'cat'], c.id], 1, 0]]]));
-  const oneKind = ['any', ...cats.map((c, i) => ['==', ['get', `n${i}`], ['get', 'point_count']])];
-  const kindPin = ['case', ...cats.flatMap((c, i) => [['==', ['get', `n${i}`], ['get', 'point_count']], `pin-${c.id}`]), ''];
+  // Each cluster counts its places per kind, so a cluster of one kind can wear that kind's icon.
+  const counts = Object.fromEntries(kinds.map((c, i) => [`n${i}`, ['+', ['case', ['==', ['get', 'kind'], c.id], 1, 0]]]));
+  const oneKind = ['any', ...kinds.map((c, i) => ['==', ['get', `n${i}`], ['get', 'point_count']])];
+  const kindPin = ['case', ...kinds.flatMap((c, i) => [['==', ['get', `n${i}`], ['get', 'point_count']], `pin-${c.id}`]), ''];
   map.addSource('places', { type: 'geojson', data: empty, cluster: true, clusterRadius: 42, clusterMaxZoom: 12, clusterProperties: counts });
   map.addSource('chosen', { type: 'geojson', data: empty });
   // mixed clusters: a plain disc with the count
@@ -205,7 +205,7 @@ export async function createMap(container, { cats, popup, onMove, satellite }) {
     type: 'symbol',
     source: 'places',
     filter: ['!', ['has', 'point_count']],
-    layout: { 'icon-image': ['concat', 'pin-', ['get', 'cat']], 'icon-allow-overlap': true },
+    layout: { 'icon-image': ['concat', 'pin-', ['get', 'kind']], 'icon-allow-overlap': true },
   });
 
   let open = null;
@@ -274,7 +274,7 @@ export async function createMap(container, { cats, popup, onMove, satellite }) {
     setPoints(rows, home, fit) {
       map.getSource('places').setData({
         type: 'FeatureCollection',
-        features: rows.map((r) => ({ type: 'Feature', properties: { id: r.id, cat: r.cat.id }, geometry: { type: 'Point', coordinates: [r.lng, r.lat] } })),
+        features: rows.map((r) => ({ type: 'Feature', properties: { id: r.id, kind: r.kind.id }, geometry: { type: 'Point', coordinates: [r.lng, r.lat] } })),
       });
       homeMarker?.remove();
       homeMarker = home
