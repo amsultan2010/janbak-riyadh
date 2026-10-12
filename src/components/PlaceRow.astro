@@ -21,10 +21,10 @@ const fixed = p.hours === '*' ? ['is-open', t('place.always')] : !p.hours ? ['is
 ---
 
 <li class="place" id={p.id} data-lat={p.lat} data-lng={p.lng} data-h={p.hours} data-q={search}>
-  <h2>{name}</h2>
-  {addr && <p>{addr}</p>}
+  <h2><bdi>{name}</bdi></h2>
+  {addr && <p><bdi>{addr}</bdi></p>}
   <p class="meta">
-    {district && <span>{district}</span>}
+    {district && <span><bdi>{district}</bdi></span>}
     {tags.map((tag) => <span>{tag}</span>)}
     <span data-dist hidden></span>
   </p>

@@ -41,6 +41,7 @@ async function start(root) {
   const more = $('more');
   const allButton = $('cat-all');
   const catButtons = [...root.querySelectorAll('[data-cat-btn]')];
+  const langLink = document.querySelector('a.lang');
   const hasFallback = list.children.length > 0;
 
   if (!hasFallback) results.textContent = say('cat.loading');
@@ -132,7 +133,7 @@ async function start(root) {
   function rowHtml(r, showKind) {
     const [cls, status] = statusOf(r);
     const km = r.km === null ? null : say('place.km', { n: r.km < 10 ? Math.max(0.1, r.km).toFixed(1) : Math.round(r.km) });
-    const meta = [r.district, ...r.tags, km].filter(Boolean).map((m) => `<span>${esc(m)}</span>`).join('');
+    const meta = [r.district, ...r.tags, km].filter(Boolean).map((m) => `<span><bdi>${esc(m)}</bdi></span>`).join('');
     const lines = r.week && !r.always ? hoursLines(r.hours, lang, words) : [];
     const facts =
       lines.map((l) => `<dt>${esc(l.days)}</dt><dd>${esc(l.times)}</dd>`).join('') +
@@ -142,8 +143,8 @@ async function start(root) {
       (r.source ? `<dd class="full"><a href="${esc(r.source)}" target="_blank" rel="noopener">${esc(say('place.source'))}</a></dd>` : '');
     return `<li class="place" id="${r.id}">
       ${showKind ? `<p class="kind">${icon(r.cat.icon)}${esc(r.cat.name)}</p>` : ''}
-      <h2>${esc(r.name)}</h2>
-      ${r.addr ? `<p>${esc(r.addr)}</p>` : ''}
+      <h2><bdi>${esc(r.name)}</bdi></h2>
+      ${r.addr ? `<p><bdi>${esc(r.addr)}</bdi></p>` : ''}
       <p class="meta">${meta}</p>
       <p class="status ${cls}">${esc(status)}</p>
       <div class="actions">
@@ -160,7 +161,7 @@ async function start(root) {
     const [cls, status] = statusOf(r);
     const box = document.createElement('div');
     box.className = 'pop';
-    box.innerHTML = `<p class="kind">${esc(r.cat.name)}</p><strong>${esc(r.name)}</strong>
+    box.innerHTML = `<p class="kind">${esc(r.cat.name)}</p><strong><bdi>${esc(r.name)}</bdi></strong>
       <p class="status ${cls}">${esc(status)}</p>
       <p class="pop-actions">${r.phone ? `<a href="${tel(r.phone)}">${esc(say('place.call'))}</a>` : ''}<a href="${mapsUrl(r)}" target="_blank" rel="noopener">${esc(say('place.directions'))}</a></p>`;
     return box;
@@ -188,6 +189,7 @@ async function start(root) {
     if (alwaysOnly.checked) next.set('24h', '1');
     const query = next.toString();
     history.replaceState(null, '', location.pathname + (query ? `?${query}` : '') + location.hash);
+    if (langLink) langLink.href = langLink.pathname + (query ? `?${query}` : '');
   }
 
   function apply({ fit = true } = {}) {
