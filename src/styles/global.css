@@ -719,6 +719,16 @@ input::placeholder {
   padding-inline: 0.5rem;
   font-size: 0.8125rem;
 }
+.picker .chip,
+.picker .chips select {
+  padding-inline-start: 0.5rem;
+  font-size: 0.8125rem;
+}
+
+.picker .chip {
+  padding-inline-end: 0.5rem;
+}
+
 
 .picker .row .pic,
 .picker .row .icon {
