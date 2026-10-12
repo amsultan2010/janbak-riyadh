@@ -100,8 +100,9 @@ Other known gaps:
 
 ## Design
 
-Each category has one colour, used only to fill its icon tile in lists and its pin on the
-map; the three emergency numbers have coloured icons too. Everything else keeps to the palette below.
+Each category and each emergency number has a full-colour pictogram (red cross, blue and
+yellow capsule, blood drop and so on, in `src/icons.js`), shown on a light tile in lists and a
+light disc on the map. Everything else keeps to the palette below.
 
 Green ground, off-white text, one amber accent for "open" and focus. Square corners, one
 line weight, no shadows, no gradients. Bilingual road-sign discipline: big type, short

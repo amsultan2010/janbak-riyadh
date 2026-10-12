@@ -80,24 +80,12 @@ function setMode(map, satellite) {
   }
 }
 
-// A round pin carrying the category's line icon, drawn at twice the size for sharp screens.
-function pinImage(path, color) {
-  const size = 84;
-  const canvas = Object.assign(document.createElement('canvas'), { width: size, height: size });
-  const g = canvas.getContext('2d');
-  g.fillStyle = color;
-  g.strokeStyle = DEEP;
-  g.lineWidth = 5;
-  g.beginPath();
-  g.arc(size / 2, size / 2, size / 2 - 3, 0, Math.PI * 2);
-  g.fill();
-  g.stroke();
-  g.translate(18, 18);
-  g.scale(2, 2);
-  g.lineWidth = 1.8;
-  g.lineCap = 'square';
-  g.stroke(new Path2D(path));
-  return g.getImageData(0, 0, size, size);
+// A round light pin carrying the category's colour pictogram, drawn at twice the size for sharp screens.
+function pinImage(markup) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="38.5" fill="${INK}" stroke="${DEEP}" stroke-width="5"/><g transform="translate(18 18) scale(2)">${markup}</g></svg>`;
+  const image = new Image(84, 84);
+  image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  return image.decode().then(() => image);
 }
 
 export async function createMap(container, { cats, popup, onMove, satellite }) {
@@ -122,7 +110,8 @@ export async function createMap(container, { cats, popup, onMove, satellite }) {
     map.once('error', (e) => reject(e.error));
   });
   container.classList.add('is-ready');
-  for (const cat of cats) map.addImage(`pin-${cat.id}`, pinImage(cat.icon, cat.color), { pixelRatio: 2 });
+  const pins = await Promise.all(cats.map((cat) => pinImage(cat.pic)));
+  cats.forEach((cat, i) => map.addImage(`pin-${cat.id}`, pins[i], { pixelRatio: 2 }));
 
   const empty = { type: 'FeatureCollection', features: [] };
   // Each cluster counts its places per category, so a cluster of one kind can wear that kind's icon.
