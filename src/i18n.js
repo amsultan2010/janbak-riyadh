@@ -76,7 +76,7 @@ const T = {
   'cat.tilt': { ar: 'عرض ثلاثي الأبعاد', en: '3D view' },
   'cat.area': { ar: 'الحي', en: 'District' },
   'cat.areaAll': { ar: 'كل أحياء الرياض', en: 'All of Riyadh' },
-  'zone.danger': { ar: 'منطقة خطر', en: 'Danger zone' },
+  'zone.caution': { ar: 'تنبيه', en: 'Caution' },
   'zone.text': { ar: 'تحقّق من الإعلانات الرسمية قبل التوجه إلى هذه المنطقة.', en: 'Check official announcements before going to this area.' },
   'zone.marked': { ar: 'حُدّدت بتاريخ {date}', en: 'Marked on {date}' },
   'dir.search': { ar: 'ابحث في هذه الصفحة', en: 'Search this page' },

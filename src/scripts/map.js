@@ -180,7 +180,7 @@ export async function createMap(container, { kinds, onPick, onMove, onTilt, pad 
     const box = Object.assign(document.createElement('div'), { className: 'pop' });
     const date = new Date(`${zone.marked}T12:00:00`).toLocaleDateString(lang === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
     box.append(
-      Object.assign(document.createElement('p'), { className: 'zone-tag', textContent: say('zone.danger') }),
+      Object.assign(document.createElement('p'), { className: 'zone-tag', textContent: say('zone.caution') }),
       Object.assign(document.createElement('strong'), { textContent: zone[`name_${lang}`] }),
       Object.assign(document.createElement('p'), { textContent: say('zone.text') }),
       Object.assign(document.createElement('p'), { className: 'small', textContent: say('zone.marked', { date }) }),
