@@ -9,6 +9,7 @@ import '@fontsource/markazi-text/arabic-700.css';
 import '@fontsource/markazi-text/latin-700.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import Icon from '../components/Icon.astro';
 import { SITE, DAYS, translator, clientStrings, path, otherLang } from '../i18n.js';
 
 const { lang, slug = '', title, description, jsonld = [], noindex = false, wide = false, pageType = 'WebPage' } = Astro.props;
@@ -81,6 +82,10 @@ const siteData = {
       <p>{t('footer.note')}</p>
       <p>{t('checked')}.</p>
     </footer>
+    <a class="built" href="https://www.amsultan.site" target="_blank" rel="noopener">
+      {t('footer.built')}
+      <Icon name="open" flip />
+    </a>
     <script type="application/json" id="strings" set:html={JSON.stringify(strings)} />
   </body>
 </html>

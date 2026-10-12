@@ -1387,7 +1387,7 @@ input::placeholder {
 
 footer {
   margin-block-start: 2rem;
-  padding-block: 1rem calc(1.5rem + env(safe-area-inset-bottom));
+  padding-block: 1rem 1.5rem;
   border-block-start: var(--line) solid var(--ink);
   color: var(--soft);
   font-size: 0.8125rem;
@@ -1413,6 +1413,26 @@ footer a {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
+}
+
+/* the last thing on every page: who built the site, as one full-width link */
+.built {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 3rem;
+  padding: 0.5rem var(--pad) calc(0.5rem + env(safe-area-inset-bottom));
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.built:focus-visible {
+  outline-color: var(--accent);
+  outline-offset: -5px;
 }
 
 /* A wide screen: one row for the name, the tabs and the two buttons; the list sits beside a full-height map. */
@@ -1576,6 +1596,10 @@ footer a {
 
   a:hover {
     text-decoration-thickness: 3px;
+  }
+
+  .built:hover {
+    color: var(--accent);
   }
 
   select:hover,
