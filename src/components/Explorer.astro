@@ -6,7 +6,7 @@ import LocationSetter from './LocationSetter.astro';
 import PlaceRow from './PlaceRow.astro';
 import places from '../data/places.json';
 import areas from '../data/areas.json';
-import { CATEGORIES } from '../categories.js';
+import { CATEGORIES, KINDS } from '../categories.js';
 import { CATEGORY_NOTES } from '../content.js';
 import { ICONS, PICTURES } from '../icons.js';
 import { translator, otherLang, pick } from '../i18n.js';
@@ -15,12 +15,14 @@ const { lang, cat = null } = Astro.props;
 const t = translator(lang);
 const other = otherLang(lang);
 const count = (id) => places.filter((p) => p.cat === id).length;
+const countKind = (id) => places.filter((p) => p.kind === id).length;
 const sortKey = (p) => (p.country ? pick(p.country, lang) : pick(p.name, lang));
 const fallback = cat ? places.filter((p) => p.cat === cat.id).sort((a, b) => sortKey(a).localeCompare(sortKey(b), lang)) : [];
 const areaList = areas.filter((a) => a.n > 0).sort((a, b) => a[lang].localeCompare(b[lang], lang));
 const config = {
   pin: ICONS.pin,
-  cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], alt: c[other], pic: PICTURES[c.id], note: CATEGORY_NOTES[c.id][lang] })),
+  cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], alt: c[other], note: CATEGORY_NOTES[c.id][lang], multi: !!c.kinds })),
+  kinds: KINDS.map((k) => ({ id: k.id, cat: CATEGORIES.findIndex((c) => c.id === k.cat), name: k[lang], alt: k[other], pic: PICTURES[k.id] })),
 };
 ---
 
@@ -44,6 +46,22 @@ const config = {
               <Icon name={c.id} tile />
               {c.short[lang]}
               <span class="n">{count(c.id)}</span>
+            </button>
+          ))}
+        </div>
+      )
+    }
+    {
+      cat?.kinds && (
+        <div class="cats" role="group" aria-label={t('cat.kinds')}>
+          <button type="button" data-cat-all aria-pressed="true">
+            {t('cat.all')}
+          </button>
+          {cat.kinds.map((k) => (
+            <button type="button" data-cat-btn={k.id} aria-pressed="false">
+              <Icon name={k.id} tile />
+              {k[lang]}
+              <span class="n">{countKind(k.id)}</span>
             </button>
           ))}
         </div>

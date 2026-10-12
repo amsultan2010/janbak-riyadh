@@ -2,7 +2,7 @@
 // Fails the build on a broken entry instead of shipping it.
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs';
 import { parseHours, encodeWeek } from '../src/lib/hours.js';
-import { CATEGORIES } from '../src/categories.js';
+import { CATEGORIES, KINDS } from '../src/categories.js';
 import { districtName } from '../src/lib/districts.js';
 
 const read = (name) => {
@@ -106,9 +106,10 @@ const tidy = (s) => s?.replace(/\s*[\u2013\u2014]\s*/g, ' - ').trim() ?? null;
 
 const places = [];
 const ids = new Set();
+const catOf = Object.fromEntries(KINDS.map((k) => [k.id, k.cat]));
 
-function add(cat, r, extra = {}) {
-  let id = `${cat}-${String(r.id).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+function add(kind, r, extra = {}) {
+  let id = `${kind}-${String(r.id).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
   while (ids.has(id)) id += '-2';
   ids.add(id);
 
@@ -130,7 +131,8 @@ function add(cat, r, extra = {}) {
 
   places.push({
     id,
-    cat,
+    cat: catOf[kind],
+    kind,
     name,
     district,
     area: area?.id ?? null,
