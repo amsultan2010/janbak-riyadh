@@ -56,6 +56,8 @@ const T = {
     en: 'Official links for people in Riyadh, Saudi Arabia: Civil Defense, the Ministry of Health, Sehhaty, Absher, Tawakkalna, Riyadh public transport and the airport.',
   },
   'seo.about.title': { ar: 'عن جنبك', en: 'About Janbak' },
+  'seo.city': { ar: 'الرياض', en: 'Riyadh' },
+  'seo.country': { ar: 'المملكة العربية السعودية', en: 'Saudi Arabia' },
 
   'loc.title': { ar: 'موقعك', en: 'Your location' },
   'loc.none': { ar: 'حدّد موقعك لترتيب الأماكن من الأقرب إليك.', en: 'Set your location to sort places by distance.' },

@@ -17,12 +17,35 @@ const url = (l) => new URL(path(l, slug), Astro.site).href;
 const pageTitle = slug === '' ? title : `${title} | ${SITE[lang]}`;
 const ogImage = new URL(`/og-${lang}.png`, Astro.site).href;
 const strings = { ...clientStrings(lang), days: DAYS[lang] };
+const home = new URL(path(lang), Astro.site).href;
+const site = `${home}#site`;
+const org = `${Astro.site.href}#org`;
+// The site node is the same on every page: it carries the names a search engine may show
+// for the site and ties them to the city.
 const siteData = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebSite', '@id': `${url(lang)}#site`, url: new URL(path(lang), Astro.site).href, name: SITE[lang], inLanguage: lang },
-    { '@type': 'Organization', '@id': `${Astro.site.href}#org`, name: SITE.en, alternateName: SITE.ar, url: Astro.site.href },
-    { '@type': pageType, url: url(lang), name: pageTitle, description, inLanguage: lang, isPartOf: { '@id': `${url(lang)}#site` }, publisher: { '@id': `${Astro.site.href}#org` } },
+    {
+      '@type': 'WebSite',
+      '@id': site,
+      url: home,
+      name: SITE[lang],
+      alternateName: [SITE[otherLang(lang)], 'Janbak Riyadh', 'جنبك الرياض'],
+      description: t('home.desc'),
+      inLanguage: lang,
+      about: { '@type': 'City', name: t('seo.city'), containedInPlace: { '@type': 'Country', name: t('seo.country') } },
+      publisher: { '@id': org },
+    },
+    {
+      '@type': 'Organization',
+      '@id': org,
+      name: SITE.en,
+      alternateName: SITE.ar,
+      url: Astro.site.href,
+      logo: new URL('/apple-touch-icon.png', Astro.site).href,
+      sameAs: ['https://github.com/amsultan2010/janbak-riyadh'],
+    },
+    { '@type': pageType, '@id': url(lang), url: url(lang), name: pageTitle, description, inLanguage: lang, isPartOf: { '@id': site }, publisher: { '@id': org } },
     ...jsonld,
   ],
 };
