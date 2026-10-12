@@ -22,7 +22,7 @@ const areaList = areas.filter((a) => a.n > 0).sort((a, b) => a[lang].localeCompa
 const config = {
   pin: ICONS.pin,
   cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], alt: c[other], note: CATEGORY_NOTES[c.id][lang], multi: !!c.kinds })),
-  kinds: KINDS.map((k) => ({ id: k.id, cat: CATEGORIES.findIndex((c) => c.id === k.cat), name: k[lang], alt: k[other], pic: PICTURES[k.id] })),
+  kinds: KINDS.map((k) => ({ id: k.id, cat: CATEGORIES.findIndex((c) => c.id === k.cat), name: k[lang], alt: k[other], pic: PICTURES[k.id], untimed: k.untimed })),
 };
 ---
 

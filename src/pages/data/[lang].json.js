@@ -28,7 +28,7 @@ export function GET({ params }) {
       p.phone2 ?? 0,
       p.website ?? 0,
       p.source && p.source !== p.website ? p.source : 0,
-      [p.own && t(`own.${p.own}`), ...(p.flags ?? []).filter((f) => ['pediatric_er', 'trauma_center', 'burns'].includes(f)).map((f) => t(`flag.${f}`))].filter(Boolean),
+      [p.own && t(`own.${p.own}`), ...(p.flags ?? []).filter((f) => ['pediatric_er', 'trauma_center', 'burns'].includes(f)).map((f) => t(`flag.${f}`)), ...(p.lines ?? []).map((n) => t('tag.line', { n }))].filter(Boolean),
       [p.name[other], p.district[other], p.country?.[other]].filter(Boolean).join(' '),
       p.note?.[lang] ?? 0,
       p.area ?? 0,

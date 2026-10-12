@@ -27,6 +27,10 @@ export const CATEGORY_NOTES = {
     ar: 'ساعات عمل معظم محطات الوقود غير مؤكدة.',
     en: 'Opening hours for most fuel stations are not confirmed.',
   },
+  'transport': {
+    ar: 'تذكرة واحدة تشمل قطار الرياض وحافلات الرياض: 4 ريالات لساعتين من الرحلات غير المحدودة. اشترِها من تطبيق درب، أو ببطاقة درب من أجهزة الخدمة الذاتية في المحطات، أو مرّر بطاقتك البنكية عند بوابة العبور. تعمل الحافلات يومياً من 5:00 صباحاً إلى منتصف الليل. خدمة عملاء النقل العام لمدينة الرياض: 19933. ليست كل مواقف الحافلات مدرجة هنا.',
+    en: 'One ticket covers Riyadh Metro and Riyadh Bus: 4 riyals for 2 hours of unlimited rides. Buy it in the darb app, on a darb card from a station ticket machine, or tap a bank card at the gate. Buses run every day from 5:00 am to midnight. Riyadh Public Transport customer care: 19933. Only some bus stops are listed here.',
+  },
   'embassies': {
     ar: 'السفارات في الرياض مرتبة حسب الدولة. الساعات المذكورة للخدمات القنصلية.',
     en: 'Embassies in Riyadh, by country. Hours shown are for consular services.',

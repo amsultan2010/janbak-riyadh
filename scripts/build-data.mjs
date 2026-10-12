@@ -169,6 +169,20 @@ for (const r of verified('blood-donation', [...(read('blood-donation')?.places ?
 const MEDICAL = { urgent_care: 'urgent-care', dialysis: 'dialysis', mental_health: 'mental-health' };
 for (const r of verified('other-medical', read('other-medical')?.places ?? [])) add(MEDICAL[r.category], r);
 
+// Public transport: stations and stops from OpenStreetMap, service facts from the operators' own sites
+const fact = (topic) => read('transport-service')?.facts.find((f) => f.topic === topic)?.value ?? null;
+const metro = { hours: fact('metro_hours'), phone: fact('contact_phone') };
+const TRANSIT = { metro: 'metro', bus_stop: 'bus', bus_station: 'bus', train: 'train' };
+for (const r of verified('transport-stops', read('transport-stops')?.places ?? [])) {
+  const kind = TRANSIT[r.kind];
+  // an unnamed stop cannot be told apart from a private or disused one
+  if (!r.name_ar && !r.name_en) continue;
+  add(kind, { ...r, id: r.osm, ...(kind === 'metro' ? metro : {}) }, {
+    ...(kind === 'metro' ? { lines: r.lines } : {}),
+    ...(r.note_ar && r.note_en ? { note: { ar: r.note_ar, en: r.note_en } } : {}),
+  });
+}
+
 // Embassies
 for (const r of verified('embassies', read('embassies')?.places ?? [])) {
   add('embassies', { ...r, name_ar: r.name_ar ?? `سفارة ${r.country_ar}` }, {
