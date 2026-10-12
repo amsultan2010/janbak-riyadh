@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { translator, path } from '../i18n.js';
+
+const ar = translator('ar');
+const en = translator('en');
+---
+
+<Base lang="ar" slug="404" title={ar('e404.title')} description={ar('e404.text')} noindex>
+  <h1>{ar('e404.title')}</h1>
+  <p class="lead">{ar('e404.text')}</p>
+  <p><a class="btn btn-fill" href={path('ar')}>{ar('e404.home')}</a></p>
+  <div lang="en" dir="ltr">
+    <h2 class="label">{en('e404.title')}</h2>
+    <p class="lead">{en('e404.text')}</p>
+    <p><a class="btn" href={path('en')}>{en('e404.home')}</a></p>
+  </div>
+</Base>

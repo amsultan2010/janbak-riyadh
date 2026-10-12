@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import { LINES } from '../../content.js';
+import { translator } from '../../i18n.js';
+import { langPaths } from '../../routes.js';
+
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props;
+const t = translator(lang);
+---
+
+<Base lang={lang} slug="numbers" title={t('numbers.title')} description={t('numbers.intro')}>
+  <h1>{t('numbers.title')}</h1>
+  <p class="lead">{t('numbers.intro')}</p>
+  {
+    LINES.map((group) => (
+      <section>
+        <h2 class="label">{group.title[lang]}</h2>
+        {group.items.map((item) => (
+          <div class="entry">
+            <h3>{item.name[lang]}</h3>
+            <p>{item.text[lang]}</p>
+            <a class="btn btn-fill num" href={`tel:${item.number}`}>
+              <bdi dir="ltr">{item.number}</bdi>
+            </a>
+          </div>
+        ))}
+        {group.note && <p class="note">{group.note[lang]}</p>}
+      </section>
+    ))
+  }
+</Base>
