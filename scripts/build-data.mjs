@@ -1,6 +1,6 @@
 // Merges research/*.json into src/data/places.json, the one file the site reads.
 // Fails the build on a broken entry instead of shipping it.
-import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { parseHours, encodeWeek } from '../src/lib/hours.js';
 import { CATEGORIES } from '../src/categories.js';
 
@@ -44,6 +44,9 @@ const safeUrl = (url) => (url && /^https?:\/\//.test(url) && !BLOCKED_SITES.some
 const pickSource = (sources = []) =>
   safeUrl(sources.find((s) => !/openstreetmap|wikipedia|goo\.gl|google\.[a-z.]+\/maps/.test(s)) ?? null);
 
+// one kind of dash in names and addresses, whatever the source used
+const tidy = (s) => s?.replace(/\s*[\u2013\u2014]\s*/g, ' - ').trim() ?? null;
+
 const places = [];
 const ids = new Set();
 
@@ -69,8 +72,6 @@ function add(cat, r, extra = {}) {
         ? nearestDistrict({ lat, lng })
         : { ar: r.district_ar ?? null, en: r.district_en ?? null };
 
-  // one kind of dash in names, whatever the source used
-  const tidy = (s) => s?.replace(/\s*[\u2013\u2014]\s*/g, ' - ').trim() ?? null;
   const name = { ar: tidy(r.name_ar), en: tidy(r.name_en) };
   if (!name.ar && !name.en) throw new Error(`${id}: no name`);
 
@@ -132,8 +133,8 @@ for (const b of retail.branches) {
     const at = s?.indexOf(' - ') ?? -1;
     return at > 0 ? [s.slice(0, at), s.slice(at + 3)] : [s ?? null, null];
   };
-  const [name_ar, addr_ar] = split(b.name_ar ?? chain?.name_ar);
-  const [name_en, addr_en] = split(b.name_en ?? chain?.name_en);
+  const [name_ar, addr_ar] = split(tidy(b.name_ar ?? chain?.name_ar));
+  const [name_en, addr_en] = split(tidy(b.name_en ?? chain?.name_en));
   add(cat, { ...b, name_ar, name_en }, addr_ar || addr_en ? { addr: { ar: addr_ar, en: addr_en } } : {});
 }
 
@@ -170,6 +171,8 @@ if (warnings.length) console.warn(`\n${warnings.length} warnings:\n` + warnings.
 // The map library is served as plain files so the browser can find its worker next to it.
 const vendor = new URL('../public/vendor/maplibre/', import.meta.url);
 mkdirSync(vendor, { recursive: true });
+// The source map comment is dropped because the maps are not shipped.
 for (const file of ['maplibre-gl.mjs', 'maplibre-gl-shared.mjs', 'maplibre-gl-worker.mjs', 'maplibre-gl.css']) {
-  copyFileSync(new URL(`../node_modules/maplibre-gl/dist/${file}`, import.meta.url), new URL(file, vendor));
+  const code = readFileSync(new URL(`../node_modules/maplibre-gl/dist/${file}`, import.meta.url), 'utf8');
+  writeFileSync(new URL(file, vendor), code.replace(/\n\/\/# sourceMappingURL=.*\s*$/, '\n'));
 }
