@@ -1,0 +1,81 @@
+---
+import { translator, pick } from '../i18n.js';
+import { hoursLines } from '../lib/hours-text.js';
+
+const { p, lang } = Astro.props;
+const t = translator(lang);
+const name = pick(p.name, lang);
+const district = pick(p.district, lang);
+const tel = (n) => 'tel:' + n.replace(/\s*(?:ext\.?|x)\s*\d.*$/i, '').replace(/[^\d+]/g, '');
+const mapped = p.lat !== null;
+const maps = mapped
+  ? `https://www.google.com/maps/dir/?api=1&destination=${p.lat}%2C${p.lng}&hl=${lang}`
+  : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name} ${lang === 'ar' ? 'الرياض' : 'Riyadh'}`)}&hl=${lang}`;
+const search = [p.name.ar, p.name.en, p.district.ar, p.district.en, p.country?.ar, p.country?.en].filter(Boolean).join(' ').toLowerCase();
+const tags = [p.own && t(`own.${p.own}`), ...(p.flags ?? []).filter((f) => ['pediatric_er', 'trauma_center', 'burns'].includes(f)).map((f) => t(`flag.${f}`))].filter(Boolean);
+const lines = p.hours && p.hours !== '*' ? hoursLines(p.hours, lang, t) : [];
+const hasDetails = lines.length || p.phone2 || p.website || p.source;
+const fixed = p.hours === '*' ? ['is-open', t('place.always')] : !p.hours ? ['is-unknown', t('place.unknown')] : ['', ''];
+---
+
+<li class="place" id={p.id} data-lat={p.lat} data-lng={p.lng} data-h={p.hours} data-q={search}>
+  <h2>{name}</h2>
+  <p class="meta">
+    {district && <span>{district}</span>}
+    {tags.map((tag) => <span>{tag}</span>)}
+    <span data-dist hidden></span>
+  </p>
+  <p class:list={['status', fixed[0]]} data-status>{fixed[1]}</p>
+  <div class="actions">
+    {
+      p.phone && (
+        <a class="btn btn-fill" href={tel(p.phone)}>
+          {t('place.call')} <bdi dir="ltr">{p.phone}</bdi>
+        </a>
+      )
+    }
+    <a class="btn" href={maps} target="_blank" rel="noopener" data-dir={mapped ? '' : undefined}>
+      {mapped ? t('place.directions') : t('place.find')}
+    </a>
+  </div>
+  {
+    hasDetails && (
+      <details>
+        <summary>{t('place.details')}</summary>
+        <dl class="facts">
+          {lines.map((l) => (
+            <>
+              <dt>{l.days}</dt>
+              <dd>{l.times}</dd>
+            </>
+          ))}
+          {p.usual && <dd class="full small">{t('place.usual')}</dd>}
+          {p.phone2 && (
+            <>
+              <dt>{t('place.citizens')}</dt>
+              <dd>
+                <a href={tel(p.phone2)}>
+                  <bdi dir="ltr">{p.phone2}</bdi>
+                </a>
+              </dd>
+            </>
+          )}
+          {p.website && (
+            <dd class="full">
+              <a href={p.website} target="_blank" rel="noopener">
+                {t('place.website')}
+              </a>
+            </dd>
+          )}
+          {p.source && p.source !== p.website && (
+            <dd class="full">
+              <a href={p.source} target="_blank" rel="noopener">
+                {t('place.source')}
+              </a>
+            </dd>
+          )}
+        </dl>
+      </details>
+    )
+  }
+</li>
