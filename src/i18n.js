@@ -69,6 +69,15 @@ const T = {
   'cat.hideMap': { ar: 'إخفاء الخريطة', en: 'Hide map' },
   'cat.mapLabel': { ar: 'خريطة الأماكن', en: 'Map of places' },
   'cat.mapLoading': { ar: 'جارٍ تحميل الخريطة', en: 'Loading the map' },
+  'cat.modeSat': { ar: 'قمر صناعي', en: 'Satellite' },
+  'cat.modePlain': { ar: 'خريطة', en: 'Map' },
+  'cat.area': { ar: 'الحي', en: 'District' },
+  'cat.areaAll': { ar: 'كل أحياء الرياض', en: 'All of Riyadh' },
+  'dir.search': { ar: 'ابحث في هذه الصفحة', en: 'Search this page' },
+  'dir.all': { ar: 'الكل', en: 'All' },
+  'dir.filter': { ar: 'تصفية حسب القسم', en: 'Filter by section' },
+  'dir.results': { ar: 'النتائج: {n} من {total}', en: 'Results: {n} of {total}' },
+  'dir.none': { ar: 'لا توجد نتائج مطابقة.', en: 'Nothing matches.' },
   'jump.label': { ar: 'في هذه الصفحة', en: 'On this page' },
   'cat.mapFail': { ar: 'تعذّر تحميل الخريطة. القائمة أدناه تعمل بدونها.', en: 'The map could not load. The list below works without it.' },
   'cat.caveat': {
@@ -120,18 +129,13 @@ const T = {
     ar: 'طرق رسمية ومرخّصة للمساعدة. تبرّع عبر القنوات المرخّصة فقط.',
     en: 'Official, licensed ways to help. Give only through licensed channels.',
   },
-  'help.blood': { ar: 'تبرّع بالدم', en: 'Give blood' },
-  'help.bloodText': {
-    ar: 'يمكنك التبرع إذا كان عمرك بين 18 و65 سنة ووزنك 50 كجم على الأقل. أحضر الهوية الوطنية أو الإقامة أو جواز السفر.',
-    en: 'You can donate if you are 18 to 65 and weigh at least 50 kg. Bring your national ID, iqama or passport.',
-  },
-  'help.bloodLink': { ar: 'مراكز التبرع بالدم في الرياض', en: 'Blood donation centres in Riyadh' },
   'links.title': { ar: 'روابط رسمية', en: 'Official links' },
   'links.intro': {
     ar: 'مواقع وتطبيقات الجهات الحكومية. تُفتح الروابط في نافذة جديدة.',
     en: 'Government sites and apps. Links open in a new tab.',
   },
   'link.open': { ar: 'فتح الموقع', en: 'Open site' },
+  'link.view': { ar: 'عرض المراكز', en: 'View centres' },
   'link.arOnly': { ar: '', en: 'Arabic only' },
   'link.enOnly': { ar: 'بالإنجليزية فقط', en: '' },
 
@@ -167,7 +171,7 @@ export function translator(lang) {
 
 // The strings the browser scripts need, for one language.
 export function clientStrings(lang) {
-  const keys = Object.keys(T).filter((k) => /^(place|cat|loc)\./.test(k));
+  const keys = Object.keys(T).filter((k) => /^(place|cat|loc|dir)\./.test(k));
   return Object.fromEntries(keys.map((k) => [k, T[k][lang]]));
 }
 
