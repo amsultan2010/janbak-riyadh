@@ -11,7 +11,7 @@ essential places with hours and directions, phone lines, official links. See `PL
 - Phone numbers and official links must come from an official source recorded in
   `research/`. Never add one from memory.
 - Green ground, off-white ink, amber accent, square corners, no shadows or gradients, no
-  decorative animation. Category colours (in `src/categories.js`) appear only on icon tiles and map pins. Tokens are at the top of `src/styles/global.css`.
+  decorative animation. Colour lives only in the pictograms in `src/icons.js` (categories and emergency numbers). Tokens are at the top of `src/styles/global.css`.
 - No em or en dashes and no emoji in copy or comments.
 
 ## Commands
