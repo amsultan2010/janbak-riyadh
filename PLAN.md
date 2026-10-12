@@ -12,7 +12,7 @@ Arabic is the default at `/`, English is the same path under `/en/`.
 | --- | --- | --- |
 | Places (home) | `/` | The explorer: map, search and filters over all 1,570 places |
 | One category | `/places/<category>/` | The same explorer preset to one category, with a plain list as fallback |
-| Numbers | `/numbers/` | Emergency, health, mental health, family, utilities, residents |
+| Numbers | `/numbers/` | Emergency, health, mental health, family, utilities, residents; search and section filter |
 | Ways to help | `/help/` | Blood donation, volunteering, licensed donation platforms |
 | Official links | `/links/` | Government sites and apps, grouped |
 | About | `/about/` | What it is, data sources, limits, privacy |
@@ -27,14 +27,16 @@ covers police, Civil Defense and traffic; 998 and 999 are for regions without a 
   list at full height on a wide screen. Pins carry the category icon and cluster when dense.
 - Search covers name, district, address and type in both languages, and ignores Arabic
   spelling variants (hamza, ta marbuta, diacritics).
-- Filters: any mix of the nine categories, open now, open 24 hours, and "only inside the
-  map view". The current filters live in the address bar, so a view can be shared as a link.
+- Filters: any mix of the nine categories, a district (193 Riyadh districts, 148 with drawn
+  boundaries from OpenStreetMap), open now, open 24 hours, and "only inside the map view".
+  Choosing a district also moves the map to it. The current filters live in the address bar, so a view can be shared as a link.
 - Location: browser GPS, one of 150 districts, or a tap on the map. Saved on the device only.
   With a location set, results sort nearest first and show straight-line distance.
 - Each result has Call, Directions (Google Maps with the route filled in, no API key) and
   a button that flies the map to it. Tapping a pin shows the same actions.
 - Open or closed is worked out in Riyadh time. Unknown hours never count as open.
-- MapLibre with OpenFreeMap tiles, no key. Labels follow the page language. If the map
+- MapLibre, no key. Satellite imagery (Esri World Imagery) by default with a switch to a
+  plain street map (OpenFreeMap). Labels follow the page language. If the map
   fails, the list still works; with JavaScript off, category pages still show full lists.
 
 ## Data (checked 12 October 2026, two passes)
@@ -98,6 +100,9 @@ Other known gaps:
 
 ## Design
 
+Each category has one colour, used only to fill its icon tile in lists and its pin on the
+map; the three emergency numbers have coloured icons too. Everything else keeps to the palette below.
+
 Green ground, off-white text, one amber accent for "open" and focus. Square corners, one
 line weight, no shadows, no gradients. Bilingual road-sign discipline: big type, short
 lines, one column. IBM Plex Sans Arabic for both scripts, self-hosted. Motion is limited
@@ -119,3 +124,5 @@ to 150 ms state changes and is off under reduced-motion.
    real address before deploying (it feeds canonical links, the sitemap and share images).
 2. Arabic copy review: read `src/i18n.js` and `src/content.js` once as a native speaker.
 3. Whether to fill the pharmacy gap by hand from the Nahdi and Al-Dawaa apps.
+4. Satellite imagery comes from Esri's public tile service, which needs no key but is meant for
+   light use. Before a large launch, register a free Esri or MapTiler key or default to the plain map.
