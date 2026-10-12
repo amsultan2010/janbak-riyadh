@@ -1,0 +1,68 @@
+---
+// A searchable list of phone lines or links in groups: one compact row per entry,
+// a search box, and a strip that narrows the page to one group.
+import Icon from './Icon.astro';
+import { translator, otherLang, path } from '../i18n.js';
+
+const { lang, groups } = Astro.props;
+const t = translator(lang);
+const other = otherLang(lang);
+const total = groups.reduce((n, g) => n + g.items.length, 0);
+---
+
+<div class="directory" data-directory>
+  <label class="search" data-dir-tools hidden>
+    <span class="vh">{t('dir.search')}</span>
+    <input type="search" data-dir-search placeholder={t('dir.search')} autocomplete="off" enterkeyhint="search" />
+  </label>
+  <nav class="cats jump" aria-label={t('dir.filter')}>
+    <a href="#main" data-group="" aria-current="true">{t('dir.all')}</a>
+    {groups.map((g) => <a href={`#${g.id}`} data-group={g.id}>{g.title[lang]}</a>)}
+  </nav>
+  <p class="results" data-dir-results aria-live="polite" hidden>{t('dir.results', { n: total, total })}</p>
+  {
+    groups.map((g) => (
+      <section id={g.id}>
+        <h2 class="label">{g.title[lang]}</h2>
+        <ul>
+          {g.items.map((item) => {
+            const url = item.url ? (item.url[lang] ?? item.url[other]) : null;
+            const only = item.url && !item.url[lang] ? t(lang === 'ar' ? 'link.enOnly' : 'link.arOnly') : '';
+            return (
+              <li class:list={['entry', { stack: item.page }]} data-q={[item.name.ar, item.name.en, item.text.ar, item.text.en, item.number].filter(Boolean).join(' ')}>
+                <div>
+                  <h3>{item.name[lang]}</h3>
+                  <p>
+                    {item.text[lang]}
+                    {only && ` (${only})`}
+                  </p>
+                </div>
+                {item.number && (
+                  <a class="btn btn-fill num" href={`tel:${item.number}`}>
+                    <bdi dir="ltr">{item.number}</bdi>
+                  </a>
+                )}
+                {url && (
+                  <a class="btn go" href={url} target="_blank" rel="noopener" aria-label={`${t('link.open')}: ${item.name[lang]}`} title={t('link.open')}>
+                    <Icon name="open" flip />
+                  </a>
+                )}
+                {item.page && (
+                  <a class="btn btn-fill" href={path(lang, item.page)}>
+                    {t('link.view')}
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+        {g.note && <p class="note">{g.note[lang]}</p>}
+      </section>
+    ))
+  }
+  <p class="note" data-dir-none hidden>{t('dir.none')}</p>
+</div>
+
+<script>
+  import '../scripts/directory.js';
+</script>
