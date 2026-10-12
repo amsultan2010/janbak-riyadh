@@ -2,7 +2,7 @@
 // A key missing either language stops the build (see the check at the bottom).
 
 export const LANGS = ['ar', 'en'];
-export const SITE = { ar: 'دليل الرياض', en: 'Riyadh Guide' };
+export const SITE = { ar: 'جنبك', en: 'Janbak' };
 
 export const DAYS = {
   ar: ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
@@ -25,7 +25,7 @@ const T = {
   'em.997': { ar: 'الإسعاف', en: 'Ambulance' },
   'em.937': { ar: 'استشارة صحية', en: 'Health advice' },
 
-  'home.title': { ar: 'دليل الرياض | الأماكن الأساسية وساعات العمل', en: 'Riyadh Guide | Essential places and opening hours' },
+  'home.title': { ar: 'جنبك | الأماكن الأساسية في الرياض', en: 'Janbak | Essential places in Riyadh' },
   'home.h1': { ar: 'الأماكن الأساسية في الرياض', en: 'Essential places in Riyadh' },
   'home.intro': {
     ar: 'مستشفيات وصيدليات ومراكز تبرع بالدم وأسواق وغيرها، مع ساعات العمل والاتجاهات من موقعك.',
