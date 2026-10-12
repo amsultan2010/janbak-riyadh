@@ -26,16 +26,36 @@ const T = {
   'em.997': { ar: 'الإسعاف', en: 'Ambulance' },
   'em.937': { ar: 'استشارة صحية', en: 'Health advice' },
 
-  'home.title': { ar: 'جنبك | الأماكن الأساسية في الرياض', en: 'Janbak | Essential places in Riyadh' },
+  'home.title': { ar: 'جنبك | أرقام الطوارئ والأماكن الأساسية في الرياض، السعودية', en: 'Janbak | Emergency numbers and places in Riyadh, Saudi Arabia' },
   'home.h1': { ar: 'الأماكن الأساسية في الرياض', en: 'Essential places in Riyadh' },
   'home.intro': {
     ar: 'مستشفيات وصيدليات ومراكز تبرع بالدم وأسواق وغيرها، مع ساعات العمل والاتجاهات من موقعك.',
     en: 'Hospitals, pharmacies, blood donation, supermarkets and more, with opening hours and directions from where you are.',
   },
   'home.desc': {
-    ar: 'دليل ثابت لسكان الرياض: المستشفيات والصيدليات ومراكز التبرع بالدم والأسواق والسفارات، مع ساعات العمل والاتجاهات وأرقام الطوارئ.',
-    en: 'A plain reference for people in Riyadh: hospitals, pharmacies, blood donation centres, supermarkets and embassies, with opening hours, directions and emergency numbers.',
+    ar: 'جنبك دليل مجاني لمدينة الرياض في السعودية: أرقام الطوارئ والمستشفيات والصيدليات والأسواق والسفارات، مع ساعات العمل والاتجاهات.',
+    en: 'Janbak is a free directory for Riyadh, Saudi Arabia: emergency numbers, hospitals, pharmacies, supermarkets and embassies, with opening hours and directions.',
   },
+
+  // What a search result shows for each page: the title (the site name is added after it)
+  // and the description. A category page builds both from `cat.title` and `cat.desc`.
+  'seo.numbers.title': { ar: 'أرقام الطوارئ في الرياض، السعودية: 911 و997 و937', en: 'Saudi emergency numbers in Riyadh: 911, 997, 937' },
+  'seo.numbers.h1': { ar: 'أرقام الطوارئ والأرقام المهمة', en: 'Emergency and important numbers' },
+  'seo.numbers.desc': {
+    ar: 'أرقام الطوارئ التي تعمل في الرياض، السعودية: 911 لأي حالة طارئة، 997 للإسعاف، 937 للاستشارة الصحية، مع خطوط الكهرباء والمياه وحماية الأسرة.',
+    en: 'Emergency numbers that work in Riyadh, Saudi Arabia: 911 for any emergency, 997 for an ambulance, 937 for health advice, plus utilities and family protection lines.',
+  },
+  'seo.help.title': { ar: 'التطوع والتبرع والتبرع بالدم في الرياض', en: 'Volunteer, donate and give blood in Riyadh' },
+  'seo.help.desc': {
+    ar: 'طرق رسمية ومرخّصة للمساعدة في الرياض، السعودية: التبرع بالدم والتطوع وتعلّم الإسعافات الأولية والتبرع عبر المنصات المرخّصة.',
+    en: 'Official, licensed ways to help in Riyadh, Saudi Arabia: where to give blood, volunteer, learn first aid and donate through licensed platforms.',
+  },
+  'seo.links.title': { ar: 'المواقع والتطبيقات الحكومية الرسمية في السعودية', en: 'Official Saudi government sites and apps' },
+  'seo.links.desc': {
+    ar: 'روابط رسمية لسكان الرياض، السعودية: الدفاع المدني ووزارة الصحة وصحتي وأبشر وتوكلنا والنقل العام لمدينة الرياض والمطار.',
+    en: 'Official links for people in Riyadh, Saudi Arabia: Civil Defense, the Ministry of Health, Sehhaty, Absher, Tawakkalna, Riyadh public transport and the airport.',
+  },
+  'seo.about.title': { ar: 'عن جنبك', en: 'About Janbak' },
 
   'loc.title': { ar: 'موقعك', en: 'Your location' },
   'loc.none': { ar: 'حدّد موقعك لترتيب الأماكن من الأقرب إليك.', en: 'Set your location to sort places by distance.' },
@@ -90,9 +110,10 @@ const T = {
     ar: 'القائمة غير مكتملة، وساعات العمل قد تتغير في رمضان والأعياد. اتصل قبل الذهاب.',
     en: 'This list is not complete, and hours can change in Ramadan and on holidays. Call before you go.',
   },
+  'cat.title': { ar: '{name} في الرياض', en: '{name} in Riyadh' },
   'cat.desc': {
-    ar: '{name} في الرياض: المواقع وساعات العمل وأرقام الاتصال والاتجاهات.',
-    en: '{name} in Riyadh: locations, opening hours, phone numbers and directions.',
+    ar: '{name} في الرياض، السعودية: المواقع وساعات العمل وأرقام الاتصال والاتجاهات على الخريطة.',
+    en: '{name} in Riyadh, Saudi Arabia: locations, opening hours, phone numbers and directions on a map.',
   },
 
   'place.call': { ar: 'اتصال', en: 'Call' },
