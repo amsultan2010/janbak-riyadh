@@ -34,6 +34,9 @@ covers police, Civil Defense and traffic; 998 and 999 are for regions without a 
   With a location set, results sort nearest first and show straight-line distance.
 - Each result has Call, Directions (Google Maps with the route filled in, no API key) and
   a button that flies the map to it. Tapping a pin shows the same actions.
+- Marked zones (`research/zones.json`): a red shape over an area with a warning sign that grows
+  with the map and a dated note on tap. King Khalid International Airport is marked as a danger
+  zone as of 12 October 2026. This is a manual, dated claim: remove the entry when it stops being true.
 - Open or closed is worked out in Riyadh time. Unknown hours never count as open.
 - MapLibre, no key. Satellite imagery (Esri World Imagery) by default with a switch to a
   plain street map (OpenFreeMap). Labels follow the page language. If the map
