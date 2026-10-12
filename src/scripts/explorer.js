@@ -78,7 +78,7 @@ async function start(root) {
   }));
   if (preset) rows = rows.filter((r) => r.cat.id === preset);
   const byId = new Map(rows.map((r) => [r.id, r]));
-  // across categories the list runs by name; one category keeps the order it came in,
+  // a list of several kinds runs by name; a list of one kind keeps the order it came in,
   // which is by name too, except embassies by country
   const byName = new Intl.Collator(lang);
   [...rows].sort((a, b) => byName.compare(a.name, b.name) || a.order - b.order).forEach((r, i) => (r.abc = i));
@@ -190,7 +190,7 @@ async function start(root) {
         (!box || (r.lat !== null && box.contains([r.lng, r.lat]))) &&
         tokens.every((t) => r.q.includes(t)),
     );
-    const key = preset || selected.size === 1 ? 'order' : 'abc';
+    const key = found.every((r) => r.kind === found[0].kind) ? 'order' : 'abc';
     return found.sort((a, b) => (home ? (a.km ?? 1e9) - (b.km ?? 1e9) : 0) || a[key] - b[key]);
   }
 
