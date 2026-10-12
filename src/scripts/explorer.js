@@ -41,6 +41,7 @@ async function start(root) {
   const more = $('more');
   const allButton = $('cat-all');
   const catButtons = [...root.querySelectorAll('[data-cat-btn]')];
+  const langLink = document.querySelector('a.lang');
   const hasFallback = list.children.length > 0;
 
   if (!hasFallback) results.textContent = say('cat.loading');
@@ -55,7 +56,7 @@ async function start(root) {
     return;
   }
 
-  let rows = data.map(([id, c, name, addr, district, lat, lng, phone, hours, usual, phone2, website, source, tags, alt], order) => ({
+  let rows = data.map(([id, c, name, addr, district, lat, lng, phone, hours, usual, phone2, website, source, tags, alt, note], order) => ({
     id,
     order,
     cat: cats[c],
@@ -73,6 +74,8 @@ async function start(root) {
     website: website || null,
     source: source || null,
     tags,
+    note: note || null,
+    er: cats[c].id === 'hospitals',
     q: fold([name, addr, district, tags.join(' '), alt, cats[c].name, cats[c].alt].filter(Boolean).join(' ')),
     open: false,
     state: null,
@@ -93,9 +96,9 @@ async function start(root) {
   let map = null;
 
   function statusOf(r) {
-    if (!r.week) return ['is-unknown', say('place.unknown')];
+    if (!r.week) return ['is-unknown', say(r.er ? 'place.erUnknown' : 'place.unknown')];
     const s = r.state;
-    if (s.always) return ['is-open', say('place.always')];
+    if (s.always) return ['is-open', say(r.er ? 'place.erAlways' : 'place.always')];
     if (s.open) return ['is-open', say('place.open') + sep + say('place.closes', { t: formatTime(s.until, lang) })];
     if (s.at === undefined) return ['is-closed', say('place.closed')];
     const when = (s.today ? '' : strings.days[s.day] + ' ') + formatTime(s.at, lang);
@@ -132,7 +135,7 @@ async function start(root) {
   function rowHtml(r, showKind) {
     const [cls, status] = statusOf(r);
     const km = r.km === null ? null : say('place.km', { n: r.km < 10 ? Math.max(0.1, r.km).toFixed(1) : Math.round(r.km) });
-    const meta = [r.district, ...r.tags, km].filter(Boolean).map((m) => `<span>${esc(m)}</span>`).join('');
+    const meta = [r.district, ...r.tags, km].filter(Boolean).map((m) => `<span><bdi>${esc(m)}</bdi></span>`).join('');
     const lines = r.week && !r.always ? hoursLines(r.hours, lang, words) : [];
     const facts =
       lines.map((l) => `<dt>${esc(l.days)}</dt><dd>${esc(l.times)}</dd>`).join('') +
@@ -142,10 +145,11 @@ async function start(root) {
       (r.source ? `<dd class="full"><a href="${esc(r.source)}" target="_blank" rel="noopener">${esc(say('place.source'))}</a></dd>` : '');
     return `<li class="place" id="${r.id}">
       ${showKind ? `<p class="kind">${icon(r.cat.icon)}${esc(r.cat.name)}</p>` : ''}
-      <h2>${esc(r.name)}</h2>
-      ${r.addr ? `<p>${esc(r.addr)}</p>` : ''}
+      <h2><bdi>${esc(r.name)}</bdi></h2>
+      ${r.addr ? `<p><bdi>${esc(r.addr)}</bdi></p>` : ''}
       <p class="meta">${meta}</p>
       <p class="status ${cls}">${esc(status)}</p>
+      ${r.note ? `<p class="place-note">${esc(r.note)}</p>` : ''}
       <div class="actions">
         ${r.phone ? `<a class="btn btn-fill" href="${tel(r.phone)}">${esc(say('place.call'))} <bdi dir="ltr">${esc(r.phone)}</bdi></a>` : ''}
         <a class="btn" href="${mapsUrl(r)}" target="_blank" rel="noopener">${esc(say(r.lat === null ? 'place.find' : 'place.directions'))}</a>
@@ -160,7 +164,7 @@ async function start(root) {
     const [cls, status] = statusOf(r);
     const box = document.createElement('div');
     box.className = 'pop';
-    box.innerHTML = `<p class="kind">${esc(r.cat.name)}</p><strong>${esc(r.name)}</strong>
+    box.innerHTML = `<p class="kind">${esc(r.cat.name)}</p><strong><bdi>${esc(r.name)}</bdi></strong>
       <p class="status ${cls}">${esc(status)}</p>
       <p class="pop-actions">${r.phone ? `<a href="${tel(r.phone)}">${esc(say('place.call'))}</a>` : ''}<a href="${mapsUrl(r)}" target="_blank" rel="noopener">${esc(say('place.directions'))}</a></p>`;
     return box;
@@ -188,6 +192,7 @@ async function start(root) {
     if (alwaysOnly.checked) next.set('24h', '1');
     const query = next.toString();
     history.replaceState(null, '', location.pathname + (query ? `?${query}` : '') + location.hash);
+    if (langLink) langLink.href = langLink.pathname + (query ? `?${query}` : '');
   }
 
   function apply({ fit = true } = {}) {

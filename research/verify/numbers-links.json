@@ -1,0 +1,512 @@
+{
+  "checked": "2026-10-12",
+  "numbers": [
+    {
+      "number": "911",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "not printed on the pages loaded",
+      "evidence": "SPA (2021): '(911) رقم موحد لجميع المكالمات الطارئة في منطقة الرياض ... ويختص المركز باستقبال جميع المكالمات الطارئة الخاصة بالجهات الأمنية'. SPA (30 Sep 2026, Public Security): 'الأرقام (911) في مناطق مكة المكرمة والمدينة المنورة والرياض والشرقية، و(996)، و(999) في بقية مناطق المملكة'. 998.gov.sa header: 'Call us 911 or 998'. Note: 999 and 996 are explicitly 'rest of the Kingdom'; for 998 no loaded page prints the regional split, Civil Defense just prints '911 or 998'. 911 regions are now four (Makkah, Madinah, Riyadh, Eastern).",
+      "sources": [
+        "https://www.spa.gov.sa/2181895",
+        "https://www.spa.gov.sa/N2688470",
+        "https://www.spa.gov.sa/N2310682",
+        "https://998.gov.sa/en/",
+        "https://998.gov.sa/ar/"
+      ]
+    },
+    {
+      "number": "997",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "not printed on the pages loaded",
+      "evidence": "SRCA site footer: 'أرقام هواتف مهمة: الخدمة الإسعافية - 997' / 'Important Phone Numbers: Ambulances - 997'.",
+      "sources": [
+        "https://www.srca.gov.sa/",
+        "https://www.srca.gov.sa/en/",
+        "https://www.srca.gov.sa/en/contact-us/"
+      ]
+    },
+    {
+      "number": "937",
+      "status": "confirmed",
+      "claim_ok": null,
+      "correct_value": null,
+      "hours": "24/7",
+      "evidence": "MoH 937 page: 'receive your call ... on (937) service center 24/7 ... Provide 24/7 medical consultation through doctors. Offer key advices and guidelines for poisoning cases. Receive all complaints and feedback.' Not confirmed on loaded pages: that the call is free, psychological consultations, and clinic booking by phone. MoH psychiatry page says only '937-Service: It provides medical consultations via voice call' and points mental-health counselling to the Qareboon app and 920033360; SPA (2023) points booking to the Sehhaty app.",
+      "sources": [
+        "https://www.moh.gov.sa/en/937/pages/default.aspx",
+        "https://www.moh.gov.sa/937/pages/default.aspx",
+        "https://www.moh.gov.sa/en/ministry/information-and-services/pages/psychiatry.aspx",
+        "https://www.moh.gov.sa/en/e-participation/pages/telephone-medical-consultation-service-937.aspx",
+        "https://spa.gov.sa/w1920725"
+      ]
+    },
+    {
+      "number": "995",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "not printed on the pages loaded",
+      "evidence": "SPA (2023 security statement): 'رقم بلاغات المديرية العامة لمكافحة المخدرات (995)، وعبر البريد الإلكتروني 995@gdnc.gov.sa، وستعالج جميع البلاغات بسرية تامة'. SRCA footer: 'Combating drugs - 995'. gdnc.gov.sa did not connect.",
+      "sources": [
+        "https://www.spa.gov.sa/w1926077",
+        "https://www.srca.gov.sa/en/contact-us/"
+      ]
+    },
+    {
+      "number": "19971",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "not printed on the pages loaded",
+      "evidence": "SRCA contact page: 'Beneficiary Services Call Center 19971'.",
+      "sources": [
+        "https://www.srca.gov.sa/en/contact-us/"
+      ]
+    },
+    {
+      "number": "1919",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "24/7",
+      "evidence": "HRSD service page: 'الاتصال على مركز بلاغات العنف الأسري من خلال الرقم المجاني (1919) على مدار الساعة طوال أيام الأسبوع'. HRSD Family Protection Department: 'advice for callers at 1919 on a 24/7 basis in strict confidentiality'.",
+      "sources": [
+        "https://www.hrsd.gov.sa/ministry-services/services/%D8%A7%D9%84%D8%A5%D8%A8%D9%84%D8%A7%D8%BA-%D8%B9%D9%86-%D8%A7%D9%84%D8%B9%D9%86%D9%81-%D8%A7%D9%84%D8%A3%D8%B3%D8%B1%D9%8A",
+        "https://www.hrsd.gov.sa/en/ministry/about-ministry/about-us/ministry-sectors/767581"
+      ]
+    },
+    {
+      "number": "19922",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "Sunday to Thursday, 8:30 am to midnight (online complaint form 24 hours)",
+      "evidence": "HRC contact page: 'اتصل بنا 19922 توفر الخدمة: من 8:30ص - 12 منتصف الليل / من الاحد - الخميس وقت الإستجابة: فوراً ... تقديم شكوى توفر الخدمة: 24 ساعة'.",
+      "sources": [
+        "https://hrc.gov.sa/website/contact-us"
+      ]
+    },
+    {
+      "number": "933",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "24/7",
+      "evidence": "Saudi Electricity Company contact page: 'Customer Service: 933 Available 24/7'.",
+      "sources": [
+        "https://www.se.com.sa/en/Contact-Us"
+      ]
+    },
+    {
+      "number": "931",
+      "status": "unverified",
+      "claim_ok": null,
+      "correct_value": null,
+      "hours": null,
+      "evidence": "Not found on any National Water Company page loaded (home AR/EN, customer service); those pages print only 8004411110. No official page printing 931 for water reports was reached.",
+      "sources": [
+        "https://www.nwc.com.sa/AR/Pages/default.aspx",
+        "https://www.nwc.com.sa/EN/Pages/default.aspx",
+        "https://www.nwc.com.sa/EN/CustomerService/Pages/default.aspx"
+      ]
+    },
+    {
+      "number": "8004411110",
+      "status": "confirmed",
+      "claim_ok": null,
+      "correct_value": null,
+      "hours": "not printed on the pages loaded",
+      "evidence": "NWC site header: 'مركز الإتصال الموحد 8004411110' / 'Call Center 8004411110'. The 'day and night' hours are not printed on the pages loaded.",
+      "sources": [
+        "https://www.nwc.com.sa/AR/Pages/default.aspx",
+        "https://www.nwc.com.sa/EN/Pages/default.aspx"
+      ]
+    },
+    {
+      "number": "940",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "not printed on the pages loaded",
+      "evidence": "Ministry of Municipalities and Housing home page: 'أرقام تهمك ... بلاغات البلدية 940'.",
+      "sources": [
+        "https://momah.gov.sa/ar"
+      ]
+    },
+    {
+      "number": "19966",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "not printed on the pages loaded",
+      "evidence": "CST site footer, Contact Us: 'info@cst.gov.sa 19966'.",
+      "sources": [
+        "https://www.cst.gov.sa/en"
+      ]
+    },
+    {
+      "number": "19911",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "Sunday to Thursday, 8:00 am to 5:00 pm",
+      "evidence": "HRSD contact page: 'Customer Service 19911 A call center that receives beneficiary calls to respond to their inquiries ... and report issues through the unified number. Service availability: Sunday to Thursday, from 8:00 AM to 5:00 PM'. It is the general customer-service line, not a labour-only line.",
+      "sources": [
+        "https://www.hrsd.gov.sa/en/contact-us"
+      ]
+    },
+    {
+      "number": "992",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "not printed on the pages loaded",
+      "evidence": "General Directorate of Passports site: '992 :مركز الاتصال الموحد Unified Call Center', '992@gdp.gov.sa'.",
+      "sources": [
+        "https://www.gdp.gov.sa/En/Pages/default.aspx"
+      ]
+    },
+    {
+      "number": "920002866",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "24/7",
+      "evidence": "Musaned site: 'اتصل بنا ساعات العمل:24/7 الإتاحة: 24/7 920002866'. musaned.com.sa now redirects to musaned.gov.sa.",
+      "sources": [
+        "https://musaned.gov.sa/ar/home"
+      ]
+    },
+    {
+      "number": "920020405",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "not printed on the pages loaded",
+      "evidence": "Absher individuals portal footer: 'Contact Us 920020405'.",
+      "sources": [
+        "https://www.absher.sa/wps/portal/individuals/Home/homepublic"
+      ]
+    },
+    {
+      "number": "19933",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "not printed on the pages loaded",
+      "evidence": "RCRC FAQ: 'contact the unified call center for Riyadh Public Transport at 19933' and 'Call Customer Care on 19933'. SPA (RCRC statement): 'مركز الاتصال الموحّد للنقل العام على الرقم: (19933)'. rpt.sa itself is blocked to scripts, so its own page was not read.",
+      "sources": [
+        "https://www.rcrc.gov.sa/en/faqs/",
+        "https://www.spa.gov.sa/N2237477"
+      ]
+    },
+    {
+      "number": "116111",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "not printed on the pages loaded",
+      "evidence": "Ministry of Education news page: 'الخط المجاني لمساندة الطفل (116111) ... يقدم لهم المشورة والمساندة والدعم بكل سرية وخصوصية'. Caveats: this is an older MoE news item (URL slug k-1443-2), the operator's own site nfsp.org.sa did not connect, and no official page with opening hours was loaded.",
+      "sources": [
+        "https://www.moe.gov.sa/ar/mediacenter/MOEnews/Pages/k-1443-2.aspx"
+      ]
+    },
+    {
+      "number": "993",
+      "status": "unverified",
+      "claim_ok": null,
+      "correct_value": null,
+      "hours": null,
+      "evidence": "No official page printing 993 could be loaded: the old moi.gov.sa/wps deep links now redirect to the MOI home page, cva.moi.gov.sa did not connect, and my.gov.sa emergency pages return 403 to scripts. Loaded SPA statements give 911 for Riyadh, so 993 would not apply in Riyadh in any case.",
+      "sources": [
+        "https://moi.gov.sa/Pages/home?lang=ar&culture=ar-SA&ui-culture=ar-SA",
+        "https://www.spa.gov.sa/N2688470"
+      ]
+    },
+    {
+      "number": "112",
+      "status": "unverified",
+      "claim_ok": null,
+      "correct_value": null,
+      "hours": null,
+      "evidence": "Not printed on any official page loaded; the my.gov.sa emergency-contacts page (https://my.gov.sa/ar/emergency-contact) returns 403 to scripts and should be read in a browser.",
+      "sources": []
+    },
+    {
+      "number": "920033360",
+      "status": "confirmed",
+      "claim_ok": true,
+      "correct_value": null,
+      "hours": "8:00 am to 8:00 pm; Saturdays 1:00 pm to 8:00 pm (as printed by MoH)",
+      "evidence": "MoH psychiatry page, on the national mental health promotion centre: 'The center operates 12 hours a day (from 8:00 a.m. to 8: 00 p. m.), except on Saturdays from 1:00 p.m. to 8:00 p.m. ... the call center receives, via its number: 920033360, calls from all society members ... psychological consultations'. Caveat: ncmh.org.sa is a script-rendered app and its own contact details could not be read, so the hours are MoH's wording and may be dated. This is the official mental-health line other than 937; MoH also lists the Qareboon app for text counselling.",
+      "sources": [
+        "https://www.moh.gov.sa/en/ministry/information-and-services/pages/psychiatry.aspx"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "url": "https://998.gov.sa/ar/",
+      "status": "ok",
+      "final_url": "https://998.gov.sa/ar/",
+      "http": 200,
+      "note": "Civil Defense home (Arabic). curl with a browser User-Agent. English at /en/."
+    },
+    {
+      "url": "https://998.gov.sa/en/",
+      "status": "ok",
+      "final_url": "https://998.gov.sa/en/",
+      "http": 200,
+      "note": "'Home - Saudi Civil Defense'. curl with a browser User-Agent."
+    },
+    {
+      "url": "https://998.gov.sa/en/Page/Automatic-Early-Warning",
+      "status": "ok",
+      "final_url": "https://998.gov.sa/en/Page/Automatic-Early-Warning",
+      "http": 200,
+      "note": "'National Early Warning Platform - Saudi Civil Defense'. curl with a browser User-Agent."
+    },
+    {
+      "url": "https://spa.gov.sa",
+      "status": "ok",
+      "final_url": "https://spa.gov.sa/",
+      "http": 200,
+      "note": "'وكالة الأنباء السعودية'. curl with a browser User-Agent. English at /en."
+    },
+    {
+      "url": "https://spa.gov.sa/en",
+      "status": "ok",
+      "final_url": "https://spa.gov.sa/en",
+      "http": 200,
+      "note": "'The official Saudi Press Agency'. curl with a browser User-Agent."
+    },
+    {
+      "url": "https://moi.gov.sa",
+      "status": "redirects",
+      "final_url": "https://moi.gov.sa/Pages/home?lang=ar&culture=ar-SA&ui-culture=ar-SA",
+      "http": 200,
+      "note": "Ministry of Interior portal (Arabic). curl with a browser User-Agent. English at https://moi.gov.sa/Pages/home?lang=en&culture=en-US&ui-culture=en-US (200, 'Electronic Portal for MOI'). Old www.moi.gov.sa/wps/portal/... deep links now land on this home page."
+    },
+    {
+      "url": "https://moh.gov.sa",
+      "status": "redirects",
+      "final_url": "https://www.moh.gov.sa/pages/default.aspx",
+      "http": 200,
+      "note": "Ministry of Health portal (Arabic). curl with a browser User-Agent."
+    },
+    {
+      "url": "https://moh.gov.sa/en/",
+      "status": "redirects",
+      "final_url": "https://www.moh.gov.sa/en/pages/default.aspx",
+      "http": 200,
+      "note": "'Kingdom of Saudi Arabia - Ministry of Health Portal'. curl with a browser User-Agent."
+    },
+    {
+      "url": "https://sehhaty.sa",
+      "status": "ok",
+      "final_url": "https://sehhaty.sa/",
+      "http": 200,
+      "note": "'حمّل تطبيق صحّتي' app landing page, Arabic only. curl with a browser User-Agent. /en returns 404."
+    },
+    {
+      "url": "https://moh.gov.sa/en/eServices/Sehhaty/Pages/default.aspx",
+      "status": "redirects",
+      "final_url": "https://www.moh.gov.sa/en/eservices/sehhaty/pages/default.aspx",
+      "http": 200,
+      "note": "'«Sehhaty» Platform' on the MoH site. curl with a browser User-Agent."
+    },
+    {
+      "url": "https://srca.gov.sa",
+      "status": "redirects",
+      "final_url": "https://www.srca.gov.sa/",
+      "http": 200,
+      "note": "'هيئة الهلال الأحمر السعودي - SRCA'. curl with a browser User-Agent. Redirect only adds www."
+    },
+    {
+      "url": "https://srca.gov.sa/en/",
+      "status": "redirects",
+      "final_url": "https://www.srca.gov.sa/en/",
+      "http": 200,
+      "note": "'Home - SRCA'. curl with a browser User-Agent. Redirect only adds www."
+    },
+    {
+      "url": "https://ncmh.org.sa",
+      "status": "ok",
+      "final_url": "https://ncmh.org.sa/",
+      "http": 200,
+      "note": "'المركز الوطني لتعزيز الصحة النفسية'. curl with a browser User-Agent. Script-rendered app (2 KB shell), body not readable by script; /en returns the same Arabic shell, so an English version is not confirmed."
+    },
+    {
+      "url": "https://absher.sa",
+      "status": "redirects",
+      "final_url": "https://www.absher.sa/portal/landing.html?v=1",
+      "http": 200,
+      "note": "Absher landing page (no <title> in the HTML). curl with a browser User-Agent. English exists: the individuals portal was served in English."
+    },
+    {
+      "url": "https://ta.sdaia.gov.sa",
+      "status": "ok",
+      "final_url": "https://ta.sdaia.gov.sa/",
+      "http": 200,
+      "note": "'الرئيسية | توكلنا - Tawakkalna'. curl with a browser User-Agent. /en/ returned a 'Request Rejected' firewall page to curl, so an English version is not confirmed."
+    },
+    {
+      "url": "https://my.gov.sa/ar",
+      "status": "blocked_to_scripts",
+      "final_url": "https://my.gov.sa/ar",
+      "http": 403,
+      "note": "403 Cloudflare challenge page to curl (browser User-Agent); WebFetch on my.gov.sa/en also 403. Not opened in a browser in this check."
+    },
+    {
+      "url": "https://my.gov.sa/en",
+      "status": "blocked_to_scripts",
+      "final_url": "https://my.gov.sa/en",
+      "http": 403,
+      "note": "403 Cloudflare challenge page to curl (browser User-Agent) and to WebFetch. Not opened in a browser in this check."
+    },
+    {
+      "url": "https://moe.gov.sa",
+      "status": "redirects",
+      "final_url": "https://www.moe.gov.sa/ar/pages/default.aspx",
+      "http": 200,
+      "note": "'وزارة التعليم | الرئيسية'. curl with a browser User-Agent. English at https://www.moe.gov.sa/en/pages/default.aspx (200)."
+    },
+    {
+      "url": "https://alriyadh.gov.sa/ar",
+      "status": "ok",
+      "final_url": "https://alriyadh.gov.sa/ar",
+      "http": 200,
+      "note": "'موقع أمانة الرياض'. curl with a browser User-Agent."
+    },
+    {
+      "url": "https://alriyadh.gov.sa/en",
+      "status": "ok",
+      "final_url": "https://alriyadh.gov.sa/en",
+      "http": 200,
+      "note": "'Riyadh Municipality Portal'. curl with a browser User-Agent."
+    },
+    {
+      "url": "https://rpt.sa/ar/home",
+      "status": "blocked_to_scripts",
+      "final_url": "https://www.rpt.sa/ar/home",
+      "http": 403,
+      "note": "403 Cloudflare 'Attention Required!' page to curl (browser User-Agent), after a redirect to www. Not opened in a browser in this check."
+    },
+    {
+      "url": "https://rpt.sa/en/home",
+      "status": "blocked_to_scripts",
+      "final_url": "https://www.rpt.sa/en/home",
+      "http": 403,
+      "note": "403 Cloudflare 'Attention Required!' page to curl and 403 to WebFetch, after a redirect to www. Not opened in a browser in this check."
+    },
+    {
+      "url": "https://kkia.sa/en",
+      "status": "redirects",
+      "final_url": "https://www.kkia.sa/en",
+      "http": 200,
+      "note": "'King Khalid International Airport (KKIA)'. curl with a browser User-Agent. Redirect only adds www."
+    },
+    {
+      "url": "https://gaca.gov.sa/ar/",
+      "status": "ok",
+      "final_url": "https://gaca.gov.sa/ar/",
+      "http": 200,
+      "note": "'الهيئة العامة للطيران المدني | الموقع الرسمي'. curl with a browser User-Agent."
+    },
+    {
+      "url": "https://gaca.gov.sa/en/",
+      "status": "ok",
+      "final_url": "https://gaca.gov.sa/en/",
+      "http": 200,
+      "note": "'GACA | Saudi Arabia - Official Site'. curl with a browser User-Agent."
+    },
+    {
+      "url": "https://ncm.gov.sa/ar",
+      "status": "redirects",
+      "final_url": "https://www.ncm.gov.sa/ar",
+      "http": 200,
+      "note": "'الرئيسية | المركز الوطني للأرصاد'. curl with a browser User-Agent. Redirect only adds www."
+    },
+    {
+      "url": "https://ncm.gov.sa/en",
+      "status": "redirects",
+      "final_url": "https://www.ncm.gov.sa/en",
+      "http": 200,
+      "note": "'National Center for Meteorology Saudi Arabia'. curl with a browser User-Agent. Redirect only adds www."
+    },
+    {
+      "url": "https://nvg.gov.sa",
+      "status": "ok",
+      "final_url": "https://nvg.gov.sa/",
+      "http": 200,
+      "note": "'National Volunteer Platform | المنصة الوطنية للعمل التطوعي'. curl with a browser User-Agent. Script-rendered app."
+    },
+    {
+      "url": "https://nvg.gov.sa/en",
+      "status": "ok",
+      "final_url": "https://nvg.gov.sa/en",
+      "http": 200,
+      "note": "Same title and html lang='ar' as the root; curl with a browser User-Agent. Script-rendered, so English content is not confirmed by script."
+    },
+    {
+      "url": "https://srcavolunteer.srca.org.sa",
+      "status": "ok",
+      "final_url": "https://srcavolunteer.srca.org.sa/",
+      "http": 200,
+      "note": "'Volunteering System' (SRCA volunteer portal, Arabic). curl with a browser User-Agent. /en returns 404."
+    },
+    {
+      "url": "https://srca.gov.sa/en/programs/first-responder-program/",
+      "status": "redirects",
+      "final_url": "https://www.srca.gov.sa/en/programs/first-responder-program/",
+      "http": 200,
+      "note": "'First Responder Program - SRCA'. curl with a browser User-Agent. Redirect only adds www."
+    },
+    {
+      "url": "https://srca.gov.sa/en/programs/life-ambassador-for-first-aid-program/",
+      "status": "redirects",
+      "final_url": "https://www.srca.gov.sa/en/programs/life-ambassador-for-first-aid-program/",
+      "http": 200,
+      "note": "'Life ambassador for first aid program - SRCA'. curl with a browser User-Agent. Redirect only adds www."
+    },
+    {
+      "url": "https://ehsan.sa",
+      "status": "ok",
+      "final_url": "https://ehsan.sa/",
+      "http": 200,
+      "note": "'الصفحة الرئيسية - منصة إحسان'. curl with a browser User-Agent. Arabic; /en returns a 404 page."
+    },
+    {
+      "url": "https://sahem.ksrelief.org/ar",
+      "status": "ok",
+      "final_url": "https://sahem.ksrelief.org/ar",
+      "http": 200,
+      "note": "'منصة ساهم - مركز الملك سلمان للإغاثة والأعمال الإنسانية'. curl with a browser User-Agent."
+    },
+    {
+      "url": "https://sahem.ksrelief.org/en",
+      "status": "ok",
+      "final_url": "https://sahem.ksrelief.org/en",
+      "http": 200,
+      "note": "'Sahem Platform - KSrelief'. curl with a browser User-Agent."
+    },
+    {
+      "url": "https://my.gov.sa/en/services/21530",
+      "status": "blocked_to_scripts",
+      "final_url": "https://my.gov.sa/en/services/21530",
+      "http": 403,
+      "note": "403 Cloudflare challenge page to curl (browser User-Agent); the service page content could not be confirmed. Not opened in a browser in this check."
+    },
+    {
+      "url": "https://dongovernance.ncnp.gov.sa/aman",
+      "status": "ok",
+      "final_url": "https://dongovernance.ncnp.gov.sa/aman",
+      "http": 200,
+      "note": "'نوى | خدمات حوكمة التبرعات' (National Center for Non-Profit Sector). curl with a browser User-Agent. Script-rendered shell, Arabic; /en/aman returns the same Arabic shell."
+    }
+  ]
+}

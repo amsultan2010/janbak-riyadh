@@ -1,0 +1,650 @@
+{
+  "checked": "2026-10-12",
+  "items": [
+    {
+      "file": "other-medical",
+      "id": "phc-al-suwaidi",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 1 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'Sunday-Thursday 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-al-shifa-first",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 2 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'Sunday-Thursday 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-tuwaiq-western",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 3 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'Sunday-Thursday 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-al-aziziyah-second",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 4 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'Sunday-Thursday 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-prince-sultan-al-ahmadiyah",
+      "status": "confirmed",
+      "set": {
+        "hours": "Mo-Su 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 5 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'all week 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-tuwaiq-general",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 6 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'Sunday-Thursday 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-al-mansoura",
+      "status": "confirmed",
+      "set": {
+        "hours": "Mo-Su 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 7 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'all week 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-as-sulaymaniyah",
+      "status": "confirmed",
+      "set": {
+        "hours": "24/7"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 9 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'all week 24 hours' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-al-wadi",
+      "status": "confirmed",
+      "set": {
+        "hours": "24/7"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 10 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'all week 24 hours' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-al-hamra",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 11 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'Sunday-Thursday 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-al-manar",
+      "status": "confirmed",
+      "set": {
+        "hours": "24/7"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 12 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'all week 24 hours' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-ar-rawdah-1",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 13 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'Sunday-Thursday 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-ar-rawdah-2",
+      "status": "confirmed",
+      "set": {
+        "hours": "Mo-Su 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 14 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'all week 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-an-nahdah-western",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 15 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'Sunday-Thursday 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-western-janadriyah",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 17 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'Sunday-Thursday 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-an-naseem-al-awsat",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 18 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'Sunday-Thursday 8am-11pm' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-laban-al-sharqi",
+      "status": "confirmed",
+      "set": {
+        "hours": "24/7"
+      },
+      "evidence": "MoH on-duty list re-loaded 2026-10-12: Arabic row 23 (page last modified 8 Dhu al-Hijjah 1447) and the English table (last update 9 May 2026) both tick the 'all week 24 hours' column.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-al-ghadeer",
+      "status": "confirmed",
+      "set": {
+        "hours": "Mo-Su 08:00-23:00",
+        "confidence": "medium"
+      },
+      "evidence": "Still disagree. Arabic row 16 (newer page, 8 Dhu al-Hijjah 1447, about 25 May 2026) ticks 'all week 8am-11pm'; the English page (9 May 2026) still ticks 'Sunday-Thursday 8am-11pm'. Existing value follows the newer Arabic page; Friday/Saturday opening is NOT confirmed by the English page.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-king-faisal",
+      "status": "confirmed",
+      "set": {
+        "hours": "Mo-Su 08:00-23:00",
+        "confidence": "medium"
+      },
+      "evidence": "Still disagree. Arabic row 19 (newer page, 8 Dhu al-Hijjah 1447, about 25 May 2026) ticks 'all week 8am-11pm'; the English page (9 May 2026) still ticks 'Sunday-Thursday 8am-11pm'. Existing value follows the newer Arabic page; Friday/Saturday opening is NOT confirmed by the English page.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-as-sahafah",
+      "status": "confirmed",
+      "set": {
+        "hours": "Mo-Su 08:00-23:00",
+        "confidence": "medium"
+      },
+      "evidence": "Still disagree. Arabic row 20 (newer page, 8 Dhu al-Hijjah 1447, about 25 May 2026) ticks 'all week 8am-11pm'; the English page (9 May 2026) still ticks 'Sunday-Thursday 8am-11pm'. Existing value follows the newer Arabic page; Friday/Saturday opening is NOT confirmed by the English page.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-ad-dar-al-baida-second",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "Arabic MoH on-duty list row 8 (last modified 8 Dhu al-Hijjah 1447) ticks 'Sunday-Thursday 8am-11pm'. Centre is still absent from the English page (9 May 2026), so only one language version states it.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-an-nadwah",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "Arabic MoH on-duty list row 21 (last modified 8 Dhu al-Hijjah 1447) ticks 'Sunday-Thursday 8am-11pm'. Centre is still absent from the English page (9 May 2026), so only one language version states it.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-al-yasmin",
+      "status": "confirmed",
+      "set": {
+        "hours": "Su-Th 08:00-23:00"
+      },
+      "evidence": "Arabic MoH on-duty list row 22 (last modified 8 Dhu al-Hijjah 1447) ticks 'Sunday-Thursday 8am-11pm'. Centre is still absent from the English page (9 May 2026), so only one language version states it.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "phc-abdulmunim-al-rashed",
+      "status": "confirmed",
+      "set": {
+        "hours": "Mo-Su 08:00-23:00"
+      },
+      "evidence": "Arabic MoH on-duty list row 24 (last modified 8 Dhu al-Hijjah 1447) ticks 'all week 8am-11pm'. Centre is still absent from the English page (9 May 2026), so only one language version states it.",
+      "sources": [
+        "https://www.moh.gov.sa/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx",
+        "https://www.moh.gov.sa/en/HealthAwareness/On-Duty-Healthcare-Centers/Pages/Riyadh.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "davita-central-riyadh-as-suwaidi",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114102382",
+        "hours": "Sa-Th 06:00-22:00; Fr off",
+        "lat": 24.594956,
+        "lng": 46.681048
+      },
+      "evidence": "DaVita find-center record 'Central Riyadh Clinic' (As Suwaidi District): phone_numbers (+966)11 4102382 and (+966)11 4102380; timings Sat - Thu 06:00-22:00, Fri Closed; lat 24.594955661088, lng 46.68104795106. Note: the page's schema.org block gives a different telephone for 'DaVita Clinic Central Riyadh', +966112180808; the centre record itself was kept.",
+      "sources": [
+        "https://davita.sa/find-center"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "davita-south-riyadh-al-aziziyah",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966118107725",
+        "hours": "Sa-Th 06:00-16:30; Fr off",
+        "lat": 24.567703,
+        "lng": 46.771712
+      },
+      "evidence": "DaVita find-center record 'South Riyadh Clinic' (Fath Makkah Road, Ad Dar Al Baida District): phone_numbers (+966)55 2323379 and (+966)11 8107725; timings Sat - Thu 6:00-16:30, Fri Closed; schema.org telephone +966118107725.",
+      "sources": [
+        "https://davita.sa/find-center"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "davita-imam-abdulrahman-al-faisal-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966504352220",
+        "hours": "Sa-Th 06:00-16:30; Fr off",
+        "lat": 24.527343,
+        "lng": 46.652573
+      },
+      "evidence": "DaVita find-center record 'DaVita Clinic Imam Hospital' (Dirab Branch Rd, Uqadh, Riyadh; last_modified 2026-02-05): phone_numbers (+966)50 4352220; timings Sat - Thu 6:00-16:30, Fri Closed.",
+      "sources": [
+        "https://davita.sa/find-center"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "qaweem-addiction-treatment-center-riyadh",
+      "status": "filled",
+      "set": {
+        "phone": "920025923",
+        "hours": "Su-Th 10:00-19:00; Fr,Sa off",
+        "confidence": "medium"
+      },
+      "evidence": "Phone is official: qaweem.sa says 'فرع الرياض مركز قويم - الرياض - حيّ الملز جوّال: 0569088001 الرقم الموحّد: 920025923'. Hours are secondary: Google Maps listing 'مركز قويم لعلاج الإدمان بالرياض', Al Malaz, Riyadh 12836 shows Sunday-Thursday 10 AM-7 PM, Friday and Saturday Closed. The listing shows a different mobile (054 176 5370) that is not on the centre's own site; the own-site numbers were kept. Confidence medium applies to the hours only.",
+      "sources": [
+        "https://qaweem.sa/",
+        "https://goo.gl/maps/7xvNSecDPG6PyZQ78"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "eradah-complex-and-mental-health-riyadh",
+      "status": "corrected",
+      "set": {
+        "phone": "8001240444",
+        "hours": "24/7",
+        "lat": 24.631454,
+        "lng": 46.782422,
+        "confidence": "medium"
+      },
+      "evidence": "Move confirmed by ajel.sa (16 Feb 2026, quoting Riyadh Third Health Cluster): moved from Al Khuzama 'إلى مقره الجديد في مخرج 18 على طريق النهضة', operating since 13 Feb; 'تعمل الطوارئ على مدار الساعة', other services 'من الأحد إلى الخميس من الساعة الثامنة صباحًا حتى الرابعة مساءً' (Su-Th 08:00-16:00). Google Maps listing 'Erada Complex for Mental Health in Riyadh', Al Nahda Rd, Al Faisaliyyah, Riyadh 12883: 24.631454, 46.782422, phone +966 800 124 0444, 'Open 24 hours'. A second listing 'مجمع ارادة والصحة النفسية بالرياض ( المقر الجديد)' sits about 300 m away at 24.633099, 46.785190 (3116 An Nahdah branch road, Al Faisaliyyah). The old landline +966114804548 appears only in the 2023 MoH guide for the old site and was not confirmed for the new site by any source. No official page gives coordinates or a phone; not in OpenStreetMap (Nominatim and Photon returned nothing).",
+      "sources": [
+        "https://ajel.sa/local/3biix7q9yg",
+        "https://www.google.com/maps/search/%D9%85%D8%AC%D9%85%D8%B9+%D8%A5%D8%B1%D8%A7%D8%AF%D8%A9+%D9%88%D8%A7%D9%84%D8%B5%D8%AD%D8%A9+%D8%A7%D9%84%D9%86%D9%81%D8%B3%D9%8A%D8%A9+%D8%A8%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6/@24.75,46.78,11z",
+        "https://www.moh.gov.sa/HealthAwareness/EducationalContent/AddictionandDrugs/Documents/Guide-Addicition-Treatment-Rehabilitation-Services.pdf"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "king-salman-hospital-addiction-clinic",
+      "status": "unverified",
+      "set": {},
+      "evidence": "Google Maps listing loaded 2026-10-12 via the MoH guide's map link: 'King Salman Hospital', Aishah Bint Abi Bakr, Al Uraija Al Wusta, 24.606103, 46.641058, hospital shown as 'Open 24 hours', no phone on the listing. Nothing states the addiction clinic's own hours or a clinic phone, so hours stay null and the hospital number +966114311100 was not re-confirmed.",
+      "sources": [
+        "https://goo.gl/maps/LrXDx2Mevu5Q5uJY8"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "imam-abdulrahman-al-faisal-hospital-addiction-clinic",
+      "status": "unverified",
+      "set": {},
+      "evidence": "No source found for clinic hours or a current phone. The MoH guide's map link resolves to 'Imam Abdulrahman Alfaisal Hospital' at 24.5279854, 46.6530787 (matches existing coordinates) but returned no phone or hours data.",
+      "sources": [
+        "https://goo.gl/maps/5XNJx9ELcBc7Xsb6A"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "security-forces-hospital-riyadh-addiction-clinic",
+      "status": "unverified",
+      "set": {},
+      "evidence": "No source found for clinic hours or a current phone. The MoH guide's map link resolves to 'Security Forces Hospital - Main Building' at 24.6796779, 46.725453 (matches existing coordinates) but returned no phone or hours data.",
+      "sources": [
+        "https://goo.gl/maps/8XMoDGHWEYfTizPH8"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "dallah-hospital-namar-psychiatry-and-addiction",
+      "status": "confirmed",
+      "set": {
+        "phone": "920012222",
+        "confidence": "medium"
+      },
+      "evidence": "Google Maps listing loaded 2026-10-12 via the MoH guide's map link: 'Dallah Hospital | مستشفى دله', Dirab Branch Rd, Alhazm, Riyadh 14963, phone 9200 12222, hospital shown as 'Open 24 hours' every day. That is the hospital building, not the psychiatry and addiction inpatient service, whose hours no source states; hours left null.",
+      "sources": [
+        "https://goo.gl/maps/qSdxqPCgq3CC7iKh7"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "sakina-serenity-center-psychotherapy",
+      "status": "confirmed",
+      "set": {
+        "phone": "920010580",
+        "confidence": "medium"
+      },
+      "evidence": "Google Maps listing loaded 2026-10-12 via the MoH guide's map link: 'مركز سكينة للإرشاد والعلاج النفسي serenity center for psychotherapy & counseling', Ghirnatah, Riyadh 13241, 24.783328, 46.745734, phone 9200 10580. The listing has no opening hours; hours stay null.",
+      "sources": [
+        "https://goo.gl/maps/bM8u7ErKH3hK6ySt9"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "medicare-psychiatric-clinics",
+      "status": "corrected",
+      "set": {
+        "phone": "920005531",
+        "hours": "Sa-Th 08:00-23:00; Fr 16:00-22:00",
+        "confidence": "medium"
+      },
+      "evidence": "Google Maps listing loaded 2026-10-12 via the MoH guide's map link: 'عيادات ميدي كير للطب النفسي | Medicare Clinics For Mental Health', Musa Ibn Nusair St at Takhassusi St, Riyadh 12332; phone 9200 05531; Sunday-Thursday and Saturday 8 AM-11 PM, Friday 4-10 PM. Previous phone +966550486165 is the mobile from the 2023 MoH guide; it is not on the listing and was not re-confirmed.",
+      "sources": [
+        "https://goo.gl/maps/yheEb4TY8St6yiG58"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "specialized-psychiatric-clinics",
+      "status": "filled",
+      "set": {
+        "phone": "920006284",
+        "hours": "Sa-Th 08:30-22:00; Fr off",
+        "confidence": "medium"
+      },
+      "evidence": "Google Maps listing loaded 2026-10-12 via the MoH guide's map link: 'Psychological Care Complex', 7955 Prince Abdulaziz Ibn Musaid Ibn Jalawi St, As Sulimaniyah, Riyadh 12234; phone 9200 06284 (matches); Saturday-Thursday 8:30 AM-10 PM, Friday Closed.",
+      "sources": [
+        "https://goo.gl/maps/9rvU3NHoiBdMDxvN7"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "mood-medical-clinic",
+      "status": "corrected",
+      "set": {
+        "phone": "+966555709125",
+        "hours": "Sa-Th 09:00-22:00; Fr off",
+        "confidence": "medium"
+      },
+      "evidence": "Google Maps listing loaded 2026-10-12 via the MoH guide's map link: 'Mood Care Medical Clinics', Al Takhassousi, Al Olaya, Riyadh 12333, 24.701394, 46.667539; phone 055 570 9125; Saturday-Thursday 9 AM-10 PM, Friday Closed. Previous phone +966552461514 is from the 2023 MoH guide; it is not on the listing and was not re-confirmed.",
+      "sources": [
+        "https://goo.gl/maps/ZhBg9ZiUumUUGmZz5"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "comprehensive-specialized-clinics-umm-al-hamam",
+      "status": "corrected",
+      "set": {
+        "phone": "+966118049666",
+        "confidence": "medium"
+      },
+      "evidence": "Google Maps listing loaded 2026-10-12 via the MoH guide's map link: the place is now named 'العيادات التخصصية الشاملة للحرس الوطني' (National Guard Comprehensive Specialized Clinics), 2444 Umm Al Hamam St, Riyadh 12334, 24.703672, 46.658382; phone 011 804 9666. Previous phone +966114830280 is from the 2023 MoH guide and is not on the listing. Only today's hours were returned and in two conflicting forms (Monday 7:30 AM-4:30 PM and Monday 8 AM-10 PM), so hours stay null. Name and operator should be checked against the National Guard Health Affairs site.",
+      "sources": [
+        "https://goo.gl/maps/w4v8wcuLiiE8JvTD8"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "maan-specialized-clinics",
+      "status": "confirmed",
+      "set": {
+        "phone": "920020089",
+        "confidence": "medium"
+      },
+      "evidence": "Google Maps listing loaded 2026-10-12 via the MoH guide's map link: 'عيادات معاً التخصصية الطبية Maan Medical Complex', Exit 11, Eastern Ring Branch Rd, Ar Rawdah, Riyadh 13213; phone 9200 20089 (matches). Only today's hours were returned (Monday 10 AM-10 PM); the weekly table was not available, so hours stay null.",
+      "sources": [
+        "https://goo.gl/maps/Zo3LKHwoVhyQzpq7A"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "rushd-specialized-center",
+      "status": "filled",
+      "set": {
+        "phone": "+966532135599",
+        "hours": "Sa-Th 13:00-22:00; Fr off",
+        "confidence": "medium"
+      },
+      "evidence": "Google Maps listing loaded 2026-10-12 via the MoH guide's map link: 'مركز رشد التخصصي (طبي، نفسي، أسري)', View Mall, King Fahd Rd, Al Wurud, Riyadh 12215; phone 053 213 5599 (matches); Saturday-Thursday 1-10 PM, Friday Closed.",
+      "sources": [
+        "https://goo.gl/maps/vQvpYEDXkRYP6ibB8"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "bawabat-al-seha-center",
+      "status": "confirmed",
+      "set": {
+        "lat": 24.827098,
+        "lng": 46.813143,
+        "confidence": "medium"
+      },
+      "evidence": "Google Maps listing loaded 2026-10-12 via the MoH guide's map link: the place at the MoH link is now named 'بوابات الصحة - للرعاية الأولية (القادسية) / Health Gates - Primary Care (Qadissiyah)', Al Qadisiyyah, Riyadh 13252, 24.827098, 46.8131434, so the name and location match again (the earlier 'مركز امتياز' title survives only in the redirect URL). The listing has no phone and no hours: 920011535 comes only from the 2023 MoH guide and a search for it found nothing. The listing calls it primary care, so its mental health or addiction service is not confirmed by a 2026 source.",
+      "sources": [
+        "https://goo.gl/maps/sBN5poBVV6tLEeUg6"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "ishraqa-association-riyadh",
+      "status": "filled",
+      "set": {
+        "phone": "+966552422260",
+        "hours": "Su-Th 09:00-12:00,16:00-21:00; Fr,Sa off",
+        "confidence": "medium"
+      },
+      "evidence": "Google Maps listing loaded 2026-10-12 via the MoH guide's map link: 'جمعية إشراقة لرعاية و تأهيل مرضى الإدمان', 7619 Al Mashtal, Al Hazm, Riyadh 14964; phone 055 242 2260 (matches); Sunday-Thursday 9 AM-12 PM and 4-9 PM, Friday and Saturday Closed.",
+      "sources": [
+        "https://goo.gl/maps/vyvFYB4TzNZ4fNN7A"
+      ],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "other-medical",
+      "id": "diaverum-riyadh-ircc",
+      "status": "unverified",
+      "set": {},
+      "evidence": "Could not re-load: diaverum.sa returned a Cloudflare block (HTTP 403, 'Attention Required') to curl and to WebFetch on 2026-10-12. Existing phone and hours come from the earlier load of the operator page and were not re-checked.",
+      "sources": [
+        "https://www.diaverum.sa/en/clinic-container/diaverum-riyadh---integrated-renal-care-centre--ircc"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "diaverum-riyadh-al-awaly",
+      "status": "unverified",
+      "set": {},
+      "evidence": "Could not re-load: diaverum.sa returned a Cloudflare block (HTTP 403) to curl and to WebFetch on 2026-10-12; web.archive.org has no 2026 copy (404). Existing phone and hours were not re-checked.",
+      "sources": [
+        "https://www.diaverum.sa/en/clinic-container/diaverum-riyadh---al-awaly"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "diaverum-riyadh-prince-mohammad-bin-abdulaziz-hospital",
+      "status": "unverified",
+      "set": {},
+      "evidence": "Could not re-load: diaverum.sa returned a Cloudflare block (HTTP 403) to curl and to WebFetch on 2026-10-12. Existing phone and hours were not re-checked.",
+      "sources": [
+        "https://www.diaverum.sa/en/clinic-container/diaverum-riyadh---prince-mohammad-bin-abdulaziz-hospital"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "other-medical",
+      "id": "king-salman-center-for-kidney-diseases",
+      "status": "unverified",
+      "set": {},
+      "evidence": "No phone or opening hours found. The only official page is the MoH news item of 15 Oct 2017 (capacity above 600 patients, about 52,000 haemodialysis sessions in a year), which gives neither; a web search on 2026-10-12 returned no directory page, cluster page or own site for the centre.",
+      "sources": [
+        "https://www.moh.gov.sa/Ministry/MediaCenter/News/Pages/News-2017-10-15-001.aspx"
+      ],
+      "source_kind": "official"
+    }
+  ]
+}
