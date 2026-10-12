@@ -41,7 +41,7 @@ const config = {
           </button>
           {CATEGORIES.map((c) => (
             <button type="button" data-cat-btn={c.id} aria-pressed="false">
-              <Icon name={c.id} tile />
+              <Icon name={c.id} />
               {c.short[lang]}
               <span class="n">{count(c.id)}</span>
             </button>

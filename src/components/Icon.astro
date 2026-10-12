@@ -2,14 +2,13 @@
 import { ICONS, PICTURES } from '../icons.js';
 
 // A category or emergency name gives its colour pictogram; anything else is a line icon.
-// `tile` puts a pictogram on a light square so it reads on the green ground.
-const { name, flip = false, tile = false } = Astro.props;
+const { name, flip = false } = Astro.props;
 const picture = PICTURES[name];
 ---
 
 {
   picture ? (
-    <svg class:list={['pic', { tile }]} viewBox="0 0 24 24" aria-hidden="true" set:html={picture} />
+    <svg class="pic" viewBox="0 0 24 24" aria-hidden="true" set:html={picture} />
   ) : (
     <svg class:list={['icon', { flip }]} viewBox="0 0 24 24" aria-hidden="true">
       <path d={ICONS[name]} />
