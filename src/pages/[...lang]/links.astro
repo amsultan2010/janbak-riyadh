@@ -13,9 +13,12 @@ const t = translator(lang);
 <Base lang={lang} slug="links" title={t('links.title')} description={t('links.intro')}>
   <h1>{t('links.title')}</h1>
   <p class="lead">{t('links.intro')}</p>
+  <nav class="cats jump" aria-label={t('jump.label')}>
+    {LINKS.map((group) => <a href={`#${group.id}`}>{group.title[lang]}</a>)}
+  </nav>
   {
     LINKS.map((group) => (
-      <section>
+      <section id={group.id}>
         <h2 class="label">{group.title[lang]}</h2>
         {group.items.map((item) => <LinkEntry item={item} lang={lang} />)}
       </section>

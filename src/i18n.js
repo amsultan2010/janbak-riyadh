@@ -68,6 +68,8 @@ const T = {
   'cat.map': { ar: 'عرض الخريطة', en: 'Show map' },
   'cat.hideMap': { ar: 'إخفاء الخريطة', en: 'Hide map' },
   'cat.mapLabel': { ar: 'خريطة الأماكن', en: 'Map of places' },
+  'cat.mapLoading': { ar: 'جارٍ تحميل الخريطة', en: 'Loading the map' },
+  'jump.label': { ar: 'في هذه الصفحة', en: 'On this page' },
   'cat.mapFail': { ar: 'تعذّر تحميل الخريطة. القائمة أدناه تعمل بدونها.', en: 'The map could not load. The list below works without it.' },
   'cat.caveat': {
     ar: 'القائمة غير مكتملة، وساعات العمل قد تتغير في رمضان والأعياد. اتصل قبل الذهاب.',
@@ -137,7 +139,8 @@ const T = {
     ar: 'موقع مستقل وغير حكومي. في الحالات الطارئة اتصل بالرقم 911.',
     en: 'An independent site, not a government service. In an emergency call 911.',
   },
-  'footer.osm': { ar: 'بيانات الخريطة: مساهمو OpenStreetMap', en: 'Map data: OpenStreetMap contributors' },
+  'footer.osm': { ar: 'بيانات الخريطة: مساهمو OpenStreetMap، والخرائط من OpenMapTiles و OpenFreeMap', en: 'Map data: OpenStreetMap contributors. Map tiles: OpenMapTiles and OpenFreeMap' },
+  'footer.nav': { ar: 'روابط أسفل الصفحة', en: 'Footer links' },
 
   'e404.title': { ar: 'الصفحة غير موجودة', en: 'Page not found' },
   'e404.text': { ar: 'لا توجد صفحة بهذا العنوان.', en: 'There is no page at this address.' },
