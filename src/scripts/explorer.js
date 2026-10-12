@@ -1,6 +1,7 @@
 // The finder. On a phone: a map with a deck of cards over it, one place per card, and the
 // full list below. On a wide screen: the list beside the map. One type of place at a time,
-// narrowed by search, kind, opening hours and district, sorted by distance once a location is set.
+// narrowed by search, kind, opening hours and district. A list is by name until a location
+// is set, then nearest first.
 import { decodeWeek, openState, formatTime } from '../lib/hours.js';
 import { hoursLines } from '../lib/hours-text.js';
 import { getHome, setHome, lang, say, strings, fold } from './home.js';
@@ -86,6 +87,10 @@ async function start(root) {
     km: null,
   }));
   const byId = new Map(rows.map((r) => [r.id, r]));
+  // a list of several kinds runs by name; a list of one kind keeps the order it came in,
+  // which is by name too, except embassies by country
+  const byName = new Intl.Collator(lang);
+  [...rows].sort((a, b) => byName.compare(a.name, b.name) || a.order - b.order).forEach((r, i) => (r.abc = i));
   const catOf = (id) => cats.find((c) => c.id === id);
   const sizes = new Map(cats.map((c) => [c.id, rows.filter((r) => r.cat === c).length]));
 
@@ -215,7 +220,8 @@ async function start(root) {
         (!box || (r.lat !== null && box.contains([r.lng, r.lat]))) &&
         tokens.every((t) => r.q.includes(t)),
     );
-    return hits.sort((a, b) => (home ? (a.km ?? 1e9) - (b.km ?? 1e9) : 0) || a.order - b.order);
+    const key = hits.every((r) => r.kind === hits[0].kind) ? 'order' : 'abc';
+    return hits.sort((a, b) => (home ? (a.km ?? 1e9) - (b.km ?? 1e9) : 0) || a[key] - b[key]);
   }
 
   function tail() {

@@ -38,6 +38,7 @@ covers police, Civil Defense and traffic; 998 and 999 are for regions without a 
   the map to it. The current view lives in the address bar, so it can be shared as a link.
 - Location: browser GPS, one of 150 districts, or a tap on the map. Saved on the device only.
   With a location set, results sort nearest first and show straight-line distance.
+  Until then a list of several kinds runs by name.
 - Each card has Call, Directions (Google Maps with the route filled in, no API key) and a
   details button, which opens the place's own page as a sheet: hours table, website, source.
   Tapping a pin brings its card to the front; in the list a button moves the map to the place.
@@ -127,9 +128,10 @@ Other known gaps:
 
 ## Design
 
-Each category and each emergency number has a full-colour pictogram (red cross, blue and
-yellow capsule, blood drop and so on, in `src/icons.js`), shown as they are on white cards and
-on a white disc on the map. Everything else keeps to the palette below.
+Each category and each emergency number has a flat pictogram (red cross, green capsule,
+blood drop and so on, in `src/icons.js`). They share one set of rules: filled shapes, no
+outlines, one neutral (the ink blue) and at most one colour. They sit straight on the white
+cards, and on a white disc on the map. Everything else keeps to the palette below.
 
 Ice ground, deep blue ink, white cards, one orange accent for the main action, "open" and
 the place on show. Two radii (cards, controls), one 2px line, no shadows, no gradients.

@@ -331,7 +331,7 @@ h1 {
   stroke-linejoin: round;
 }
 
-/* colour pictograms: categories and emergency numbers */
+/* flat pictograms: categories and emergency numbers */
 .pic {
   flex: none;
   width: 1.875rem;
@@ -447,8 +447,9 @@ h1 {
   background: var(--accent);
 }
 
-/* a pictogram keeps a white disc behind it so it still reads on the orange row */
-.row .pic {
+/* a pictogram keeps a white disc behind it so it still reads on an orange row or switch */
+.row .pic,
+.kinds .pic {
   padding: 0.125rem;
   border-radius: 50%;
   background: var(--surface);
