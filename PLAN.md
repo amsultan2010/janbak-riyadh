@@ -103,9 +103,10 @@ Other known gaps:
 
 ## Design
 
-Each category and each emergency number has a full-colour pictogram (red cross, blue and
-yellow capsule, blood drop and so on, in `src/icons.js`), shown on a light tile in lists and a
-light disc on the map. Everything else keeps to the palette below.
+Each category and each emergency number has a flat pictogram (red cross, green capsule,
+blood drop and so on, in `src/icons.js`). They share one set of rules: filled shapes, no
+outlines, one neutral and at most one colour. They sit straight on the green ground, and on
+a green disc on the map. Everything else keeps to the palette below.
 
 Green ground, off-white text, one amber accent for "open" and focus. Square corners, one
 line weight, no shadows, no gradients. Bilingual road-sign discipline: big type, short
