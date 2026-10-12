@@ -3,6 +3,7 @@
 import { lang } from './home.js';
 
 const STYLE = 'https://tiles.openfreemap.org/styles/positron';
+const IMAGERY = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 const RIYADH = [46.6753, 24.7136];
 const AROUND_RIYADH = [
   [45.4, 23.8],
@@ -11,6 +12,7 @@ const AROUND_RIYADH = [
 const GROUND = '#0a4b2c';
 const INK = '#f5f2e7';
 const ACCENT = '#f4d058';
+const DEEP = '#06281a';
 
 const AR_GESTURES = {
   'CooperativeGesturesHandler.WindowsHelpText': 'اضغط Ctrl مع التمرير لتكبير الخريطة',
@@ -24,42 +26,82 @@ function loadLibrary() {
 }
 
 // The base style, adjusted before the map starts: place names follow the page
-// language, and the US road-shield layers (which only log warnings here) are dropped.
-async function loadStyle() {
+// language, the US road-shield layers (which only log warnings here) are dropped,
+// and a satellite imagery layer is slotted in under the labels.
+const drawn = new Map(); // layer id -> how the plain map draws it
+
+async function loadStyle(satellite) {
   const style = await (await fetch(STYLE)).json();
   const field =
     lang === 'ar'
       ? ['coalesce', ['get', 'name:ar'], ['get', 'name']]
       : ['coalesce', ['get', 'name:en'], ['get', 'name_en'], ['get', 'name:latin'], ['get', 'name']];
-  style.layers = style.layers.filter((layer) => !layer.id.includes('shield'));
-  for (const layer of style.layers) {
+  const layers = style.layers.filter((layer) => !layer.id.includes('shield'));
+  for (const layer of layers) {
     if (layer.type === 'symbol' && JSON.stringify(layer.layout?.['text-field'] ?? '').includes('name')) layer.layout['text-field'] = field;
+    drawn.set(layer.id, {
+      type: layer.type,
+      visibility: layer.layout?.visibility ?? 'visible',
+      text: [layer.paint?.['text-color'], layer.paint?.['text-halo-color'], layer.paint?.['text-halo-width']],
+    });
+  }
+  style.sources.imagery = { type: 'raster', tiles: [IMAGERY], tileSize: 256, maxzoom: 18 };
+  style.layers = [
+    ...layers.filter((layer) => layer.type !== 'symbol'),
+    { id: 'imagery', type: 'raster', source: 'imagery', layout: { visibility: 'none' } },
+    ...layers.filter((layer) => layer.type === 'symbol'),
+  ];
+  for (const layer of style.layers) {
+    const look = lookFor(layer.id, satellite);
+    layer.layout = { ...layer.layout, visibility: look.visibility };
+    if (satellite && look.text) layer.paint = { ...layer.paint, 'text-color': look.text[0], 'text-halo-color': look.text[1], 'text-halo-width': look.text[2] };
   }
   return style;
 }
 
+// How one base layer should look in each mode: over imagery the drawn land and roads
+// are hidden and the labels turn light with a dark edge.
+function lookFor(id, satellite) {
+  if (id === 'imagery') return { visibility: satellite ? 'visible' : 'none' };
+  const plain = drawn.get(id);
+  if (plain.type === 'symbol') return { visibility: plain.visibility, text: satellite ? [INK, 'rgba(6, 40, 26, 0.9)', 1.5] : plain.text };
+  return { visibility: satellite && plain.type !== 'background' ? 'none' : plain.visibility };
+}
+
+function setMode(map, satellite) {
+  for (const id of ['imagery', ...drawn.keys()]) {
+    const look = lookFor(id, satellite);
+    map.setLayoutProperty(id, 'visibility', look.visibility);
+    if (look.text) {
+      map.setPaintProperty(id, 'text-color', look.text[0]);
+      map.setPaintProperty(id, 'text-halo-color', look.text[1]);
+      map.setPaintProperty(id, 'text-halo-width', look.text[2]);
+    }
+  }
+}
+
 // A round pin carrying the category's line icon, drawn at twice the size for sharp screens.
-function pinImage(path) {
+function pinImage(path, color) {
   const size = 84;
   const canvas = Object.assign(document.createElement('canvas'), { width: size, height: size });
   const g = canvas.getContext('2d');
-  g.fillStyle = GROUND;
-  g.strokeStyle = INK;
-  g.lineWidth = 4;
+  g.fillStyle = color;
+  g.strokeStyle = DEEP;
+  g.lineWidth = 5;
   g.beginPath();
   g.arc(size / 2, size / 2, size / 2 - 3, 0, Math.PI * 2);
   g.fill();
   g.stroke();
   g.translate(18, 18);
   g.scale(2, 2);
-  g.lineWidth = 1.7;
+  g.lineWidth = 1.8;
   g.lineCap = 'square';
   g.stroke(new Path2D(path));
   return g.getImageData(0, 0, size, size);
 }
 
-export async function createMap(container, { cats, popup, onMove }) {
-  const [gl, style] = await Promise.all([loadLibrary(), loadStyle()]);
+export async function createMap(container, { cats, popup, onMove, satellite }) {
+  const [gl, style] = await Promise.all([loadLibrary(), loadStyle(satellite)]);
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const map = new gl.Map({
     container,
@@ -67,6 +109,7 @@ export async function createMap(container, { cats, popup, onMove }) {
     center: RIYADH,
     zoom: 10,
     minZoom: 8,
+    maxZoom: 18,
     maxBounds: AROUND_RIYADH,
     // on a touch screen one finger scrolls the page and two move the map
     cooperativeGestures: matchMedia('(pointer: coarse)').matches,
@@ -79,7 +122,7 @@ export async function createMap(container, { cats, popup, onMove }) {
     map.once('error', (e) => reject(e.error));
   });
   container.classList.add('is-ready');
-  for (const cat of cats) map.addImage(`pin-${cat.id}`, pinImage(cat.icon), { pixelRatio: 2 });
+  for (const cat of cats) map.addImage(`pin-${cat.id}`, pinImage(cat.icon, cat.color), { pixelRatio: 2 });
 
   const empty = { type: 'FeatureCollection', features: [] };
   // Each cluster counts its places per category, so a cluster of one kind can wear that kind's icon.
@@ -174,6 +217,8 @@ export async function createMap(container, { cats, popup, onMove }) {
 
   return {
     bounds: () => map.getBounds(),
+    setSatellite: (on) => setMode(map, on),
+    lookAt: (bbox) => map.fitBounds(bbox, { padding: 40, maxZoom: 15, animate: !still }),
     select: (row) => show(row.id, [row.lng, row.lat], true),
     pick(done) {
       picking = done;
