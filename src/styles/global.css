@@ -1,4 +1,5 @@
 /* Ice ground, deep blue ink, one orange accent. Two radii, one line weight, no shadows. */
+/* The logo's own colours are in src/logo.js. */
 :root {
   --ground: #e9eef4;
   --surface: #ffffff;
@@ -8,14 +9,14 @@
   --sunk: #d9e2ec;
   --accent: #ff8a3d;
   --accent-deep: #f47a26;
-  --line: 2px;
+  --line: 1.5px;
   --card: 14px;
   --ctl: 10px;
   --pad: 1rem;
   --wide: 46rem;
-  /* the height of everything above the page content: name row, tabs, emergency numbers */
-  --head: 13.125rem;
-  --bar: 0px;
+  /* --bar is the row that stays on screen; --head is everything above the page content */
+  --bar: 3.5rem;
+  --head: 7.25rem;
   --display: 'Markazi Text', 'IBM Plex Sans Arabic', serif;
   color-scheme: light;
 }
@@ -120,49 +121,109 @@ bdi[dir='ltr'] {
   white-space: nowrap;
 }
 
-/* the header's children sit directly in the page so the emergency numbers can stick to the viewport */
+/* the header's children sit directly in the page so its first row can stick to the viewport */
 header {
   display: contents;
 }
 
-/* Site name, location, language, then the four sections as one segmented control */
-.masthead {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
+/* First row, always on screen: the logo at the start, the three emergency numbers at the end */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
   align-items: center;
-  gap: 0 0.5rem;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: calc(var(--bar) + env(safe-area-inset-top));
   padding-block-start: env(safe-area-inset-top);
   padding-inline: max(var(--pad), env(safe-area-inset-left)) max(var(--pad), env(safe-area-inset-right));
+  background: var(--ground);
 }
 
-.name {
+.logo {
   display: inline-flex;
   align-items: center;
-  justify-self: start;
-  min-height: 3.75rem;
-  font-family: var(--display);
-  font-size: 2.25rem;
-  font-weight: 700;
-  line-height: 1;
+  gap: 0.5rem;
+  min-height: 2.75rem;
   text-decoration: none;
 }
 
-.loc-btn {
-  max-width: 9.5rem;
+.mark {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
 }
 
-.loc-btn span {
+.wordmark {
+  flex: none;
+  width: 5rem;
+  height: 1.75rem;
+}
+
+.wordmark-ar {
+  font-family: var(--display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Emergency numbers: one joined strip, a pictogram and a number in each cell */
+.em ul {
+  display: flex;
+  border: var(--line) solid var(--ink);
+  border-radius: var(--ctl);
+  background: var(--surface);
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.loc-btn .icon {
+.em li + li {
+  border-inline-start: var(--line) solid var(--ink);
+}
+
+.em a {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 2.75rem;
+  padding-inline: 0.5rem;
+  text-decoration: none;
+}
+
+.em a:focus-visible {
+  outline-offset: -4px;
+}
+
+.em .pic {
   width: 1.125rem;
   height: 1.125rem;
 }
 
+.em b {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.em span {
+  display: none;
+  color: var(--soft);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+/* Second row: the four sections as one segmented control, then the language */
+.subbar {
+  display: flex;
+  gap: 0.5rem;
+  padding-block-end: 0.75rem;
+  padding-inline: max(var(--pad), env(safe-area-inset-left)) max(var(--pad), env(safe-area-inset-right));
+}
+
 .tabs {
-  grid-column: 1 / -1;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .tabs ul {
@@ -184,8 +245,8 @@ header {
   align-items: center;
   justify-content: center;
   height: 100%;
-  padding-inline: 0.25rem;
-  font-size: 0.9375rem;
+  padding-inline: 0.125rem;
+  font-size: 0.875rem;
   line-height: 1.3;
   text-align: center;
   text-decoration: none;
@@ -205,54 +266,8 @@ header {
   outline-color: var(--surface);
 }
 
-/* Emergency numbers: three tickets on every page */
-.em {
-  padding-block: 0.75rem 0.625rem;
-  padding-inline: max(var(--pad), env(safe-area-inset-left)) max(var(--pad), env(safe-area-inset-right));
-  border-block-end: var(--line) solid transparent;
-  background: var(--ground);
-}
-
-.em ul {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.5rem;
-}
-
-.em a {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  align-content: center;
-  height: 4.875rem;
-  padding-inline: 0.625rem;
-  border: var(--line) solid var(--ink);
-  border-radius: var(--card);
-  background: var(--surface);
-  text-decoration: none;
-  overflow: hidden;
-}
-
-.em b {
-  font-family: var(--display);
-  font-size: 2.375rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.em .pic {
-  width: 1.625rem;
-  height: 1.625rem;
-}
-
-.em span {
-  grid-column: 1 / -1;
-  overflow: hidden;
-  color: var(--soft);
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.lang {
+  min-height: 3rem;
 }
 
 /* Type */
@@ -585,11 +600,53 @@ input::placeholder {
 }
 
 .sheet .search {
-  margin-block-start: 0.75rem;
+  margin-block-start: 0.5rem;
 }
 
-.sheet .rows + h3 {
-  margin-block-start: 1rem;
+/* the filters: a row of small switches at the top of the type sheet */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block-start: 0.5rem;
+}
+
+.chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 0.75rem;
+  border: var(--line) solid var(--ink);
+  border-radius: var(--ctl);
+  background: var(--surface);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.chip input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+}
+
+.chip:has(input:checked) {
+  background: var(--accent);
+}
+
+.chip:has(input:focus-visible) {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.chips select {
+  flex: 1 1 9rem;
+  width: auto;
+  min-height: 2.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 .kinds {
@@ -623,7 +680,7 @@ input::placeholder {
 .stage {
   position: relative;
   height: calc(100svh - var(--head) - env(safe-area-inset-top));
-  min-height: 34rem;
+  min-height: 30rem;
   border-block: var(--line) solid var(--ink);
   background: #6f6a5c;
   overflow: hidden;
@@ -673,11 +730,19 @@ input::placeholder {
   inset-block-start: 0.75rem;
   inset-inline: 0.75rem;
   z-index: 3;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.5rem;
+  /* the map shows through the gaps, so it should also take the touches there */
+  pointer-events: none;
 }
 
 .tools .ctl {
+  pointer-events: auto;
+}
+
+.tools .type,
+.tools [data-open-only] {
   min-height: 2.875rem;
   padding-inline: 0.5rem;
   font-size: 0.9375rem;
@@ -685,7 +750,6 @@ input::placeholder {
 }
 
 .tools .type {
-  flex: 1 1 auto;
   justify-content: flex-start;
   min-width: 0;
   white-space: normal;
@@ -706,11 +770,28 @@ input::placeholder {
   height: 1rem;
 }
 
-.map-mode {
+.loc-btn {
+  justify-self: start;
+  max-width: 100%;
+}
+
+.loc-btn span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loc-btn .icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* tilts the map; it sits on the same line as the location button, at the other end */
+.tilt {
   position: absolute;
-  inset-block-start: 4.375rem;
+  inset-block-start: 4.125rem;
   inset-inline-end: 0.75rem;
   z-index: 3;
+  min-width: 2.75rem;
   font-weight: 700;
 }
 
@@ -877,7 +958,7 @@ input::placeholder {
 .card-top {
   display: flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.25rem;
   color: var(--soft);
   font-size: 0.8125rem;
   line-height: 1.5;
@@ -888,27 +969,48 @@ input::placeholder {
   min-width: 0;
 }
 
-.step {
-  width: 2.75rem;
-  padding: 0;
-}
-
-.step .icon {
-  width: 1.125rem;
-  height: 1.125rem;
-}
-
-.pos {
-  flex: none;
-  min-width: 2.25rem;
-  text-align: center;
-}
-
 .place h2 {
   font-family: var(--display);
   font-size: 1.625rem;
   font-weight: 700;
   line-height: 1.25;
+}
+
+/* in the deck a card is kept short so the map stays in view: tighter type, the steps as
+   plain arrows in the first line, and the details behind one small button */
+.deck .place {
+  gap: 0.125rem;
+  padding: 0.5rem 0.875rem 0.75rem;
+}
+
+.deck .card-top {
+  min-height: 2rem;
+}
+
+.step {
+  flex: none;
+  display: grid;
+  place-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-block: -0.375rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ctl);
+  background: none;
+  color: var(--ink);
+}
+
+.step:last-child {
+  margin-inline-end: -0.625rem;
+}
+
+.step[disabled] {
+  opacity: 0.3;
+}
+
+.step:active {
+  background: var(--sunk);
 }
 
 .deck .place h2 {
@@ -917,6 +1019,20 @@ input::placeholder {
   -webkit-line-clamp: 2;
   line-clamp: 2;
   overflow: hidden;
+  font-size: 1.375rem;
+  line-height: 1.2;
+}
+
+.deck .actions {
+  padding-block-start: 0.5rem;
+}
+
+.deck .actions .btn {
+  min-height: 2.75rem;
+}
+
+.deck .actions .btn-icon {
+  width: 2.75rem;
 }
 
 .meta {
@@ -1069,7 +1185,7 @@ input::placeholder {
 
 .places {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .more-wrap:has([hidden]) {
@@ -1297,35 +1413,54 @@ footer a {
 /* A wide screen: one row for the name, the tabs and the two buttons; the list sits beside a full-height map. */
 @media (min-width: 62rem) {
   :root {
-    --head: 10.875rem;
+    --bar: 4rem;
+    --head: 4rem;
   }
 
-  .masthead {
-    grid-template-columns: auto minmax(22rem, 30rem) 1fr auto auto;
-    gap: 0 1rem;
+  /* one row, always on screen: logo, tabs, then the numbers and the language at the end */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: var(--bar);
     padding-inline: 1.5rem;
+    background: var(--ground);
   }
 
-  .name {
-    min-height: 4.5rem;
+  .topbar,
+  .subbar {
+    display: contents;
   }
 
   .tabs {
-    grid-column: 2;
-    grid-row: 1;
+    flex: 0 1 26rem;
+    order: 1;
   }
 
-  .loc-btn {
-    grid-column: 4;
-    max-width: 16rem;
-  }
-
-  .lang {
-    grid-column: 5;
+  .tabs ul {
+    height: 2.75rem;
   }
 
   .em {
-    padding-inline: 1.5rem;
+    order: 2;
+    margin-inline-start: auto;
+  }
+
+  .em a {
+    gap: 0.375rem;
+    padding-inline: 0.75rem;
+  }
+
+  .em span {
+    display: inline;
+  }
+
+  .lang {
+    order: 3;
+    min-height: 2.75rem;
   }
 
   .sheet {
@@ -1364,6 +1499,7 @@ footer a {
     position: static;
     grid-column: 1;
     padding: 0.75rem 1.5rem 0;
+    pointer-events: auto;
   }
 
   .deck {
@@ -1384,7 +1520,7 @@ footer a {
     border-inline-start: var(--line) solid var(--ink);
   }
 
-  .map-mode {
+  .tilt {
     inset-block-start: 0.75rem;
     inset-inline: 0.75rem auto;
   }
@@ -1411,6 +1547,8 @@ footer a {
   .ctl:hover,
   .btn:hover,
   .row:hover,
+  .chip:not(:has(input:checked)):hover,
+  .step:not([disabled]):hover,
   .em a:hover,
   .tabs a:not([aria-current]):hover,
   .map .maplibregl-ctrl-group button:hover,
@@ -1447,6 +1585,9 @@ footer a {
   .ctl,
   .btn,
   .row,
+  .chip,
+  .chip input,
+  .step,
   .text-btn,
   .place summary,
   .check,
@@ -1467,83 +1608,6 @@ a,
 .text-btn,
 .place summary {
   transition: background-color 0.15s;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  /* Emergency numbers stay in reach: the row sticks and tightens over the first screen of scroll. */
-  @supports (animation-timeline: scroll()) {
-    :root {
-      --bar: 4.125rem;
-    }
-
-    .em {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .em,
-    .em a,
-    .em b,
-    .em span,
-    .em .pic {
-      animation: linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 9rem;
-    }
-
-    .em {
-      animation-name: em-row;
-    }
-
-    .em a {
-      animation-name: em-cell;
-    }
-
-    .em b {
-      animation-name: em-number;
-    }
-
-    .em span {
-      animation-name: em-label;
-    }
-
-    .em .pic {
-      animation-name: em-icon;
-    }
-
-    @keyframes em-row {
-      to {
-        padding-block: 0.5rem;
-        border-block-end-color: var(--ink);
-      }
-    }
-
-    @keyframes em-cell {
-      to {
-        height: 3rem;
-      }
-    }
-
-    @keyframes em-number {
-      to {
-        font-size: 1.75rem;
-      }
-    }
-
-    @keyframes em-label {
-      to {
-        font-size: 0;
-      }
-    }
-
-    @keyframes em-icon {
-      to {
-        width: 1.375rem;
-        height: 1.375rem;
-      }
-    }
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
