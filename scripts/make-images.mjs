@@ -3,11 +3,11 @@
 import sharp from 'sharp';
 import { writeFileSync } from 'node:fs';
 
-const GROUND = '#0a4b2c';
-const INK = '#f5f2e7';
+const GROUND = '#0f2540';
+const INK = '#ffffff';
 const out = (name) => new URL(`../public/${name}`, import.meta.url);
 
-// a map pin on the site's green
+// a map pin on the site's ink blue
 const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="${GROUND}"/><path fill="${INK}" d="M32 10c-9 0-16 7-16 16 0 12 16 28 16 28s16-16 16-28c0-9-7-16-16-16zm0 22a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/></svg>`;
 writeFileSync(out('favicon.svg'), icon);
 await sharp(Buffer.from(icon)).resize(180, 180).png().toFile(out('apple-touch-icon.png').pathname);
