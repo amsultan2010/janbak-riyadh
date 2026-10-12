@@ -28,4 +28,6 @@ essential places with hours and directions, phone lines, official links. See `PL
 - `scripts/build-data.mjs`: validation and merge; also copies MapLibre into `public/vendor/`.
 - `src/pages/[...lang]/`: one file per page, rendered once per language.
 - `src/lib/hours.js`: opening-hours parsing and open-now logic, shared by build and browser.
-- `src/scripts/`: browser code (location, finder, lazy map).
+- `src/components/Explorer.astro` with `src/scripts/explorer.js` and `map.js`: the map-first
+  finder used on the home page and on every category page.
+- `src/pages/data/[lang].json.js`: the compact per-language data file the explorer fetches.
