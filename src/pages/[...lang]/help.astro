@@ -10,7 +10,7 @@ const { lang } = Astro.props;
 const t = translator(lang);
 ---
 
-<Base lang={lang} slug="help" title={t('help.title')} description={t('help.intro')}>
+<Base lang={lang} slug="help" title={t('seo.help.title')} description={t('seo.help.desc')}>
   <h1>{t('help.title')}</h1>
   <p class="lead">{t('help.intro')}</p>
   <Directory lang={lang} groups={HELP_GROUPS} />

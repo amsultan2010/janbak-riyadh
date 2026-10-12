@@ -9,8 +9,8 @@ const { lang } = Astro.props;
 const t = translator(lang);
 ---
 
-<Base lang={lang} slug="about" title={t('about.title')} description={ABOUT[lang][0][1]} pageType="AboutPage">
-  <h1>{t('about.title')}</h1>
+<Base lang={lang} slug="about" title={t('seo.about.title')} description={ABOUT[lang][0][1]} pageType="AboutPage">
+  <h1>{t('seo.about.title')}</h1>
   {
     ABOUT[lang].map(([heading, text]) => (
       <section class="prose">
