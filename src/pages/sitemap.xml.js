@@ -1,7 +1,8 @@
 import { SLUGS } from '../routes.js';
 import { path } from '../i18n.js';
 
-// One entry per page per language, each naming its translation.
+// One entry per page per language, each naming its translation. Arabic is the default,
+// as in the page head.
 export function GET({ site }) {
   const abs = (lang, slug) => new URL(path(lang, slug), site).href;
   const urls = SLUGS.flatMap((slug) =>
@@ -9,6 +10,7 @@ export function GET({ site }) {
       (lang) =>
         `<url><loc>${abs(lang, slug)}</loc>` +
         ['ar', 'en'].map((l) => `<xhtml:link rel="alternate" hreflang="${l}" href="${abs(l, slug)}"/>`).join('') +
+        `<xhtml:link rel="alternate" hreflang="x-default" href="${abs('ar', slug)}"/>` +
         `</url>`,
     ),
   );
