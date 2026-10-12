@@ -1,5 +1,6 @@
 // The finder: one list and one map over every place, narrowed by search,
-// category and opening hours, and sorted by distance once a location is set.
+// category and opening hours. The list is alphabetical until a location is set,
+// then nearest first.
 import { decodeWeek, openState, formatTime } from '../lib/hours.js';
 import { hoursLines } from '../lib/hours-text.js';
 import { getHome, setHome, lang, say, strings, fold } from './home.js';
@@ -76,6 +77,10 @@ async function start(root) {
   }));
   if (preset) rows = rows.filter((r) => r.cat.id === preset);
   const byId = new Map(rows.map((r) => [r.id, r]));
+  // across categories the list runs by name; one category keeps the order it came in,
+  // which is by name too, except embassies by country
+  const byName = new Intl.Collator(lang);
+  [...rows].sort((a, b) => byName.compare(a.name, b.name) || a.order - b.order).forEach((r, i) => (r.abc = i));
 
   // filters start from the address bar, so a filtered view can be shared as a link
   const params = new URLSearchParams(location.search);
@@ -181,7 +186,8 @@ async function start(root) {
         (!box || (r.lat !== null && box.contains([r.lng, r.lat]))) &&
         tokens.every((t) => r.q.includes(t)),
     );
-    return found.sort((a, b) => (home ? (a.km ?? 1e9) - (b.km ?? 1e9) : 0) || a.order - b.order);
+    const key = preset || selected.size === 1 ? 'order' : 'abc';
+    return found.sort((a, b) => (home ? (a.km ?? 1e9) - (b.km ?? 1e9) : 0) || a[key] - b[key]);
   }
 
   function syncUrl() {
