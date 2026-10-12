@@ -10,7 +10,7 @@ export const ICONS = {
   'back': 'M15 5l-7 7 7 7',
 };
 
-// PICTURES: full-colour pictograms for the place categories and the emergency
+// PICTURES: full-colour pictograms for the place categories, their kinds and the emergency
 // numbers. They sit on a light tile in lists and on a light disc on the map.
 const RED = '#e03131';
 const BLUE = '#1c7ed6';
@@ -29,6 +29,8 @@ export const PICTURES = {
   'pharmacies': `<g transform="rotate(-45 12 12)"><path fill="${BLUE}" d="M12 7.5H7.5a4.5 4.5 0 0 0 0 9H12z"/><path fill="${YELLOW}" d="M12 7.5h4.5a4.5 4.5 0 0 1 0 9H12z"/></g>`,
   // a drop of blood carrying a cross
   'blood-donation': `<path fill="${RED}" d="M12 2.5c4.4 5.4 7 9.2 7 12.4a7 7 0 0 1-14 0c0-3.2 2.6-7 7-12.4z"/><path fill="${LIGHT}" d="M11 12h2v2h2v2h-2v2h-2v-2H9v-2h2z"/>`,
+  // the merged category: a drop of blood beside a kidney
+  'blood-dialysis': `<path fill="${RED}" d="M8 2.5c3.6 4.4 5.7 7.5 5.7 10.1a5.7 5.7 0 0 1-11.4 0C2.3 10 4.4 6.9 8 2.5z"/><path fill="#c2255c" d="M16.4 9.5c3 0 5.3 2.4 5.3 6s-2.3 6-5.3 6c-1.6 0-2.7-1-2.7-2.3 0-1.4 1.3-1.8 1.3-3.7s-1.3-2.3-1.3-3.7c0-1.3 1.1-2.3 2.7-2.3z"/>`,
   // a kidney and a drop
   'dialysis': `<path fill="#c2255c" d="M10 3.5c4.2 0 7.5 3.4 7.5 8.5s-3.3 8.5-7.5 8.5c-2.3 0-3.8-1.4-3.8-3.3 0-2 1.8-2.6 1.8-5.2S6.2 8.8 6.2 6.8c0-1.9 1.5-3.3 3.8-3.3z"/><path fill="${BLUE}" stroke="${LIGHT}" stroke-width="1" d="M19.2 12.8c1.4 1.9 2.3 3.2 2.3 4.4a2.3 2.3 0 0 1-4.6 0c0-1.2.9-2.5 2.3-4.4z"/>`,
   // a brain in two halves

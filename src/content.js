@@ -4,24 +4,16 @@
 // One short note above each places list.
 export const CATEGORY_NOTES = {
   'hospitals': {
-    ar: 'لطلب الإسعاف اتصل بالرقم 997. يُلزم النظام المستشفيات الخاصة بعلاج الحالات الطارئة الخطرة دون مطالبة مالية قبل تقديم العلاج. تذكر وزارة الصحة أن أقسام الطوارئ في مستشفياتها تُغطّى بالمناوبات خارج الدوام وفي عطلة نهاية الأسبوع.',
-    en: 'For an ambulance call 997. By law, private hospitals must treat serious emergencies without asking for payment first. The Ministry of Health says emergency departments in its hospitals are covered by on-call rotas outside working hours and at weekends.',
-  },
-  'urgent-care': {
-    ar: 'مراكز تابعة لوزارة الصحة للحالات العاجلة التي لا تستوجب الذهاب إلى المستشفى. في الحالات الخطرة توجّه إلى طوارئ أقرب مستشفى أو اتصل بالرقم 997.',
-    en: 'Ministry of Health centres for urgent cases that do not need a hospital. For anything life-threatening go to a hospital emergency department or call 997.',
+    ar: 'في الحالات الخطرة أو المهددة للحياة توجّه إلى طوارئ أقرب مستشفى، أو اتصل بالرقم 997 لطلب الإسعاف. مراكز الرعاية العاجلة تابعة لوزارة الصحة وتستقبل الحالات العاجلة التي لا تستوجب الذهاب إلى المستشفى. يُلزم النظام المستشفيات الخاصة بعلاج الحالات الطارئة الخطرة دون مطالبة مالية قبل تقديم العلاج. تذكر وزارة الصحة أن أقسام الطوارئ في مستشفياتها تُغطّى بالمناوبات خارج الدوام وفي عطلة نهاية الأسبوع.',
+    en: 'For anything serious or life-threatening go to a hospital emergency department, or call 997 for an ambulance. Urgent care centres are Ministry of Health centres for urgent cases that do not need a hospital. By law, private hospitals must treat serious emergencies without asking for payment first. The Ministry of Health says emergency departments in its hospitals are covered by on-call rotas outside working hours and at weekends.',
   },
   'pharmacies': {
     ar: 'فروع بعض السلاسل وصيدليات مستقلة. كثير من الفروع غير مدرج هنا.',
     en: 'Branches of some chains and independent pharmacies. Many branches are not listed here.',
   },
-  'blood-donation': {
-    ar: 'يمكنك التبرع إذا كان عمرك بين 18 و65 سنة ووزنك 50 كجم على الأقل. أحضر الهوية الوطنية أو الإقامة أو جواز السفر. يمكنك الحضور مباشرة أو الحجز عبر تطبيق صحتي.',
-    en: 'You can donate if you are 18 to 65 and weigh at least 50 kg. Bring your national ID, iqama or passport. You can walk in or book in the Sehhaty app.',
-  },
-  'dialysis': {
-    ar: 'اتصل بالمركز قبل الذهاب للتأكد من إمكانية استقبالك.',
-    en: 'Call the centre before you go to check that it can take you.',
+  'blood-dialysis': {
+    ar: 'التبرع بالدم: يمكنك التبرع إذا كان عمرك بين 18 و65 سنة ووزنك 50 كجم على الأقل. أحضر الهوية الوطنية أو الإقامة أو جواز السفر. يمكنك الحضور مباشرة أو الحجز عبر تطبيق صحتي. غسيل الكلى: اتصل بالمركز قبل الذهاب للتأكد من إمكانية استقبالك.',
+    en: 'Blood donation: you can donate if you are 18 to 65 and weigh at least 50 kg. Bring your national ID, iqama or passport. You can walk in or book in the Sehhaty app. Dialysis: call the centre before you go to check that it can take you.',
   },
   'mental-health': {
     ar: 'للاستشارة النفسية أو لحجز موعد اتصل أولاً بالرقم 937، على مدار الساعة.',
@@ -377,7 +369,8 @@ export const HELP_GROUPS = [
           ar: 'يمكنك التبرع إذا كان عمرك بين 18 و65 سنة ووزنك 50 كجم على الأقل. أحضر الهوية الوطنية أو الإقامة أو جواز السفر.',
           en: 'You can donate if you are 18 to 65 and weigh at least 50 kg. Bring your national ID, iqama or passport.',
         },
-        page: 'places/blood-donation',
+        page: 'places/blood-dialysis',
+        query: '?type=blood-donation',
       },
     ],
   },

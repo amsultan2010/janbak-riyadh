@@ -1,9 +1,9 @@
 import places from '../../data/places.json';
-import { CATEGORIES } from '../../categories.js';
+import { KINDS } from '../../categories.js';
 import { translator, pick, otherLang, LANGS } from '../../i18n.js';
 
 // Every place for one language, as compact rows the explorer reads:
-// [id, category index, name, address, district, lat, lng, phone, hours, usual, phone2, website, source, tags, other-language search text, note, district id]
+// [id, kind index, name, address, district, lat, lng, phone, hours, usual, phone2, website, source, tags, other-language search text, note, district id]
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 
 export function GET({ params }) {
@@ -11,7 +11,7 @@ export function GET({ params }) {
   const other = otherLang(lang);
   const t = translator(lang);
   const sortKey = (p) => (p.country ? pick(p.country, lang) : pick(p.name, lang));
-  const order = (p) => CATEGORIES.findIndex((c) => c.id === p.cat);
+  const order = (p) => KINDS.findIndex((k) => k.id === p.kind);
   const rows = [...places]
     .sort((a, b) => order(a) - order(b) || sortKey(a).localeCompare(sortKey(b), lang))
     .map((p) => [
