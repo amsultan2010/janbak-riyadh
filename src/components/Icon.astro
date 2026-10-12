@@ -1,8 +1,18 @@
 ---
-import { ICONS } from '../icons.js';
+import { ICONS, PICTURES } from '../icons.js';
 
-// `color` turns the icon into a filled tile of that colour
-const { name, flip = false, color = null } = Astro.props;
+// A category or emergency name gives its colour pictogram; anything else is a line icon.
+// `tile` puts a pictogram on a light square so it reads on the green ground.
+const { name, flip = false, tile = false } = Astro.props;
+const picture = PICTURES[name];
 ---
 
-<svg class:list={['icon', { flip, tile: color }]} style={color ? `--c:${color}` : undefined} viewBox="0 0 24 24" aria-hidden="true"><path d={ICONS[name]}></path></svg>
+{
+  picture ? (
+    <svg class:list={['pic', { tile }]} viewBox="0 0 24 24" aria-hidden="true" set:html={picture} />
+  ) : (
+    <svg class:list={['icon', { flip }]} viewBox="0 0 24 24" aria-hidden="true">
+      <path d={ICONS[name]} />
+    </svg>
+  )
+}
