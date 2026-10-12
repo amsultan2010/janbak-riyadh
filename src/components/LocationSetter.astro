@@ -5,26 +5,23 @@ import { translator } from '../i18n.js';
 const { lang } = Astro.props;
 const t = translator(lang);
 const districts = data.districts
-  .filter((d) => d.name_ar || d.name_en)
-  .map((d) => ({ ar: d.name_ar ?? d.name_en, en: d.name_en ?? d.name_ar, lat: d.lat, lng: d.lng }))
+  .filter((d) => d.name_ar && d.name_en && /[\u0600-\u06FF]/.test(d.name_ar))
+  .map((d) => ({ ar: d.name_ar, en: d.name_en, lat: d.lat, lng: d.lng }))
+  .map((d) => ({ ...d, ar: d.ar.replace(/^حي\s+/, ''), en: d.en.replace(/`/g, '') }))
   .sort((a, b) => a[lang].localeCompare(b[lang], lang));
 ---
 
-<section class="loc" data-loc hidden>
-  <h2>{t('loc.title')}</h2>
+<section class="loc" data-loc aria-label={t('loc.title')} hidden>
   <p class="loc-state">
     <span data-loc-text>{t('loc.none')}</span>
     <button type="button" class="text-btn" data-loc-change hidden>{t('loc.change')}</button>
   </p>
   <div class="loc-form" data-loc-form>
     <button type="button" class="btn btn-fill" data-loc-gps>{t('loc.gps')}</button>
-    <label class="field">
-      <span>{t('loc.district')}</span>
-      <select data-loc-district>
-        <option value="">{t('loc.pick')}</option>
+    <select data-loc-district aria-label={t('loc.pick')}>
+        <option value="">{t('loc.district')}</option>
         {districts.map((d) => <option value={`${d.lat},${d.lng}`} data-ar={d.ar} data-en={d.en}>{d[lang]}</option>)}
       </select>
-    </label>
     <button type="button" class="text-btn" data-loc-remove hidden>{t('loc.remove')}</button>
     <p class="small" data-loc-msg role="status">{t('loc.privacy')}</p>
   </div>
