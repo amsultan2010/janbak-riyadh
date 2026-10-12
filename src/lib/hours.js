@@ -36,7 +36,9 @@ function parseTimes(part) {
 export function parseHours(str) {
   if (!str) return null;
   const week = Array.from({ length: 7 }, () => []);
-  for (const rule of str.split(';').map((r) => r.trim()).filter(Boolean)) {
+  // some mappers separate rules with a comma: "Sa-Th 08:00-20:00, Fr 13:00-20:00"
+  const rules = str.replace(/(\d),\s*(?=(?:Su|Mo|Tu|We|Th|Fr|Sa)\b)/g, '$1;');
+  for (const rule of rules.split(';').map((r) => r.trim()).filter(Boolean)) {
     if (rule === '24/7') { for (let d = 0; d < 7; d++) week[d] = [[0, DAY_MIN]]; continue; }
     const at = rule.search(/\d|off|closed/i);
     if (at < 0) return null;

@@ -21,6 +21,13 @@ test('later rules override, off closes the day, PH is ignored', () => {
   assert.deepEqual(week[6], []);
 });
 
+test('comma between rules is accepted', () => {
+  const week = parseHours('Sa-Th 08:00-12:00,16:00-20:00, Fr 13:00-20:00');
+  assert.deepEqual(week[0], [[480, 720], [960, 1200]]);
+  assert.deepEqual(week[5], [[780, 1200]]);
+  assert.deepEqual(parseHours('Sa,Mo-Fr 09:00-01:00')[0], []);
+});
+
 test('day range that wraps the week', () => {
   const week = parseHours('Sa-Th 07:00-03:00; Fr 13:00-01:00');
   assert.deepEqual(week[6], [[420, 1620]]);
