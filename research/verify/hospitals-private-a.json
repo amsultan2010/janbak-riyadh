@@ -1,0 +1,262 @@
+{
+  "checked": "2026-10-12",
+  "items": [
+    {
+      "file": "hospitals",
+      "id": "hmg-olaya-medical-complex",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "HMG site facility record (Projects list, isActive true, Riyadh region) shows Contact '+966 11 5259999'; HMG app/selector feed GetProject shows PhoneNumber '+966115259999', IsActive true. Matches existing phone. HMG Services record \"Emergency Departments\": \"HMG's expansive emergency network features 7+ departments, 24/7 coverage\" / \"أكثر من 7 أقسام تعمل على مدار الساعة\" (group-level statement). No branch ER number published. ",
+      "sources": [
+        "https://hmg.com/_api/web/lists/getbytitle('Projects')/items",
+        "https://hmgwebservices.com/Services/Lists.svc/REST/GetProject",
+        "https://hmg.com/_api/web/lists/getbytitle('Services')/items"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "hmg-al-rayyan-hospital",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "HMG site facility record (Projects list, isActive true, Riyadh region) shows Contact '+966 11 4909999'; HMG app/selector feed GetProject shows PhoneNumber '+966114909999', IsActive true. Matches existing phone. HMG Services record \"Emergency Departments\": \"HMG's expansive emergency network features 7+ departments, 24/7 coverage\" / \"أكثر من 7 أقسام تعمل على مدار الساعة\" (group-level statement). No branch ER number published. ",
+      "sources": [
+        "https://hmg.com/_api/web/lists/getbytitle('Projects')/items",
+        "https://hmgwebservices.com/Services/Lists.svc/REST/GetProject",
+        "https://hmg.com/_api/web/lists/getbytitle('Services')/items"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "hmg-al-takhassusi-hospital",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "HMG site facility record (Projects list, isActive true, Riyadh region) shows Contact '+ 966 11 2833333'; HMG app/selector feed GetProject shows PhoneNumber '+966112833333', IsActive true. Matches existing phone. HMG Services record \"Emergency Departments\": \"HMG's expansive emergency network features 7+ departments, 24/7 coverage\" / \"أكثر من 7 أقسام تعمل على مدار الساعة\" (group-level statement). No branch ER number published. ",
+      "sources": [
+        "https://hmg.com/_api/web/lists/getbytitle('Projects')/items",
+        "https://hmgwebservices.com/Services/Lists.svc/REST/GetProject",
+        "https://hmg.com/_api/web/lists/getbytitle('Services')/items"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "hmg-al-suwaidi-hospital",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "HMG site facility record (Projects list, isActive true, Riyadh region) shows Contact '+ 966 11 475 4444'; HMG app/selector feed GetProject shows PhoneNumber '+966114754444', IsActive true. Matches existing phone. HMG Services record \"Emergency Departments\": \"HMG's expansive emergency network features 7+ departments, 24/7 coverage\" / \"أكثر من 7 أقسام تعمل على مدار الساعة\" (group-level statement). No branch ER number published. ",
+      "sources": [
+        "https://hmg.com/_api/web/lists/getbytitle('Projects')/items",
+        "https://hmgwebservices.com/Services/Lists.svc/REST/GetProject",
+        "https://hmg.com/_api/web/lists/getbytitle('Services')/items"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "hmg-al-sahafa-hospital",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "HMG site facility record (Projects list, isActive true, Riyadh region) shows Contact '+966 11 522 2222'; HMG app/selector feed GetProject shows PhoneNumber '+966115222222', IsActive true. Matches existing phone. HMG Services record \"Emergency Departments\": \"HMG's expansive emergency network features 7+ departments, 24/7 coverage\" / \"أكثر من 7 أقسام تعمل على مدار الساعة\" (group-level statement). No branch ER number published. ",
+      "sources": [
+        "https://hmg.com/_api/web/lists/getbytitle('Projects')/items",
+        "https://hmgwebservices.com/Services/Lists.svc/REST/GetProject",
+        "https://hmg.com/_api/web/lists/getbytitle('Services')/items"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "hmg-al-hamra-hospital",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Phone confirmed: GetProject feed PhoneNumber '+966112199999' (AlHamra Hospital, IsActive true); site Projects record shows the same digits without area code ('+966 219 9999'), isActive true. Operating: HMG news items about Al Hamra hospital through 2026-10-11. ER hours still not stated for this branch: the opening announcement (news 4892) says only the two outpatient pharmacies run 24/7 ('صيدليتين خارجيتين تعملان على مدار الساعة') and that there is 'an emergency department prepared to handle all critical cases'. er_24h and hours left null.",
+      "sources": [
+        "https://hmgwebservices.com/Services/Lists.svc/REST/GetProject",
+        "https://hmg.com/_api/web/lists/getbytitle('Projects')/items",
+        "https://hmg.com/_api/web/lists/getbytitle('NewsFeed')/items(4892)",
+        "https://hmg.com/_api/web/lists/getbytitle('NewsFeed')/items"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "hmg-womens-health-hospital",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Existing phone +966112099999 matches the GetProject feed (Women Health Hospital, IsActive true). The site's Projects record for the same hospital still shows a different contact, '+966 92 006 6666' (920066666), so two official HMG records disagree; neither was changed. Operating: HMG news items through 2026-08. No loaded HMG page states this branch's emergency hours; er_24h and hours left null.",
+      "sources": [
+        "https://hmgwebservices.com/Services/Lists.svc/REST/GetProject",
+        "https://hmg.com/_api/web/lists/getbytitle('Projects')/items",
+        "https://hmg.com/_api/web/lists/getbytitle('NewsFeed')/items"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "dallah-hospital-al-nakheel",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Branch emergency page: 'This center is managed by specialized medical staff 24 hours a day, all days of the week'; header and footer show 920012222; contact page 'Call Center 920012222'. Patient-rights page gives the switchboard 'Dallah Hospital - Alnakheel telephone 011/299-5555'. No separate ER number published. Existing values match.",
+      "sources": [
+        "https://www.dallah-hospital.com/english/dallah-alnakheel/medical-services/emergency-department",
+        "https://www.dallah-hospital.com/english/contact-us/get-in-touch",
+        "https://www.dallah-hospital.com/english/about/patient-care"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "dallah-hospital-namar",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Branch emergency page: 'This Center is managed by specialized medical staff 24 hours a day, all days of the week.'; header and footer show 920012222; contact page 'Call Center 920012222'. Patient-rights page gives the switchboard 'Dallah Hospital- Namar Telephone 011/ 8275555'. No separate ER number published. Existing values match.",
+      "sources": [
+        "https://www.dallah-hospital.com/english/home/dallah-namar/new-medical-services/emergency-department",
+        "https://www.dallah-hospital.com/english/contact-us/get-in-touch",
+        "https://www.dallah-hospital.com/english/about/patient-care"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "kingdom-hospital-dallah",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Hospital's own site: 'Kingdom hospital & Consulting Clinics: 920000751' (header and contact page; a second line 920019123 is labelled Consulting Clinics); departments page: 'Our outpatients services are provided from 9am to 9pm. Inpatient and Emergency services are provided 24/7.' Site footer dated 2026. No separate ER number. Existing values match.",
+      "sources": [
+        "http://khccgroup.com/en/departments",
+        "http://khccgroup.com/en/contact"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "mouwasat-hospital-riyadh",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Branch page title: 'Mouwasat Hospital Riyadh | Comprehensive Medical Services and ER 24/7' / 'مستشفى المواساة الرياض | خدمات طبية متكاملة وطوارئ على مدار الساعة'; page shows 'Unified Number: 920004477' (tel:+966 920 004 477). No branch landline or ER number displayed. Existing values match.",
+      "sources": [
+        "https://www.mouwasat.com/en/hospital/mouwasat-hospital-riyadh",
+        "https://www.mouwasat.com/ar/hospital/mouwasat-hospital-riyadh"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "saudi-german-hospital-riyadh",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Riyadh branch site header shows +966920007997 (tel link); emergency department page: 'with 24/7 availability' and 'quick response to all cases, no matter how complicated 24/7'. Arabic branch page also carries the landline +966 11 268 5555. No ER-specific number. Existing values match.",
+      "sources": [
+        "https://riyadh.saudigermanhealth.com/en/department/emergency-and-critical-care",
+        "https://riyadh.saudigermanhealth.com/en/contact-us",
+        "https://riyadh.saudigermanhealth.com/ar"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "al-hammadi-hospital-al-suwaidi",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Hospital page and site header: 'Al Hammadi Al Suwaidi +966 11 425 0000'; contact page '966-11-425-0000'. Hospital page lists 'Emergency and Ambulance Department'; that department page shows 'Opening Hours ... Ambulance and Emergency 7 / 24' and 'providing emergency services 24 hours / 7 days' / 'على مدار 24 ساعة / 7 أيام' (shared page for both hospitals). No ER-specific number. Existing values match.",
+      "sources": [
+        "https://alhammadi.med.sa/HospDetails.aspx?lang=en&HID=2",
+        "https://alhammadi.med.sa/HospDetails.aspx?lang=ar&HID=2",
+        "https://alhammadi.med.sa/Departements.aspx?lang=en&DID=23",
+        "https://alhammadi.med.sa/Departements.aspx?lang=ar&DID=23",
+        "https://alhammadi.med.sa/Contact.aspx?lang=en"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "al-hammadi-hospital-al-nuzha",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Hospital page and site header: 'Al Hammadi Al Nuzha +966 11 483 7777'; contact page '966-11-483-7777'. Hospital page lists 'Emergency and Ambulance Department'; that department page shows 'Opening Hours ... Ambulance and Emergency 7 / 24' and 'providing emergency services 24 hours / 7 days' (shared page for both hospitals). No ER-specific number. Existing values match.",
+      "sources": [
+        "https://alhammadi.med.sa/HospDetails.aspx?lang=en&HID=3",
+        "https://alhammadi.med.sa/HospDetails.aspx?lang=ar&HID=3",
+        "https://alhammadi.med.sa/Departements.aspx?lang=en&DID=23",
+        "https://alhammadi.med.sa/Departements.aspx?lang=ar&DID=23",
+        "https://alhammadi.med.sa/Contact.aspx?lang=en"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "smc-king-fahad-road-hospital",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "SMC site lists 'مستشفى طريق الملك فهد' under 'مستشفياتنا' and gives one company-wide number '+966 11-4343800' (tel:011-4343800). Emergency statement is company-wide, not per branch: 'جُهزت أقسام الإسعاف ... لاستقبال جميع الحالات الإسعافية والحرجة وكذلك حالات الحوادث ... على مدار الساعة'. No branch landline or ER number published. Existing values match.",
+      "sources": [
+        "https://smc.com.sa/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "smc-king-abdullah-road-hospital",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "SMC site lists 'مستشفى طريق الملك عبدالله' under 'مستشفياتنا' and gives one company-wide number '+966 11-4343800' (tel:011-4343800). Emergency statement is company-wide, not per branch: 'جُهزت أقسام الإسعاف ... لاستقبال جميع الحالات الإسعافية والحرجة ... على مدار الساعة'. No branch landline or ER number published. Existing values match.",
+      "sources": [
+        "https://smc.com.sa/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "care-medical-hospital-ar-rawabi",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Official branch page (archived 2025-10-11), title 'Care Medical Hospital - Ar Rawabi': header phone '0114378888' (tel:00966114378888); 'Emergency Department: Operating 24/7 to handle urgent and critical cases' and '24/7 emergency care availability'. No ER-specific number. Existing values match. Live site returned HTTP 403 (Cloudflare block) to curl and WebFetch on 2026-10-12, so this rests on archived copies of the official pages, not a same-day load.",
+      "sources": [
+        "https://web.archive.org/web/20251011093943id_/https://care.med.sa/en/hospital/riyadh-care"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "care-medical-hospital-al-malaz",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Official branch page (archived 2025-06-21 EN, 2026-04-29 AR), title 'Care Medical Hospital - Almalaz': header phone '0114378888' (tel:00966114378888); department list includes '- Emergency Department.' / '- قسم الطوارئ.' with no hours on the branch page. The 24/7 statement is on Care's shared Emergency clinic page (archived 2025-06-16): 'Emergency Department provides immediate and comprehensive care for urgent cases 24/7'. No ER-specific number. Existing values match. Live site returned HTTP 403 (Cloudflare block) to curl and WebFetch on 2026-10-12, so this rests on archived copies of the official pages, not a same-day load.",
+      "sources": [
+        "https://web.archive.org/web/20250621132730id_/https://care.med.sa/en/hospital/national-care",
+        "https://web.archive.org/web/20260429140853id_/https://care.med.sa/ar/hospital/national-care",
+        "https://web.archive.org/web/20250616032214id_/https://care.med.sa/en/view-clinics/30832"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "dr-soliman-fakeeh-hospital-riyadh",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Hospital site: 'Emergency Department: Exceptional Care, 24/7 ... available 24 hours a day, 7 days a week, 365 days a year!'; contact page: 'To book an appointment or for inquiries, please contact 8001209999'; footer 'King Fahd Rd, Alyasmin, Riyadh 11564 8001209999'. No ER-specific number. Existing values match.",
+      "sources": [
+        "https://en.dsfhriyadh.fakeeh.care/facilities/24-7-emergency-department",
+        "https://en.dsfhriyadh.fakeeh.care/about-us/contact-us",
+        "https://dsfhriyadh.fakeeh.care/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "dr-mohammad-alfagih-hospital",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Official site (archived): contact page 'Contact Center Phone Number 0114560000' (tel:0114560000, archived 2025-06-20); emergency page 'قسم الطوارئ: استقبال جميع الحالات الطارئة للصغار والكبار والنساء على مدار 24 ساعة' (archived 2025-07-14). No ER-specific number. Existing values match. Snapshots predate the Fakeeh Care Group acquisition noted in the entry, so a number change after the takeover cannot be ruled out from these. Live site returned HTTP 403 (Cloudflare block) to curl and WebFetch on 2026-10-12, so this rests on archived copies of the official pages, not a same-day load.",
+      "sources": [
+        "https://web.archive.org/web/20250620081747id_/https://dmf.med.sa/en/contact/",
+        "https://web.archive.org/web/20250714114720id_/https://dmf.med.sa/services/%D9%82%D8%B3%D9%85-%D8%A7%D9%84%D8%B7%D9%88%D8%A7%D8%B1%D8%A6/",
+        "https://web.archive.org/web/20250718195901id_/https://dmf.med.sa/"
+      ],
+      "source_kind": "official"
+    }
+  ]
+}

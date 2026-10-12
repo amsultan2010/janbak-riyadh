@@ -1,0 +1,134 @@
+{
+  "checked": "2026-10-12",
+  "about": "Short notes shown on the site, written from the official wording already recorded in hospitals.json and hospitals-gov.json, plus one judgment call from the private hospitals pass.",
+  "items": [
+    {
+      "file": "hospitals",
+      "id": "kamc-ngha-riyadh",
+      "status": "filled",
+      "set": {
+        "note_en": "For National Guard staff and their families. Its emergency department also receives other emergency patients under set conditions.",
+        "note_ar": "لمنسوبي الحرس الوطني وذويهم. ويستقبل قسم الطوارئ مرضى الطوارئ من غيرهم وفق شروط محددة."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "kasch-ngha-riyadh",
+      "status": "filled",
+      "set": {
+        "note_en": "National Guard children's hospital. Its emergency department takes all children who need emergency care.",
+        "note_ar": "مستشفى أطفال تابع للحرس الوطني. يستقبل قسم الطوارئ جميع الأطفال المحتاجين إلى رعاية طارئة."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "psmmc-riyadh",
+      "status": "filled",
+      "set": {
+        "note_en": "For Ministry of Defense staff, their families and other entitled groups.",
+        "note_ar": "لمنسوبي وزارة الدفاع وأسرهم والفئات المستحقة الأخرى."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "pscc-riyadh",
+      "status": "filled",
+      "set": {
+        "note_en": "Heart centre for Armed Forces staff, their families and patients referred to it.",
+        "note_ar": "مركز للقلب يخدم منسوبي القوات المسلحة وذويهم والمرضى المحالين إليه."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "security-forces-hospital-riyadh",
+      "status": "filled",
+      "set": {
+        "note_en": "For Ministry of Interior and State Security staff and their families.",
+        "note_ar": "لمنسوبي وزارة الداخلية ورئاسة أمن الدولة وذويهم."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "kfshrc-riyadh",
+      "status": "filled",
+      "set": {
+        "note_en": "Referral hospital. Emergency care day and night for adults and children with urgent or life-threatening conditions.",
+        "note_ar": "مستشفى مرجعي بالإحالة. رعاية طارئة على مدار الساعة للبالغين والأطفال في الحالات العاجلة أو المهدِّدة للحياة."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "king-fahad-medical-city",
+      "status": "filled",
+      "set": {
+        "note_en": "Referral medical city: outpatient clinics take patients by referral.",
+        "note_ar": "مدينة طبية مرجعية: العيادات الخارجية تستقبل المرضى بالإحالة."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "al-yamamah-hospital",
+      "status": "filled",
+      "set": {
+        "note_en": "Maternity and children's hospital: its emergency care is for women and children.",
+        "note_ar": "مستشفى للولادة والأطفال: الطوارئ فيه للنساء والأطفال."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "king-khaled-eye-specialist-hospital",
+      "status": "filled",
+      "set": {
+        "note_en": "Eye emergencies only.",
+        "note_ar": "طوارئ العيون فقط."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "kaauh-pnu-riyadh",
+      "status": "filled",
+      "set": {
+        "note_en": "University hospital whose eligibility rules favour Princess Nourah University staff and their families.",
+        "note_ar": "مستشفى جامعي تُعطى فيه الأولوية وفق شروط الأهلية لمنسوبي جامعة الأميرة نورة وذويهم."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "kkuh-ksumc-riyadh",
+      "status": "filled",
+      "set": {
+        "note_en": "Emergency care day and night for patients of all ages.",
+        "note_ar": "طوارئ على مدار الساعة لجميع الأعمار."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "hmg-womens-health-hospital",
+      "status": "filled",
+      "set": {
+        "note_en": "Women's health hospital: maternity, gynaecology and newborn care.",
+        "note_ar": "مستشفى لصحة المرأة: الولادة وأمراض النساء ورعاية حديثي الولادة."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "family-care-hospital",
+      "status": "corrected",
+      "set": {
+        "er_24h": null,
+        "hours": null,
+        "note_en": "Round-the-clock emergency care is confirmed for children only.",
+        "note_ar": "الطوارئ على مدار الساعة مؤكدة للأطفال فقط."
+      }
+    },
+    {
+      "file": "hospitals",
+      "id": "al-azhar-hospital-riyadh",
+      "status": "corrected",
+      "set": {
+        "confidence": "low"
+      },
+      "evidence": "Second pass matched the phone only against a 2017 Ministry of Health record, found no emergency department and no coordinates, so it stays off the site."
+    }
+  ]
+}

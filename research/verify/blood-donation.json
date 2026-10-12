@@ -1,0 +1,231 @@
+{
+  "checked": "2026-10-12",
+  "items": [
+    {
+      "file": "blood-donation",
+      "id": "kfshrc-blood-bank",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "KFSHRC donor page, English and Arabic, loaded today: 'Sunday to Thursday 7:30 Am - 9:00 PM, from KFSH&RC Main Gate'; footer 'Central helpline 199019'. A Feb 2025 KFSHRC staff appeal gave a different window (Sun-Thu 10:00-22:00, Blood Bank, Gate 1) and a blood-bank line 0114427222 ext. 27222; the standing donor page is the newer statement, so nothing changed.",
+      "sources": ["https://www.kfshrc.edu.sa/en/giving/blood-donation", "https://www.kfshrc.edu.sa/ar/giving/blood-donation", "https://www.kfshrc.edu.sa/ar/news/2025/02/blood-bank-announces-the-need-for-blood-doners"],
+      "source_kind": "official"
+    },
+    {
+      "file": "blood-donation",
+      "id": "kfmc-blood-bank",
+      "status": "corrected",
+      "set": {"phone": "8001277000"},
+      "evidence": "Phone: format only; KFMC pages print 8001277000 (toll-free, so bare digits). Hours conflict NOT resolved: official pages still disagree and a fourth range turned up. KFMC Arabic donor page: Sun-Thu 08:00-17:45. KFMC English donor page: Sun-Thu 7:00 am-10:00 pm. MoH directory: 08:00-23:00, no days. Riyadh Second Health Cluster donation-centres page: 9:00-17:00, no days. The Google listing 'بنك الدم' (Blood donation center) shows 8 AM-5:45 PM for today, Monday. The existing value Su-Th 08:00-17:45 matches the Arabic page and the listing and sits inside every other range except the cluster's 9-5; keep it at medium confidence.",
+      "sources": ["https://www.kfmc.med.sa/AR/BloodDonation/Pages/Contact.aspx", "https://www.kfmc.med.sa/EN/BloodDonation/Pages/Contact.aspx", "https://www.rc2.med.sa/ar/BloodDonation/Pages/DonationCenters.aspx", "https://www.moh.gov.sa/eServices/interactive-maps/Documents/blood.pdf", "https://maps.app.goo.gl/2mk22qGPcR2mzFnVA"],
+      "source_kind": "official"
+    },
+    {
+      "file": "blood-donation",
+      "id": "kamc-ngha-blood-bank",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Google Maps listing linked from the MoH directory (categories Blood bank / Blood donation center): Sunday-Thursday 8 AM-6:30 PM, Friday and Saturday closed, phone +966 11 804 0160. Matches the existing hours and phone. Still no official donor hours.",
+      "sources": ["https://maps.app.goo.gl/6Wq6pV5vjrYRxdG19"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "central-blood-bank-riyadh",
+      "status": "filled",
+      "set": {"hours": "Su-Th 08:00-20:00; Sa 10:00-19:00", "confidence": "medium"},
+      "evidence": "No official page with days was found, so the conflict is settled only by the secondary source. Google Maps listing linked from the MoH directory (category Blood donation center), loaded today: Sunday-Thursday 8 AM-8 PM, Friday closed, Saturday 10 AM-7 PM, phone +966 11 435 9081 (matches existing phone). The MoH directory row says '4:00 PM - 11:00 PM', shift 'مسائي', under the column 'working period for the national campaign', with no days; that is a campaign shift window, not a weekly timetable.",
+      "sources": ["https://maps.app.goo.gl/vGZ6No1Z4vRKn1Q47", "https://www.moh.gov.sa/eServices/interactive-maps/Documents/blood.pdf"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "ksmc-blood-bank",
+      "status": "filled",
+      "set": {"phone": "+966118371777", "confidence": "medium"},
+      "evidence": "Hours: not found. The MoH-linked Google listing is the hospital (Open 24 hours), not the donor room; ksmc.med.sa redirects to eportal.ksmc.med.sa, which did not answer. Phone filled from that hospital listing: +966 11 837 1777 (hospital switchboard, not a donor line).",
+      "sources": ["https://maps.app.goo.gl/652WTWbC7TyFwimE9", "https://www.moh.gov.sa/eServices/interactive-maps/Documents/blood.pdf"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "pmah-blood-bank",
+      "status": "corrected",
+      "set": {"phone": "8001277000", "where_inside_en": "Ground floor of the Outpatient Clinics Building, Laboratory and Blood Bank."},
+      "evidence": "Hours: still no days. Riyadh Second Health Cluster donation-centres page lists Prince Mohammed bin Abdulaziz Hospital: 'الدور الأرضي في مبنى العيادات الخارجية - المختبر وبنك الدم', working hours '8 صباحا إلى 04:30 عصرا' (08:00-16:30), no days of the week; MoH directory says 08:00-16:00. Phone: format only; the cluster site header prints 8001277000 and the hospital's Google listing shows 800 127 7000.",
+      "sources": ["https://www.rc2.med.sa/ar/BloodDonation/Pages/DonationCenters.aspx", "https://www.rc2.med.sa/en/BloodDonation/Pages/DonationCenters.aspx", "https://maps.app.goo.gl/1G7Q3tRsDi4hcvmq9"],
+      "source_kind": "official"
+    },
+    {
+      "file": "blood-donation",
+      "id": "al-yamamah-hospital-blood-bank",
+      "status": "filled",
+      "set": {"phone": "8001277000", "where_inside_en": "Ground floor of the Outpatient Clinics Building, Laboratory and Blood Bank."},
+      "evidence": "Hours: still no days. Riyadh Second Health Cluster donation-centres page lists Al Yamamah Hospital: 'الدور الأرضي في مبنى العيادات الخارجية - المختبر وبنك الدم', working hours '8 صباحا إلى 03:00 عصرا' (08:00-15:00), no days of the week; MoH directory says 08:00-16:00. Phone filled: the cluster site header prints 8001277000 and the hospital's Google listing shows 800 127 7000 (cluster toll-free line, not a donor line).",
+      "sources": ["https://www.rc2.med.sa/ar/BloodDonation/Pages/DonationCenters.aspx", "https://www.rc2.med.sa/en/BloodDonation/Pages/DonationCenters.aspx", "https://maps.app.goo.gl/pL7fa7VyaZ2H6mfo7"],
+      "source_kind": "official"
+    },
+    {
+      "file": "blood-donation",
+      "id": "imam-abdulrahman-al-faisal-hospital-blood-bank",
+      "status": "unverified",
+      "set": {},
+      "evidence": "No donor hours and no phone found. The MoH-linked Google listing is the hospital (Open 24 hours) and shows no phone. The hospital is not on the Second Health Cluster donation-centres page; no First Health Cluster donor page could be found (rfhc.med.sa did not resolve).",
+      "sources": ["https://maps.app.goo.gl/BLZdDKojBL5jtbeBA", "https://www.moh.gov.sa/eServices/interactive-maps/Documents/blood.pdf"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "al-iman-general-hospital-blood-bank",
+      "status": "filled",
+      "set": {"phone": "+966114471900", "confidence": "medium"},
+      "evidence": "Hours: not found; the MoH-linked Google listing is the hospital (Open 24 hours), not the donor room. Phone filled from that hospital listing: +966 11 447 1900 (hospital switchboard).",
+      "sources": ["https://maps.app.goo.gl/G8SFXRJ54naxMCTu9", "https://www.moh.gov.sa/eServices/interactive-maps/Documents/blood.pdf"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "diriyah-hospital-blood-bank",
+      "status": "unverified",
+      "set": {},
+      "evidence": "Hours: not found; the MoH-linked Google listing is the hospital (Open 24 hours). Existing phone still matches that listing: +966 11 835 6500 (hospital switchboard, secondary).",
+      "sources": ["https://maps.app.goo.gl/4QHVPoT2Y9JeLvGx6", "https://www.moh.gov.sa/eServices/interactive-maps/Documents/blood.pdf"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "hmg-ar-rayyan-blood-bank",
+      "status": "filled",
+      "set": {"phone": "+966114909999", "confidence": "medium"},
+      "evidence": "Hours: not found; hmg.com home pages (AR and EN) carry no donor hours and the MoH-linked Google listing is the hospital (Open 24 hours). Phone filled from that hospital listing: +966 11 490 9999 (hospital switchboard); not found on hmg.com.",
+      "sources": ["https://maps.app.goo.gl/5auRcyjJbAb9Q7KD9", "https://www.hmg.com/ar/Pages/home.aspx"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "hmg-as-suwaidi-blood-bank",
+      "status": "filled",
+      "set": {"phone": "+966114754444", "confidence": "medium"},
+      "evidence": "Hours: not found; the MoH-linked Google listing is the hospital (Open 24 hours). Phone filled from that hospital listing: +966 11 475 4444 (hospital switchboard); not found on hmg.com.",
+      "sources": ["https://maps.app.goo.gl/eN79YR67qPaYik19A", "https://www.hmg.com/ar/Pages/home.aspx"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "hmg-as-sahafah-blood-bank",
+      "status": "filled",
+      "set": {"phone": "+966115222222", "confidence": "medium"},
+      "evidence": "Hours: not found; the MoH-linked Google listing is the hospital (Open 24 hours). Phone filled from that hospital listing: +966 11 522 2222 (hospital switchboard); not found on hmg.com.",
+      "sources": ["https://maps.app.goo.gl/woyCaMKDGR3oTeuX8", "https://www.hmg.com/ar/Pages/home.aspx"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "hmg-womens-health-blood-bank",
+      "status": "unverified",
+      "set": {},
+      "evidence": "Hours: not found; the MoH-linked Google listing is the hospital (Open 24 hours). Existing phone still matches that listing: +966 11 209 9999 (hospital switchboard, secondary).",
+      "sources": ["https://maps.app.goo.gl/DSVwhykaQs6XEXie8", "https://www.hmg.com/ar/Pages/home.aspx"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "al-hammadi-as-suwaidi-blood-bank",
+      "status": "filled",
+      "set": {"phone": "+966114250000", "confidence": "medium"},
+      "evidence": "Hours: not found; alhammadi.com is the holding company's investor site (its contact page lists only 011-2329999 / 011-2319999 for the company, no branch or blood-bank page). Phone filled from the MoH-linked hospital Google listing: +966 11 425 0000 (hospital switchboard).",
+      "sources": ["https://maps.app.goo.gl/VKvt6Kc8DeAmz5ZC9", "https://alhammadi.com/contact-us/"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "al-hammadi-an-nuzhah-blood-bank",
+      "status": "filled",
+      "set": {"phone": "+966114977777", "confidence": "medium"},
+      "evidence": "Hours: not found; alhammadi.com has no branch or blood-bank page. Phone filled from the MoH-linked hospital Google listing: +966 11 497 7777 (hospital switchboard).",
+      "sources": ["https://maps.app.goo.gl/NYjS4QZHUMki4wwE9", "https://alhammadi.com/contact-us/"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "smc-king-fahd-road-blood-bank",
+      "status": "unverified",
+      "set": {},
+      "evidence": "Hours: not found; smc.com.sa home page has no donor hours and the MoH-linked Google listing is the hospital (Open 24 hours). Existing phone is right: 4343800 is printed on smc.com.sa and the listing shows +966 11 434 3800.",
+      "sources": ["https://www.smc.com.sa/", "https://maps.app.goo.gl/HFSZktQhu76DkmK36"],
+      "source_kind": "official"
+    },
+    {
+      "file": "blood-donation",
+      "id": "saudi-german-hospital-riyadh-blood-bank",
+      "status": "filled",
+      "set": {"phone": "920007997"},
+      "evidence": "Hours: not found; no donor page on saudigermanhealth.com and the MoH-linked Google listing is the hospital (Open 24 hours). Phone filled: saudigermanhealth.com links tel:+966920007997 (group unified number) and the Riyadh hospital's Google listing shows 9200 07997.",
+      "sources": ["https://saudigermanhealth.com/ar", "https://maps.app.goo.gl/JEfhtUQLMzeXSsca6"],
+      "source_kind": "official"
+    },
+    {
+      "file": "blood-donation",
+      "id": "mouwasat-hospital-riyadh-blood-bank",
+      "status": "filled",
+      "set": {"phone": "920004477"},
+      "evidence": "Hours: not found; the MoH-linked Google listing is the hospital (Open 24 hours). Phone filled: mouwasat.com prints 920004477 (group unified number) and the Riyadh hospital's Google listing shows 9200 04477.",
+      "sources": ["https://www.mouwasat.com/ar/", "https://maps.app.goo.gl/7cKKy3kSjRMys1LT9"],
+      "source_kind": "official"
+    },
+    {
+      "file": "blood-donation",
+      "id": "damy-sehha-digital-city",
+      "status": "corrected",
+      "set": {"phone": "920015156"},
+      "evidence": "Phone: format only; damy.sa prints 920015156 (unified number, so bare digits). Hours match: the centre's Google listing (Blood donation center) shows Sunday-Thursday 9 AM-5 PM, Friday and Saturday closed, and the MoH directory row says 9:00 AM - 5:00 PM. Days still rest on the listing only.",
+      "sources": ["https://maps.app.goo.gl/8MJ3wZMF9TvrRfEr6", "https://www.moh.gov.sa/eServices/interactive-maps/Documents/blood.pdf", "https://www.damy.sa/"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "damy-othaim-mall-khurais",
+      "status": "corrected",
+      "set": {"phone": "920015156"},
+      "evidence": "Phone: format only; damy.sa prints 920015156. Hours match: the centre's Google listing shows 5-9 PM on all seven days. The MoH directory row says 4:00 PM - 11:00 PM with no days. damy.sa lists the centre but gives no hours.",
+      "sources": ["https://maps.app.goo.gl/2us3ZUZ1YshHhBBH7", "https://www.moh.gov.sa/eServices/interactive-maps/Documents/blood.pdf", "https://www.damy.sa/pages/%D9%85%D8%B1%D8%A7%D9%83%D8%B2-%D8%AF%D9%85%D9%8A-%D9%84%D9%84%D8%AA%D8%A8%D8%B1%D8%B9-%D8%A8%D8%A7%D9%84%D8%AF%D9%85/"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "damy-othaim-mall-rabwah",
+      "status": "corrected",
+      "set": {"phone": "920015156"},
+      "evidence": "Phone: format only; damy.sa prints 920015156. Hours match: the centre's Google listing (Blood donation center) shows 5-9 PM on all seven days. The MoH directory row says 4:00 PM - 11:00 PM with no days. damy.sa lists the centre but gives no hours.",
+      "sources": ["https://maps.app.goo.gl/cvtLdWXx4BqDLTj27", "https://www.moh.gov.sa/eServices/interactive-maps/Documents/blood.pdf", "https://www.damy.sa/pages/%D9%85%D8%B1%D8%A7%D9%83%D8%B2-%D8%AF%D9%85%D9%8A-%D9%84%D9%84%D8%AA%D8%A8%D8%B1%D8%B9-%D8%A8%D8%A7%D9%84%D8%AF%D9%85/"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "dimaona-sadaqa-atyaf-mall",
+      "status": "unverified",
+      "set": {},
+      "evidence": "Hours: not found. ds.org.sa (home and contact pages) does not mention Atyaf Mall or any donation hours; the MoH-linked Google pin is the mall itself (mall hours, mall phone), not the donation point. Existing phone is right: ds.org.sa prints 0541913291.",
+      "sources": ["https://ds.org.sa/", "https://ds.org.sa/contact/", "https://maps.app.goo.gl/YLq3UVHs1d9RpoLq5", "https://www.moh.gov.sa/eServices/interactive-maps/Documents/blood.pdf"],
+      "source_kind": "official"
+    },
+    {
+      "file": "blood-donation",
+      "id": "damy-sehha-ash-shifa",
+      "status": "corrected",
+      "set": {"phone": "920015156"},
+      "evidence": "Phone: format only; damy.sa prints 920015156. Hours only partly re-checked: today's read of the centre's Google listing returned Monday 5-9 PM, which fits the existing Su-Th 17:00-21:00, but the full week table did not load, so Friday and Saturday closure was not re-confirmed. damy.sa lists the centre with no hours.",
+      "sources": ["https://maps.app.goo.gl/P2aSGvKmAn6RprsK6", "https://www.damy.sa/pages/%D9%85%D8%B1%D8%A7%D9%83%D8%B2-%D8%AF%D9%85%D9%8A-%D9%84%D9%84%D8%AA%D8%A8%D8%B1%D8%B9-%D8%A8%D8%A7%D9%84%D8%AF%D9%85/"],
+      "source_kind": "secondary"
+    },
+    {
+      "file": "blood-donation",
+      "id": "damy-donation-vehicle-an-nakheel-park",
+      "status": "corrected",
+      "set": {"phone": "920015156"},
+      "evidence": "Phone: format only; damy.sa prints 920015156. Hours: not found. The damy.sa home page still names 'عربة التبرع بالدم - حديقة النخيل' with no days or times, and the linked Google pin is the park.",
+      "sources": ["https://www.damy.sa/", "https://maps.app.goo.gl/ifyLbfkoy912ZwCy7"],
+      "source_kind": "official"
+    }
+  ],
+  "new": []
+}
