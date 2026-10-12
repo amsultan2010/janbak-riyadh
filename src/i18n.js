@@ -153,8 +153,8 @@ const T = {
 
   'numbers.title': { ar: 'أرقام مهمة', en: 'Important numbers' },
   'numbers.intro': {
-    ar: 'أرقام رسمية تعمل في الرياض. اضغط على الرقم للاتصال.',
-    en: 'Official numbers that work in Riyadh. Tap a number to call.',
+    ar: 'أرقام الطوارئ والخطوط الرسمية التي تعمل في الرياض. اضغط على الرقم للاتصال.',
+    en: 'Emergency numbers and official phone lines that work in Riyadh. Tap a number to call.',
   },
   'help.title': { ar: 'كيف تساعد', en: 'Ways to help' },
   'help.intro': {
@@ -174,8 +174,8 @@ const T = {
   'about.title': { ar: 'عن الموقع', en: 'About' },
   'checked': { ar: 'آخر تحقق من البيانات: أكتوبر 2026', en: 'Data last checked: October 2026' },
   'footer.note': {
-    ar: 'موقع مستقل وغير حكومي. في الحالات الطارئة اتصل بالرقم 911.',
-    en: 'An independent site, not a government service. In an emergency call 911.',
+    ar: 'جنبك موقع مستقل وغير حكومي. في الحالات الطارئة اتصل بالرقم 911.',
+    en: 'Janbak is an independent site, not a government service. In an emergency call 911.',
   },
   'footer.osm': { ar: 'بيانات الخريطة: مساهمو OpenStreetMap، والخرائط من OpenMapTiles و OpenFreeMap', en: 'Map data: OpenStreetMap contributors. Map tiles: OpenMapTiles and OpenFreeMap' },
   'footer.nav': { ar: 'روابط أسفل الصفحة', en: 'Footer links' },
