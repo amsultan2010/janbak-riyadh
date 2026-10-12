@@ -2,15 +2,16 @@
 // Run with `node scripts/make-images.mjs` after changing the name or colours.
 import sharp from 'sharp';
 import { writeFileSync } from 'node:fs';
+import { MARK } from '../src/logo.js';
 
 const GROUND = '#0f2540';
 const INK = '#ffffff';
 const out = (name) => new URL(`../public/${name}`, import.meta.url);
 
-// a map pin on the site's ink blue
-const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="${GROUND}"/><path fill="${INK}" d="M32 10c-9 0-16 7-16 16 0 12 16 28 16 28s16-16 16-28c0-9-7-16-16-16zm0 22a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/></svg>`;
+// the logo's mark; a phone rounds the touch icon itself, so that one is filled to its corners
+const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">${MARK}</svg>`;
 writeFileSync(out('favicon.svg'), icon);
-await sharp(Buffer.from(icon)).resize(180, 180).png().toFile(out('apple-touch-icon.png').pathname);
+await sharp(Buffer.from(icon)).resize(180, 180).flatten({ background: GROUND }).png().toFile(out('apple-touch-icon.png').pathname);
 
 // .ico holding one 32px PNG
 const png = await sharp(Buffer.from(icon)).resize(32, 32).png().toBuffer();
@@ -40,8 +41,9 @@ const share = ({ lang, name, title, labels }) => {
     <rect width="1200" height="630" fill="${GROUND}"/>
     <rect width="1200" height="170" fill="${INK}"/>
     <g fill="${GROUND}">${cells}</g>
+    <svg x="${rtl ? x - 64 : x}" y="250" width="64" height="64" viewBox="0 0 64 64">${MARK.replace('rx="14"', 'rx="14" stroke="#e9eef4" stroke-width="2"')}</svg>
     <g fill="${INK}" text-anchor="${anchor}">
-      <text x="${x}" y="300" font-size="44" font-weight="700">${name}</text>
+      <text x="${rtl ? x - 84 : x + 84}" y="300" font-size="44" font-weight="700">${name}</text>
       ${title.map((line, i) => `<text x="${x}" y="${420 + i * 110}" font-size="92" font-weight="700">${line}</text>`).join('')}
     </g>
   </svg>`;
