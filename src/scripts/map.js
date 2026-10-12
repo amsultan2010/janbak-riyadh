@@ -40,7 +40,7 @@ async function loadStyle() {
 
 // A round pin carrying the category's line icon, drawn at twice the size for sharp screens.
 function pinImage(path) {
-  const size = 68;
+  const size = 84;
   const canvas = Object.assign(document.createElement('canvas'), { width: size, height: size });
   const g = canvas.getContext('2d');
   g.fillStyle = GROUND;
@@ -50,8 +50,8 @@ function pinImage(path) {
   g.arc(size / 2, size / 2, size / 2 - 3, 0, Math.PI * 2);
   g.fill();
   g.stroke();
-  g.translate(16, 16);
-  g.scale(1.5, 1.5);
+  g.translate(18, 18);
+  g.scale(2, 2);
   g.lineWidth = 1.7;
   g.lineCap = 'square';
   g.stroke(new Path2D(path));
@@ -82,24 +82,52 @@ export async function createMap(container, { cats, popup, onMove }) {
   for (const cat of cats) map.addImage(`pin-${cat.id}`, pinImage(cat.icon), { pixelRatio: 2 });
 
   const empty = { type: 'FeatureCollection', features: [] };
-  map.addSource('places', { type: 'geojson', data: empty, cluster: true, clusterRadius: 46, clusterMaxZoom: 13 });
+  // Each cluster counts its places per category, so a cluster of one kind can wear that kind's icon.
+  const counts = Object.fromEntries(cats.map((c, i) => [`n${i}`, ['+', ['case', ['==', ['get', 'cat'], c.id], 1, 0]]]));
+  const oneKind = ['any', ...cats.map((c, i) => ['==', ['get', `n${i}`], ['get', 'point_count']])];
+  const kindPin = ['case', ...cats.flatMap((c, i) => [['==', ['get', `n${i}`], ['get', 'point_count']], `pin-${c.id}`]), ''];
+  map.addSource('places', { type: 'geojson', data: empty, cluster: true, clusterRadius: 42, clusterMaxZoom: 12, clusterProperties: counts });
   map.addSource('chosen', { type: 'geojson', data: empty });
+  // mixed clusters: a plain disc with the count
   map.addLayer({
     id: 'clusters',
     type: 'circle',
     source: 'places',
-    filter: ['has', 'point_count'],
-    paint: { 'circle-color': GROUND, 'circle-radius': ['step', ['get', 'point_count'], 15, 20, 19, 100, 24], 'circle-stroke-width': 2, 'circle-stroke-color': INK },
+    filter: ['all', ['has', 'point_count'], ['!', oneKind]],
+    paint: { 'circle-color': GROUND, 'circle-radius': ['step', ['get', 'point_count'], 16, 20, 20, 100, 25], 'circle-stroke-width': 2, 'circle-stroke-color': INK },
   });
   map.addLayer({
     id: 'cluster-count',
     type: 'symbol',
     source: 'places',
-    filter: ['has', 'point_count'],
-    layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-font': ['Noto Sans Bold'], 'text-size': 13 },
+    filter: ['all', ['has', 'point_count'], ['!', oneKind]],
+    layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-font': ['Noto Sans Bold'], 'text-size': 13, 'text-allow-overlap': true },
     paint: { 'text-color': INK },
   });
-  map.addLayer({ id: 'chosen', type: 'circle', source: 'chosen', paint: { 'circle-color': ACCENT, 'circle-radius': 24 } });
+  // clusters of one kind: that kind's pin with the count on a small badge
+  map.addLayer({
+    id: 'kind-clusters',
+    type: 'symbol',
+    source: 'places',
+    filter: ['all', ['has', 'point_count'], oneKind],
+    layout: { 'icon-image': kindPin, 'icon-allow-overlap': true },
+  });
+  map.addLayer({
+    id: 'kind-badge',
+    type: 'circle',
+    source: 'places',
+    filter: ['all', ['has', 'point_count'], oneKind],
+    paint: { 'circle-color': INK, 'circle-radius': 11, 'circle-stroke-width': 2, 'circle-stroke-color': GROUND, 'circle-translate': [17, -17] },
+  });
+  map.addLayer({
+    id: 'kind-count',
+    type: 'symbol',
+    source: 'places',
+    filter: ['all', ['has', 'point_count'], oneKind],
+    layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-font': ['Noto Sans Bold'], 'text-size': 11, 'text-offset': [1.55, -1.55], 'text-allow-overlap': true },
+    paint: { 'text-color': GROUND },
+  });
+  map.addLayer({ id: 'chosen', type: 'circle', source: 'chosen', paint: { 'circle-color': ACCENT, 'circle-radius': 29 } });
   map.addLayer({
     id: 'points',
     type: 'symbol',
@@ -114,7 +142,7 @@ export async function createMap(container, { cats, popup, onMove }) {
   function show(id, at, move) {
     open?.remove();
     map.getSource('chosen').setData({ type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: at } });
-    open = new gl.Popup({ offset: 20, maxWidth: '280px' }).setLngLat(at).setDOMContent(popup(id)).addTo(map);
+    open = new gl.Popup({ offset: 24, maxWidth: '280px' }).setLngLat(at).setDOMContent(popup(id)).addTo(map);
     open.on('close', () => map.getSource('chosen').setData(empty));
     if (move) map.easeTo({ center: at, zoom: Math.max(map.getZoom(), 15), animate: !still });
   }
@@ -127,7 +155,7 @@ export async function createMap(container, { cats, popup, onMove }) {
       done(e.lngLat);
       return;
     }
-    const [feature] = map.queryRenderedFeatures(e.point, { layers: ['points', 'clusters'] });
+    const [feature] = map.queryRenderedFeatures(e.point, { layers: ['points', 'clusters', 'kind-clusters'] });
     if (!feature) return;
     if (feature.properties.cluster_id === undefined) return show(feature.properties.id, feature.geometry.coordinates, false);
     map
@@ -135,7 +163,7 @@ export async function createMap(container, { cats, popup, onMove }) {
       .getClusterExpansionZoom(feature.properties.cluster_id)
       .then((zoom) => map.easeTo({ center: feature.geometry.coordinates, zoom, animate: !still }));
   });
-  for (const layer of ['points', 'clusters']) {
+  for (const layer of ['points', 'clusters', 'kind-clusters']) {
     map.on('mouseenter', layer, () => (map.getCanvas().style.cursor = 'pointer'));
     map.on('mouseleave', layer, () => (map.getCanvas().style.cursor = ''));
   }
