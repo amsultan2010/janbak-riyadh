@@ -7,7 +7,7 @@ export const GROUPS = [
 ];
 
 export const CATEGORIES = [
-  { id: 'hospitals', group: 'health', ar: 'مستشفيات فيها طوارئ', en: 'Hospitals with emergency', short: { ar: 'مستشفيات', en: 'Hospitals' } },
+  { id: 'hospitals', group: 'health', ar: 'مستشفيات', en: 'Hospitals', short: { ar: 'مستشفيات', en: 'Hospitals' } },
   { id: 'urgent-care', group: 'health', ar: 'الرعاية العاجلة', en: 'Urgent care', short: { ar: 'رعاية عاجلة', en: 'Urgent care' } },
   { id: 'pharmacies', group: 'health', ar: 'صيدليات', en: 'Pharmacies', short: { ar: 'صيدليات', en: 'Pharmacies' } },
   { id: 'blood-donation', group: 'health', ar: 'التبرع بالدم', en: 'Blood donation', short: { ar: 'تبرع بالدم', en: 'Blood donation' } },

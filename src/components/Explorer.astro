@@ -49,7 +49,8 @@ const config = {
     }
   </div>
   <div class="map-col" data-map-col hidden>
-    <div id="map" class="map" data-map role="region" aria-label={t('cat.mapLabel')}></div>
+    <div id="map" class="map" data-map data-loading={t('cat.mapLoading')} role="region" aria-label={t('cat.mapLabel')}></div>
+    <p class="map-credit">© OpenStreetMap · OpenMapTiles · OpenFreeMap</p>
     <p class="small" data-map-error hidden>{t('cat.mapFail')}</p>
   </div>
   <div class="refine" data-refine hidden>

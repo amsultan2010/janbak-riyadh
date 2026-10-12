@@ -9,7 +9,7 @@ const { lang } = Astro.props;
 const t = translator(lang);
 ---
 
-<Base lang={lang} slug="about" title={t('about.title')} description={ABOUT[lang][0][1]}>
+<Base lang={lang} slug="about" title={t('about.title')} description={ABOUT[lang][0][1]} pageType="AboutPage">
   <h1>{t('about.title')}</h1>
   {
     ABOUT[lang].map(([heading, text]) => (
@@ -19,5 +19,8 @@ const t = translator(lang);
       </section>
     ))
   }
-  <p class="small">{t('checked')}. {t('footer.osm')}.</p>
+  <p class="small">
+    {t('checked')}. {t('footer.osm')}.
+    <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">openstreetmap.org/copyright</a>
+  </p>
 </Base>

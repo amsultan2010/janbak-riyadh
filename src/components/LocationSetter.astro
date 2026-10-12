@@ -1,13 +1,13 @@
 ---
 import data from '../../research/districts.json';
 import { translator } from '../i18n.js';
+import { districtName } from '../lib/districts.js';
 
 const { lang } = Astro.props;
 const t = translator(lang);
 const districts = data.districts
-  .filter((d) => d.name_ar && d.name_en && /[\u0600-\u06FF]/.test(d.name_ar))
-  .map((d) => ({ ar: d.name_ar, en: d.name_en, lat: d.lat, lng: d.lng }))
-  .map((d) => ({ ...d, ar: d.ar.replace(/^حي\s+/, ''), en: d.en.replace(/`/g, '') }))
+  .map((d) => ({ ...districtName(d), lat: d.lat, lng: d.lng }))
+  .filter((d) => d.ar && d.en)
   .sort((a, b) => a[lang].localeCompare(b[lang], lang));
 ---
 

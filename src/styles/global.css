@@ -10,6 +10,7 @@
   --line: 1.5px;
   --pad: 1rem;
   --wide: 46rem;
+  --bar: 0px;
   color-scheme: dark;
 }
 
@@ -22,7 +23,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: 1rem;
+  scroll-padding-top: calc(var(--bar) + 1rem);
 }
 
 body {
@@ -31,7 +32,12 @@ body {
   color: var(--ink);
   font-family: 'IBM Plex Sans Arabic', sans-serif;
   font-size: 1.0625rem;
-  line-height: 1.65;
+  line-height: 1.6;
+}
+
+:lang(ar) body {
+  font-size: 1.125rem;
+  line-height: 1.8;
 }
 
 .wrap {
@@ -68,6 +74,15 @@ a {
   outline-offset: 2px;
 }
 
+/* on the light surfaces the ring switches to the dark colour so it stays visible */
+.btn-fill:focus-visible,
+.nav a[aria-current]:focus-visible,
+.pop a:focus-visible,
+.map button:focus-visible {
+  outline-color: var(--ground);
+  outline-offset: -5px;
+}
+
 .skip {
   position: absolute;
   inset-inline-start: 0;
@@ -81,6 +96,11 @@ a {
 
 .skip:focus {
   top: 0;
+}
+
+/* the header's children sit directly in the page so the emergency bar can stick to the viewport */
+header {
+  display: contents;
 }
 
 /* Emergency bar: the one inverted band on every page */
@@ -300,6 +320,18 @@ bdi[dir='ltr'] {
   color: var(--rule);
 }
 
+.text-btn:active,
+.place summary:active,
+.crumb a:active {
+  color: var(--accent);
+}
+
+.rows a:active,
+.nav a:not([aria-current]):active,
+.top .lang:active {
+  background: var(--pressed);
+}
+
 .text-btn {
   min-height: 2.75rem;
   padding: 0;
@@ -337,14 +369,15 @@ input[type='search'] {
 }
 
 select {
-  background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
-  background-position: calc(100% - 1.15rem) 50%, calc(100% - 0.75rem) 50%;
-  background-size: 0.4rem 0.4rem;
+  padding-inline-end: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5f2e7' stroke-width='2' stroke-linecap='square'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
   background-repeat: no-repeat;
 }
 
 [dir='rtl'] select {
-  background-position: 0.75rem 50%, 1.15rem 50%;
+  background-position: left 0.75rem center;
 }
 
 input::placeholder {
@@ -362,6 +395,7 @@ input::placeholder {
 }
 
 .check input {
+  font: inherit;
   display: grid;
   place-content: center;
   width: 1.6rem;
@@ -475,6 +509,14 @@ input::placeholder {
 .status.is-unknown {
   color: var(--soft);
   font-weight: 400;
+}
+
+.place-note {
+  margin-block-start: 0.35rem;
+  padding-inline-start: 0.75rem;
+  border-inline-start: var(--line) solid var(--rule);
+  color: var(--soft);
+  font-size: 0.95em;
 }
 
 .actions {
@@ -603,7 +645,8 @@ main.wide {
   display: none;
 }
 
-.cats button {
+.cats button,
+.cats a {
   flex: none;
   display: inline-flex;
   align-items: center;
@@ -616,6 +659,7 @@ main.wide {
   background: none;
   color: var(--ink);
   font: inherit;
+  text-decoration: none;
   white-space: nowrap;
 }
 
@@ -625,12 +669,14 @@ main.wide {
   font-weight: 700;
 }
 
-.cats button:active {
+.cats button:active,
+.cats a:active {
   background: var(--pressed);
   color: var(--ink);
 }
 
-.cats button:focus-visible {
+.cats button:focus-visible,
+.cats a:focus-visible {
   outline-offset: -4px;
 }
 
@@ -698,6 +744,78 @@ main.wide {
   padding: 0.75rem var(--pad);
 }
 
+.map-col {
+  position: relative;
+}
+
+/* the map library's stylesheet loads later, so these carry one more class to win */
+.map.maplibregl-map,
+.map.maplibregl-map button {
+  font-family: inherit;
+}
+
+/* shown until the first tiles are drawn */
+.map:not(.is-ready)::before {
+  content: attr(data-loading);
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  background: var(--sunk);
+  color: var(--soft);
+}
+
+.map-credit {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  z-index: 1;
+  padding: 0.1rem 0.5rem;
+  background: var(--ink);
+  color: var(--ground);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.map .maplibregl-ctrl.maplibregl-ctrl-group {
+  border: var(--line) solid var(--ground);
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--ink);
+}
+
+.map .maplibregl-ctrl-group button {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0;
+  background-color: var(--ink);
+}
+
+.map .maplibregl-ctrl-group button + button {
+  border-block-start: var(--line) solid var(--ground);
+}
+
+.map .maplibregl-ctrl-group button:active {
+  background-color: var(--soft);
+}
+
+.map .maplibregl-cooperative-gesture-screen {
+  padding: 1rem;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.home-pin {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 4px solid var(--ground);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
 .map .maplibregl-popup-content {
   padding: 0.75rem 0.9rem 0.5rem;
   border: var(--line) solid var(--ground);
@@ -715,10 +833,15 @@ main.wide {
 }
 
 .map .maplibregl-popup-close-button {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0;
   color: var(--ground);
   font-size: 1.4rem;
+}
+
+.map .maplibregl-popup-close-button:active {
+  background: var(--soft);
 }
 
 .pop strong {
@@ -727,7 +850,7 @@ main.wide {
 }
 
 .pop .kind {
-  padding-inline-end: 1.75rem;
+  padding-inline-end: 2rem;
   color: var(--ground);
 }
 
@@ -799,12 +922,17 @@ main.wide {
     display: block;
   }
 
+  .explorer h1 {
+    padding-block-start: 1.75rem;
+    font-size: clamp(3rem, 4vw, 4rem);
+  }
+
   .explorer > .map-col {
     position: sticky;
-    top: 0;
+    top: var(--bar);
     grid-column: 2;
     grid-row: 1 / span 12;
-    height: 100svh;
+    height: calc(100svh - var(--bar));
   }
 
   .map {
@@ -823,7 +951,8 @@ main.wide {
     overflow: visible;
   }
 
-  .cats button {
+  .cats button,
+  .cats a {
     border-block-end: var(--line) solid var(--rule);
     white-space: normal;
     text-align: start;
@@ -835,6 +964,10 @@ main.wide {
 
   .wrap.wide {
     padding-inline: 1.5rem;
+  }
+
+  .wrap .jump {
+    margin-inline: 0;
   }
 }
 
@@ -882,6 +1015,26 @@ footer p + p {
   margin-block-start: 0.35rem;
 }
 
+.jump {
+  margin-block-end: 0.5rem;
+}
+
+.small a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+.foot-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  margin-block-end: 0.75rem;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
 /* text links that stand alone still need a full-size tap target */
 footer a,
 .facts a {
@@ -897,8 +1050,24 @@ footer a,
 @media (hover: hover) {
   .rows a:hover,
   .nav a:not([aria-current]):hover,
-  .cats button[aria-pressed='false']:hover {
+  .cats button[aria-pressed='false']:hover,
+  .cats a:hover {
     background: var(--sunk);
+  }
+
+  a:hover {
+    text-decoration-thickness: 3px;
+  }
+
+  select:hover,
+  input[type='search']:hover,
+  .check:hover input {
+    border-color: var(--accent);
+  }
+
+  .map .maplibregl-ctrl-group button:hover,
+  .map .maplibregl-popup-close-button:hover {
+    background-color: var(--accent);
   }
 
   .btn:hover,
@@ -935,6 +1104,87 @@ a,
   transition:
     background-color 0.15s,
     color 0.15s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  h1 {
+    animation: wipe 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+
+  [dir='rtl'] h1 {
+    animation-name: wipe-rtl;
+  }
+
+  @keyframes wipe {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0);
+    }
+  }
+
+  @keyframes wipe-rtl {
+    from {
+      clip-path: inset(0 0 0 100%);
+    }
+    to {
+      clip-path: inset(0);
+    }
+  }
+
+  /* Emergency numbers stay in reach: the bar sticks and tightens over the first screen of scroll. */
+  @supports (animation-timeline: scroll()) {
+    :root {
+      --bar: 3.25rem;
+    }
+
+    .em {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-block-end: var(--line) solid var(--ground);
+    }
+
+    .em a,
+    .em b,
+    .em span {
+      animation: linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 9rem;
+    }
+
+    .em a {
+      animation-name: em-cell;
+    }
+
+    .em b {
+      animation-name: em-number;
+    }
+
+    .em span {
+      animation-name: em-label;
+    }
+
+    @keyframes em-cell {
+      to {
+        min-height: 3.25rem;
+        padding-block: 0.15rem;
+      }
+    }
+
+    @keyframes em-number {
+      to {
+        font-size: 1.35rem;
+      }
+    }
+
+    @keyframes em-label {
+      to {
+        font-size: 0.72rem;
+      }
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

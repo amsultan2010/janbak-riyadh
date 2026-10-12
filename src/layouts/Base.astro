@@ -7,7 +7,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import { SITE, DAYS, translator, clientStrings, path, otherLang } from '../i18n.js';
 
-const { lang, slug = '', title, description, jsonld = [], noindex = false, wide = false } = Astro.props;
+const { lang, slug = '', title, description, jsonld = [], noindex = false, wide = false, pageType = 'WebPage' } = Astro.props;
 const t = translator(lang);
 const url = (l) => new URL(path(l, slug), Astro.site).href;
 const pageTitle = slug === '' ? title : `${title} | ${SITE[lang]}`;
@@ -17,7 +17,8 @@ const siteData = {
   '@context': 'https://schema.org',
   '@graph': [
     { '@type': 'WebSite', '@id': `${url(lang)}#site`, url: new URL(path(lang), Astro.site).href, name: SITE[lang], inLanguage: lang },
-    { '@type': 'Organization', name: SITE.en, alternateName: SITE.ar, url: Astro.site.href },
+    { '@type': 'Organization', '@id': `${Astro.site.href}#org`, name: SITE.en, alternateName: SITE.ar, url: Astro.site.href },
+    { '@type': pageType, url: url(lang), name: pageTitle, description, inLanguage: lang, isPartOf: { '@id': `${url(lang)}#site` }, publisher: { '@id': `${Astro.site.href}#org` } },
     ...jsonld,
   ],
 };
@@ -65,8 +66,15 @@ const siteData = {
       <slot />
     </main>
     <footer class:list={['wrap', { wide }]}>
+      <nav class="foot-nav" aria-label={t('footer.nav')}>
+        <a href={path(lang)}>{t('nav.places')}</a>
+        <a href={path(lang, 'numbers')}>{t('numbers.title')}</a>
+        <a href={path(lang, 'help')}>{t('help.title')}</a>
+        <a href={path(lang, 'links')}>{t('links.title')}</a>
+        <a href={path(lang, 'about')}>{t('about.title')}</a>
+      </nav>
       <p>{t('footer.note')}</p>
-      <p>{t('checked')}. <a href={path(lang, 'about')}>{t('nav.about')}</a></p>
+      <p>{t('checked')}.</p>
     </footer>
     <script type="application/json" id="strings" set:html={JSON.stringify(strings)} />
   </body>
