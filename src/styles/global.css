@@ -266,8 +266,11 @@ header {
   outline-color: var(--surface);
 }
 
+/* the language switch wears the accent so it is found at a glance */
 .lang {
   min-height: 3rem;
+  background: var(--accent);
+  font-weight: 700;
 }
 
 /* Type */
@@ -393,6 +396,7 @@ h1 {
 }
 
 .btn-fill:active,
+.lang:active,
 .ctl[aria-pressed='true']:active {
   background: #e26a17;
 }
@@ -1558,6 +1562,7 @@ footer a {
   }
 
   .btn-fill:hover,
+  .lang:hover,
   .row[aria-pressed='true']:hover,
   .ctl[aria-pressed='true']:hover,
   .ctl[aria-current]:hover {
