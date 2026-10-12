@@ -1,9 +1,10 @@
-// Sheets: panels that open under the emergency numbers and leave them in reach.
-// They are not modal, so the tabs and the numbers above keep working.
-const em = document.querySelector('.em');
+// Sheets: panels that open under the header and leave the emergency numbers in reach.
+// They are not modal, so the numbers and the tabs above keep working.
+// On a phone the header's rows are separate boxes; on a wide screen the header is one.
+const bars = [...document.querySelectorAll('header, .topbar, .subbar')];
 let open = null;
 
-const place = () => open?.style.setProperty('--sheet-top', `${Math.max(0, em.getBoundingClientRect().bottom)}px`);
+const place = () => open?.style.setProperty('--sheet-top', `${Math.max(0, ...bars.map((b) => b.getBoundingClientRect().bottom))}px`);
 
 export function openSheet(sheet) {
   if (open && open !== sheet) open.close();

@@ -34,7 +34,8 @@ essential places with hours and directions, phone lines, official links. See `PL
   used on the home page and on every category page. A map with a deck of cards on a phone,
   a list beside the map on a wide screen.
 - `src/scripts/sheet.js`: the sheets (type picker, location, one place) that open under the
-  emergency numbers.
+  header.
+- `src/logo.js`: the logo's mark and wordmark, used by the header and by `scripts/make-images.mjs`.
 - `src/pages/data/[lang].json.js`: the compact per-language data file the explorer fetches.
 - `src/components/Directory.astro` with `src/scripts/directory.js`: the searchable lists on
   the Numbers, Help and Links pages.

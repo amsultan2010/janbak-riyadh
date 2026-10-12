@@ -9,6 +9,7 @@ export const ICONS = {
   'chevron': 'M9 5l7 7-7 7',
   'back': 'M15 5l-7 7 7 7',
   'down': 'M6 9l6 6 6-6',
+  'info': 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 11v5.5 M12 7.6v.2',
 };
 
 // PICTURES: full-colour pictograms for the place categories, their kinds and the emergency

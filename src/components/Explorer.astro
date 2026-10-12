@@ -2,6 +2,7 @@
 // The finder. On the home page it opens on the first category; on a category page it is
 // preset to that one, and the server-rendered list stays as the fallback.
 import Icon from './Icon.astro';
+import LocationSetter from './LocationSetter.astro';
 import PlaceRow from './PlaceRow.astro';
 import places from '../data/places.json';
 import areas from '../data/areas.json';
@@ -20,7 +21,7 @@ const sortKey = (p) => (p.country ? pick(p.country, lang) : pick(p.name, lang));
 const fallback = cat ? places.filter((p) => p.cat === cat.id).sort((a, b) => sortKey(a).localeCompare(sortKey(b), lang)) : [];
 const areaList = areas.filter((a) => a.n > 0).sort((a, b) => a[lang].localeCompare(b[lang], lang));
 const config = {
-  icons: { pin: ICONS.pin, back: ICONS.back, chevron: ICONS.chevron, open: ICONS.open },
+  icons: { pin: ICONS.pin, back: ICONS.back, chevron: ICONS.chevron, open: ICONS.open, info: ICONS.info },
   site: { first: CATEGORIES[0].id, path: path(lang), other: path(other), name: SITE[lang], title: t('home.title'), h1: t('home.h1'), intro: t('home.intro') },
   cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], short: c.short[lang], alt: c[other], note: CATEGORY_NOTES[c.id][lang], pic: PICTURES[c.id] })),
   kinds: KINDS.map((k) => ({ id: k.id, cat: CATEGORIES.findIndex((c) => c.id === k.cat), name: k[lang], alt: k[other], pic: PICTURES[k.id], untimed: k.untimed })),
@@ -32,8 +33,8 @@ const config = {
   <div class="stage" data-stage hidden>
     <div class="map-col">
       <div id="map" class="map" data-map data-loading={t('cat.mapLoading')} role="region" aria-label={t('cat.mapLabel')}></div>
-      <button type="button" class="ctl map-mode" data-map-mode hidden></button>
-      <p class="map-credit"><bdi dir="ltr" data-map-credit>Esri, Maxar, Earthstar Geographics · © OpenStreetMap</bdi></p>
+      <button type="button" class="ctl tilt" data-tilt aria-pressed="false" aria-label={t('cat.tilt')} title={t('cat.tilt')} hidden>3D</button>
+      <p class="map-credit"><bdi dir="ltr">Esri, Maxar, Earthstar Geographics · © OpenStreetMap</bdi></p>
       <p class="small" data-map-error hidden>{t('cat.mapFail')}</p>
     </div>
     <div class="tools">
@@ -44,6 +45,10 @@ const config = {
         <Icon name="down" />
       </button>
       <button type="button" class="ctl" data-open-only aria-pressed="false">{t('cat.openShort')}</button>
+      <button type="button" class="ctl loc-btn" data-loc-open aria-haspopup="dialog">
+        <Icon name="pin" />
+        <span data-loc-label>{t('loc.set')}</span>
+      </button>
     </div>
     <div class="deck" data-deck></div>
   </div>
@@ -66,6 +71,14 @@ const config = {
       <div class="sheet-head">
         <h2 id="cat-title">{t('cat.kinds')}</h2>
         <button type="button" class="ctl" data-close>{t('close')}</button>
+      </div>
+      <div class="chips">
+        <label class="chip"><input type="checkbox" data-always-only />{t('cat.always')}</label>
+        <label class="chip" data-in-view-label hidden><input type="checkbox" data-in-view />{t('cat.inView')}</label>
+        <select data-area aria-label={t('cat.area')}>
+          <option value="">{t('cat.areaAll')}</option>
+          {areaList.map((a) => <option value={a.id} data-bbox={a.bbox.join(',')}>{a[lang]}</option>)}
+        </select>
       </div>
       <label class="search">
         <span class="vh">{t('cat.search')}</span>
@@ -108,19 +121,10 @@ const config = {
           </>
         ))
       }
-      <h3>{t('cat.refine')}</h3>
-      <label class="check"><input type="checkbox" data-always-only />{t('cat.always')}</label>
-      <label class="check" data-in-view-label hidden><input type="checkbox" data-in-view />{t('cat.inView')}</label>
-      <label class="field area">
-        <span>{t('cat.area')}</span>
-        <select data-area>
-          <option value="">{t('cat.areaAll')}</option>
-          {areaList.map((a) => <option value={a.id} data-bbox={a.bbox.join(',')}>{a[lang]}</option>)}
-        </select>
-      </label>
     </div>
   </dialog>
   <dialog class="sheet detail" data-detail aria-labelledby="detail-name"></dialog>
+  <LocationSetter lang={lang} />
 </div>
 <script type="application/json" id="explorer-config" set:html={JSON.stringify(config)} />
 

@@ -155,23 +155,27 @@ async function start(root) {
   const showHtml = (r) =>
     r.lat === null ? '' : `<button type="button" class="btn btn-icon" data-show="${r.id}" aria-label="${esc(say('place.onMap'))}" title="${esc(say('place.onMap'))}">${icon(icons.pin)}</button>`;
 
-  // One place as a card. In the deck (`at` is its position there) it carries the step buttons.
+  // One place as a card. In the deck (`at` is its position there) it is kept short: the steps
+  // sit in its first line and the details are behind one small button.
   function cardHtml(r, at = null) {
     const [cls, status] = statusOf(r);
-    const steps =
-      at === null
-        ? ''
-        : `<button type="button" class="ctl step" data-step="-1" aria-label="${esc(say('place.prev'))}"${at === 0 ? ' disabled' : ''}>${icon(icons.back, true)}</button>
-          <bdi class="pos" dir="ltr">${at + 1} / ${found.length}</bdi>
-          <button type="button" class="ctl step" data-step="1" aria-label="${esc(say('place.next'))}"${at === found.length - 1 ? ' disabled' : ''}>${icon(icons.chevron, true)}</button>`;
-    return `<div class="card-top"><span class="kind">${esc(r.kind.name)}</span>${steps}</div>
+    const inDeck = at !== null;
+    const top = inDeck
+      ? `<span class="kind">${esc(r.kind.name)} · <bdi dir="ltr">${at + 1} / ${found.length}</bdi></span>
+        <button type="button" class="step" data-step="-1" aria-label="${esc(say('place.prev'))}"${at === 0 ? ' disabled' : ''}>${icon(icons.back, true)}</button>
+        <button type="button" class="step" data-step="1" aria-label="${esc(say('place.next'))}"${at === found.length - 1 ? ' disabled' : ''}>${icon(icons.chevron, true)}</button>`
+      : `<span class="kind">${esc(r.kind.name)}</span>`;
+    const details = esc(say('place.details'));
+    return `<div class="card-top">${top}</div>
       <h2><bdi>${esc(r.name)}</bdi></h2>
-      ${at === null && r.addr ? `<p class="meta"><bdi>${esc(r.addr)}</bdi></p>` : ''}
+      ${!inDeck && r.addr ? `<p class="meta"><bdi>${esc(r.addr)}</bdi></p>` : ''}
       <p class="meta">${spans([r.district, ...r.tags, kmOf(r)])}</p>
       <p class="status ${cls}">${esc(status)}</p>
-      ${at === null && r.note ? `<p class="place-note">${esc(r.note)}</p>` : ''}
-      <div class="actions">${callHtml(r)}${goHtml(r)}${at === null ? showHtml(r) : ''}</div>
-      <button type="button" class="text-btn" data-details="${r.id}">${esc(say('place.details'))}</button>`;
+      ${!inDeck && r.note ? `<p class="place-note">${esc(r.note)}</p>` : ''}
+      <div class="actions">${callHtml(r)}${goHtml(r)}${
+        inDeck ? `<button type="button" class="btn btn-icon" data-details="${r.id}" aria-label="${details}" title="${details}">${icon(icons.info)}</button>` : showHtml(r)
+      }</div>
+      ${inDeck ? '' : `<button type="button" class="text-btn" data-details="${r.id}">${details}</button>`}`;
   }
 
   // The page of one place: everything a card leaves out.
@@ -442,34 +446,19 @@ async function start(root) {
 
   try {
     const { createMap } = await import('./map.js');
-    // satellite imagery by default; the choice is remembered on this device
-    const modeButton = $('map-mode');
-    const credit = $('map-credit');
-    let satellite = true;
-    try {
-      satellite = localStorage.getItem('mapMode') !== 'plain';
-    } catch {
-      // storage unavailable: keep the default
-    }
-    const showMode = () => {
-      modeButton.textContent = say(satellite ? 'cat.modePlain' : 'cat.modeSat');
-      credit.textContent = satellite ? 'Esri, Maxar, Earthstar Geographics · © OpenStreetMap' : '© OpenStreetMap · OpenMapTiles · OpenFreeMap';
-    };
-    // the room the map keeps clear: on a phone the type picker covers its top and the deck its bottom
-    const pad = () => (wide.matches ? { top: 56, bottom: 56, left: 56, right: 56 } : { top: 80, bottom: deck.offsetHeight + 48, left: 40, right: 40 });
-    map = await createMap(mapBox, { kinds, onPick: pickPin, onMove: () => inView.checked && apply({ fit: false, keep: true }), satellite, pad });
-    showMode();
-    modeButton.hidden = false;
-    modeButton.addEventListener('click', () => {
-      satellite = !satellite;
-      map.setSatellite(satellite);
-      showMode();
-      try {
-        localStorage.setItem('mapMode', satellite ? 'satellite' : 'plain');
-      } catch {
-        // not saved, still switched
-      }
+    const tilt = $('tilt');
+    // the room the map keeps clear: on a phone its top is under the controls and its bottom under the deck
+    const pad = () => (wide.matches ? { top: 56, bottom: 56, left: 56, right: 56 } : { top: 118, bottom: deck.offsetHeight + 48, left: 40, right: 40 });
+    map = await createMap(mapBox, {
+      kinds,
+      onPick: pickPin,
+      onMove: () => inView.checked && apply({ fit: false, keep: true }),
+      onTilt: (on) => tilt.setAttribute('aria-pressed', String(on)),
+      pad,
     });
+    // tilting takes two fingers or a held key; the button does it for those who do not know
+    tilt.hidden = false;
+    tilt.addEventListener('click', () => map.tilt(tilt.getAttribute('aria-pressed') !== 'true'));
     $('in-view-label').hidden = false;
     document.dispatchEvent(new CustomEvent('mapready'));
     apply({ keep: true });

@@ -25,59 +25,24 @@ function loadLibrary() {
   return import(/* @vite-ignore */ `${location.origin}/vendor/maplibre/maplibre-gl.mjs`);
 }
 
-// The base style, adjusted before the map starts: place names follow the page
-// language, the US road-shield layers (which only log warnings here) are dropped,
-// and a satellite imagery layer is slotted in under the labels.
-const drawn = new Map(); // layer id -> how the plain map draws it
-
-async function loadStyle(satellite) {
+// The base style, adjusted before the map starts. The map is satellite imagery with the
+// style's labels over it: the drawn land and roads are dropped, the labels follow the page
+// language and turn light with a dark edge, and the US road-shield layers (which only log
+// warnings here) are left out.
+async function loadStyle() {
   const style = await (await fetch(STYLE)).json();
   const field =
     lang === 'ar'
       ? ['coalesce', ['get', 'name:ar'], ['get', 'name']]
       : ['coalesce', ['get', 'name:en'], ['get', 'name_en'], ['get', 'name:latin'], ['get', 'name']];
-  const layers = style.layers.filter((layer) => !layer.id.includes('shield'));
-  for (const layer of layers) {
-    if (layer.type === 'symbol' && JSON.stringify(layer.layout?.['text-field'] ?? '').includes('name')) layer.layout['text-field'] = field;
-    drawn.set(layer.id, {
-      type: layer.type,
-      visibility: layer.layout?.visibility ?? 'visible',
-      text: [layer.paint?.['text-color'], layer.paint?.['text-halo-color'], layer.paint?.['text-halo-width']],
-    });
+  const labels = style.layers.filter((layer) => layer.type === 'symbol' && !layer.id.includes('shield'));
+  for (const layer of labels) {
+    if (JSON.stringify(layer.layout?.['text-field'] ?? '').includes('name')) layer.layout['text-field'] = field;
+    layer.paint = { ...layer.paint, 'text-color': SURFACE, 'text-halo-color': 'rgba(15, 37, 64, 0.9)', 'text-halo-width': 1.5 };
   }
   style.sources.imagery = { type: 'raster', tiles: [IMAGERY], tileSize: 256, maxzoom: 18 };
-  style.layers = [
-    ...layers.filter((layer) => layer.type !== 'symbol'),
-    { id: 'imagery', type: 'raster', source: 'imagery', layout: { visibility: 'none' } },
-    ...layers.filter((layer) => layer.type === 'symbol'),
-  ];
-  for (const layer of style.layers) {
-    const look = lookFor(layer.id, satellite);
-    layer.layout = { ...layer.layout, visibility: look.visibility };
-    if (satellite && look.text) layer.paint = { ...layer.paint, 'text-color': look.text[0], 'text-halo-color': look.text[1], 'text-halo-width': look.text[2] };
-  }
+  style.layers = [...style.layers.filter((layer) => layer.type === 'background'), { id: 'imagery', type: 'raster', source: 'imagery' }, ...labels];
   return style;
-}
-
-// How one base layer should look in each mode: over imagery the drawn land and roads
-// are hidden and the labels turn light with a dark edge.
-function lookFor(id, satellite) {
-  if (id === 'imagery') return { visibility: satellite ? 'visible' : 'none' };
-  const plain = drawn.get(id);
-  if (plain.type === 'symbol') return { visibility: plain.visibility, text: satellite ? [SURFACE, 'rgba(15, 37, 64, 0.9)', 1.5] : plain.text };
-  return { visibility: satellite && plain.type !== 'background' ? 'none' : plain.visibility };
-}
-
-function setMode(map, satellite) {
-  for (const id of ['imagery', ...drawn.keys()]) {
-    const look = lookFor(id, satellite);
-    map.setLayoutProperty(id, 'visibility', look.visibility);
-    if (look.text) {
-      map.setPaintProperty(id, 'text-color', look.text[0]);
-      map.setPaintProperty(id, 'text-halo-color', look.text[1]);
-      map.setPaintProperty(id, 'text-halo-width', look.text[2]);
-    }
-  }
 }
 
 // A round white pin carrying the kind's colour pictogram, drawn at twice the size for sharp screens.
@@ -98,8 +63,8 @@ function hazardImage() {
 
 const loadZones = () => fetch('/data/zones.json').then((res) => (res.ok ? res.json() : [])).catch(() => []);
 
-export async function createMap(container, { kinds, onPick, onMove, satellite, pad }) {
-  const [gl, style, zones] = await Promise.all([loadLibrary(), loadStyle(satellite), loadZones()]);
+export async function createMap(container, { kinds, onPick, onMove, onTilt, pad }) {
+  const [gl, style, zones] = await Promise.all([loadLibrary(), loadStyle(), loadZones()]);
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const map = new gl.Map({
     container,
@@ -269,13 +234,14 @@ export async function createMap(container, { kinds, onPick, onMove, satellite, p
     map.on('mouseleave', layer, () => (map.getCanvas().style.cursor = ''));
   }
   map.on('moveend', onMove);
+  map.on('pitchend', () => onTilt(map.getPitch() > 1));
 
   let homeMarker = null;
   let fitted = '';
 
   return {
     bounds: () => map.getBounds(),
-    setSatellite: (on) => setMode(map, on),
+    tilt: (on) => map.easeTo({ pitch: on ? 55 : 0, animate: !still }),
     lookAt: (bbox) => map.fitBounds(bbox, { padding: pad(), maxZoom: 15, animate: !still }),
     choose,
     pick(done) {
