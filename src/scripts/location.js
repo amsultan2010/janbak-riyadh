@@ -1,29 +1,31 @@
 import { getHome, setHome, lang, say } from './home.js';
+import { openSheet } from './sheet.js';
 
-const box = document.querySelector('[data-loc]');
-if (box) {
-  const text = box.querySelector('[data-loc-text]');
-  const form = box.querySelector('[data-loc-form]');
-  const change = box.querySelector('[data-loc-change]');
-  const remove = box.querySelector('[data-loc-remove]');
-  const gps = box.querySelector('[data-loc-gps]');
-  const pick = box.querySelector('[data-loc-pick]');
-  const select = box.querySelector('[data-loc-district]');
-  const msg = box.querySelector('[data-loc-msg]');
+const sheet = document.querySelector('[data-loc]');
+const opener = document.querySelector('[data-loc-open]');
+if (sheet && opener) {
+  const label = opener.querySelector('[data-loc-label]');
+  const text = sheet.querySelector('[data-loc-text]');
+  const remove = sheet.querySelector('[data-loc-remove]');
+  const gps = sheet.querySelector('[data-loc-gps]');
+  const pick = sheet.querySelector('[data-loc-pick]');
+  const select = sheet.querySelector('[data-loc-district]');
+  const msg = sheet.querySelector('[data-loc-msg]');
   let current = getHome();
 
-  function render(open = !current) {
+  function render() {
     text.textContent = current ? (current[lang] ?? say(current.picked ? 'loc.picked' : 'loc.current')) : say('loc.none');
-    change.hidden = !current || open;
+    label.textContent = current ? (current[lang] ?? say('loc.mine')) : say('loc.set');
     remove.hidden = !current;
-    form.hidden = !open;
   }
 
-  change.addEventListener('click', () => render(true));
+  opener.addEventListener('click', () => {
+    msg.textContent = say('loc.privacy');
+    openSheet(sheet);
+  });
   remove.addEventListener('click', () => {
     select.value = '';
     setHome(null);
-    render(true);
   });
 
   select.addEventListener('change', () => {
@@ -57,16 +59,17 @@ if (box) {
   // the explorer turns this on once its map is ready, and answers "pickstart"
   document.addEventListener('mapready', () => (pick.hidden = false));
   pick.addEventListener('click', () => {
-    msg.textContent = say('loc.pickHint');
+    sheet.close();
     document.dispatchEvent(new CustomEvent('pickstart'));
   });
 
+  // a location that was just set closes the sheet; removing one leaves it open to choose again
   document.addEventListener('homechange', (e) => {
     current = e.detail;
-    msg.textContent = say('loc.privacy');
-    render(!current);
+    render();
+    if (current && sheet.open) sheet.close();
   });
 
-  box.hidden = false;
+  opener.hidden = false;
   render();
 }

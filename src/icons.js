@@ -8,6 +8,7 @@ export const ICONS = {
   'pin': 'M12 21s-6-6.5-6-11a6 6 0 0 1 12 0c0 4.5-6 11-6 11z M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
   'chevron': 'M9 5l7 7-7 7',
   'back': 'M15 5l-7 7 7 7',
+  'down': 'M6 9l6 6 6-6',
 };
 
 // PICTURES: full-colour pictograms for the place categories, their kinds and the emergency

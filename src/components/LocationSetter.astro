@@ -1,4 +1,5 @@
 ---
+// The location sheet, opened from the button in the header on every page.
 import areas from '../data/areas.json';
 import { translator } from '../i18n.js';
 
@@ -7,22 +8,25 @@ const t = translator(lang);
 const districts = [...areas].sort((a, b) => a[lang].localeCompare(b[lang], lang));
 ---
 
-<section class="loc" data-loc aria-label={t('loc.title')} hidden>
-  <p class="loc-state">
-    <span data-loc-text>{t('loc.none')}</span>
-    <button type="button" class="text-btn" data-loc-change hidden>{t('loc.change')}</button>
-  </p>
-  <div class="loc-form" data-loc-form>
-    <button type="button" class="btn btn-fill" data-loc-gps>{t('loc.gps')}</button>
-    <select data-loc-district aria-label={t('loc.pick')}>
+<dialog class="sheet" data-loc aria-labelledby="loc-title">
+  <div class="sheet-body">
+    <div class="sheet-head">
+      <h2 id="loc-title">{t('loc.title')}</h2>
+      <button type="button" class="ctl" data-close>{t('close')}</button>
+    </div>
+    <p class="loc-state" data-loc-text>{t('loc.none')}</p>
+    <p class="small" data-loc-msg role="status">{t('loc.privacy')}</p>
+    <div class="loc-form">
+      <button type="button" class="btn btn-fill" data-loc-gps>{t('loc.gps')}</button>
+      <button type="button" class="btn" data-loc-pick hidden>{t('loc.pickMap')}</button>
+      <select data-loc-district aria-label={t('loc.pick')}>
         <option value="">{t('loc.district')}</option>
         {districts.map((d) => <option value={`${d.lat},${d.lng}`} data-ar={d.ar} data-en={d.en}>{d[lang]}</option>)}
       </select>
-    <button type="button" class="btn" data-loc-pick hidden>{t('loc.pickMap')}</button>
-    <button type="button" class="text-btn" data-loc-remove hidden>{t('loc.remove')}</button>
-    <p class="small" data-loc-msg role="status">{t('loc.privacy')}</p>
+      <button type="button" class="btn" data-loc-remove hidden>{t('loc.remove')}</button>
+    </div>
   </div>
-</section>
+</dialog>
 
 <script>
   import '../scripts/location.js';
