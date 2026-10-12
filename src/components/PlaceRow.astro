@@ -1,6 +1,5 @@
 ---
 import Icon from './Icon.astro';
-import { CATEGORIES } from '../categories.js';
 import { translator, pick, DAYS } from '../i18n.js';
 import { hoursLines } from '../lib/hours-text.js';
 
@@ -35,7 +34,7 @@ const note = p.note?.[lang];
       </p>
       <p class:list={['status', fixed[0]]}>{fixed[1]}</p>
     </div>
-    <span class="place-icon" style={`--c:${CATEGORIES.find((c) => c.id === p.cat).color}`}><Icon name={p.cat} /></span>
+    <span class="place-icon"><Icon name={p.cat} /></span>
   </div>
   {note && <p class="place-note">{note}</p>}
   <div class="actions">

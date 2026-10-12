@@ -9,8 +9,8 @@ const sep = lang === 'ar' ? '، ' : ', ';
 const words = { days: strings.days, to: say('place.to'), everyDay: say('place.everyDay'), always: say('place.always'), closed: say('place.closed') };
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-const icon = (d, color) =>
-  `<svg class="icon${color ? ' tile' : ''}"${color ? ` style="--c:${color}"` : ''} viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"></path></svg>`;
+const icon = (d) => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"></path></svg>`;
+const pic = (markup) => `<svg class="pic" viewBox="0 0 24 24" aria-hidden="true">${markup}</svg>`;
 const tel = (n) => 'tel:' + n.replace(/\s*(?:ext\.?|x)\s*\d.*$/i, '').replace(/[^\d+]/g, '');
 
 async function start(root) {
@@ -146,7 +146,7 @@ async function start(root) {
           <p class="meta">${meta}</p>
           <p class="status ${cls}">${esc(status)}</p>
         </div>
-        <span class="place-icon" style="--c:${r.cat.color}">${icon(r.cat.icon)}</span>
+        <span class="place-icon">${pic(r.cat.pic)}</span>
       </div>
       ${r.note ? `<p class="place-note">${esc(r.note)}</p>` : ''}
       <div class="actions">
@@ -163,7 +163,7 @@ async function start(root) {
     const [cls, status] = statusOf(r);
     const box = document.createElement('div');
     box.className = 'pop';
-    box.innerHTML = `<p class="kind">${icon(r.cat.icon, r.cat.color)}${esc(r.cat.name)}</p><strong><bdi>${esc(r.name)}</bdi></strong>
+    box.innerHTML = `<p class="kind">${pic(r.cat.pic)}${esc(r.cat.name)}</p><strong><bdi>${esc(r.name)}</bdi></strong>
       <p class="status ${cls}">${esc(status)}</p>
       <p class="pop-actions">${r.phone ? `<a href="${tel(r.phone)}">${esc(say('place.call'))}</a>` : ''}<a href="${mapsUrl(r)}" target="_blank" rel="noopener">${esc(say('place.directions'))}</a></p>`;
     return box;
