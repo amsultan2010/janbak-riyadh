@@ -35,11 +35,24 @@ export const CATEGORIES = [
   { id: 'mental-health', group: 'health', ar: 'الصحة النفسية', en: 'Mental health', short: { ar: 'صحة نفسية', en: 'Mental health' } },
   { id: 'supermarkets', group: 'daily', ar: 'أسواق غذائية', en: 'Supermarkets', short: { ar: 'أسواق', en: 'Supermarkets' } },
   { id: 'fuel', group: 'daily', ar: 'محطات وقود', en: 'Fuel stations', short: { ar: 'وقود', en: 'Fuel' } },
+  {
+    id: 'transport',
+    group: 'daily',
+    ar: 'النقل العام',
+    en: 'Public transport',
+    short: { ar: 'نقل عام', en: 'Transport' },
+    kinds: [
+      { id: 'metro', ar: 'محطة قطار الرياض', en: 'Metro station' },
+      // a stop has no opening hours of its own, so it shows no open or closed status
+      { id: 'bus', ar: 'موقف حافلات', en: 'Bus stop', untimed: true },
+      { id: 'train', ar: 'محطة قطار سار', en: 'SAR train station' },
+    ],
+  },
   { id: 'embassies', group: 'official', ar: 'سفارات', en: 'Embassies', short: { ar: 'سفارات', en: 'Embassies' } },
 ];
 
 // Every kind of place in one list, in category order. A category without `kinds` is its own kind.
-export const KINDS = CATEGORIES.flatMap((c) => (c.kinds ?? [c]).map((k) => ({ id: k.id, cat: c.id, ar: k.ar, en: k.en })));
+export const KINDS = CATEGORIES.flatMap((c) => (c.kinds ?? [c]).map((k) => ({ id: k.id, cat: c.id, ar: k.ar, en: k.en, untimed: !!k.untimed })));
 
 // The three numbers on the emergency bar.
 export const EMERGENCY = [

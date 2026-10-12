@@ -15,13 +15,13 @@ const maps = mapped
   ? `https://www.google.com/maps/dir/?api=1&destination=${p.lat}%2C${p.lng}&hl=${lang}`
   : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name} ${lang === 'ar' ? 'الرياض' : 'Riyadh'}`)}&hl=${lang}`;
 const search = [p.name.ar, p.name.en, p.addr?.ar, p.addr?.en, p.district.ar, p.district.en, p.country?.ar, p.country?.en].filter(Boolean).join(' ').toLowerCase();
-const tags = [p.own && t(`own.${p.own}`), ...(p.flags ?? []).filter((f) => ['pediatric_er', 'trauma_center', 'burns'].includes(f)).map((f) => t(`flag.${f}`))].filter(Boolean);
+const tags = [p.own && t(`own.${p.own}`), ...(p.flags ?? []).filter((f) => ['pediatric_er', 'trauma_center', 'burns'].includes(f)).map((f) => t(`flag.${f}`)), ...(p.lines ?? []).map((n) => t('tag.line', { n }))].filter(Boolean);
 const words = { days: DAYS[lang], to: t('place.to'), everyDay: t('place.everyDay'), always: t('place.always'), closed: t('place.closed') };
 const lines = p.hours && p.hours !== '*' ? hoursLines(p.hours, lang, words) : [];
 const hasDetails = lines.length || p.phone2 || p.website || p.source;
 const er = p.kind === 'hospitals';
 const kind = CATEGORIES.find((c) => c.id === p.cat).kinds?.find((k) => k.id === p.kind);
-const fixed = p.hours === '*' ? ['is-open is-always', t(er ? 'place.erAlways' : 'place.always')] : !p.hours ? ['is-unknown', t(er ? 'place.erUnknown' : 'place.unknown')] : ['', ''];
+const fixed = p.hours === '*' ? ['is-open is-always', t(er ? 'place.erAlways' : 'place.always')] : !p.hours && !kind?.untimed ? ['is-unknown', t(er ? 'place.erUnknown' : 'place.unknown')] : ['', ''];
 const note = p.note?.[lang];
 ---
 

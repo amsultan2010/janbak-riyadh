@@ -94,7 +94,7 @@ async function start(root) {
   let map = null;
 
   function statusOf(r) {
-    if (!r.week) return ['is-unknown', say(r.er ? 'place.erUnknown' : 'place.unknown')];
+    if (!r.week) return r.kind.untimed ? ['', ''] : ['is-unknown', say(r.er ? 'place.erUnknown' : 'place.unknown')];
     const s = r.state;
     if (s.always) return ['is-open is-always', say(r.er ? 'place.erAlways' : 'place.always')];
     if (s.open) return ['is-open', say('place.open') + sep + say('place.closes', { t: formatTime(s.until, lang) })];
