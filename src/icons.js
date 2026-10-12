@@ -39,6 +39,12 @@ export const PICTURES = {
   'supermarkets': `<circle cx="8.8" cy="8" r="3" fill="${ORANGE}"/><circle cx="14.6" cy="7.4" r="3.4" fill="${RED}"/><path fill="${GREEN}" d="M2.5 10h19l-2.2 10.5H4.7z"/><path d="M8.5 13v4.5M12 13v4.5M15.5 13v4.5" fill="none" stroke="${LIGHT}" stroke-width="1.4" stroke-linecap="round"/>`,
   // a fuel pump
   'fuel': `<path fill="${RED}" d="M5 3.5h9v17H5z"/><path fill="${LIGHT}" d="M7 6h5v4H7z"/><path fill="${DARK}" d="M3.5 20.5h12V22h-12z"/><path d="M14 11.5h2.3v5.8a1.7 1.7 0 0 0 3.4 0V8.6L17.6 6.5" fill="none" stroke="${DARK}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>`,
+  // a metro train seen from the front, on its rails
+  'metro': `<path d="M8.5 18.5L6 22M15.5 18.5L18 22" fill="none" stroke="${DARK}" stroke-width="1.7" stroke-linecap="round"/><path fill="${BLUE}" d="M6 7a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v9.5a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><path fill="${LIGHT}" d="M8.5 6.5h7v5h-7z"/><circle cx="9.3" cy="15" r="1.2" fill="${YELLOW}"/><circle cx="14.7" cy="15" r="1.2" fill="${YELLOW}"/>`,
+  // a bus seen from the front
+  'bus': `<path fill="${DARK}" d="M6 18h3.2v3.5H6zM14.8 18H18v3.5h-3.2z"/><path fill="${GREEN}" d="M4.5 3.5h15v15.5h-15z"/><path fill="${LIGHT}" d="M6.5 6h11v6h-11z"/><circle cx="8" cy="15.5" r="1.2" fill="${YELLOW}"/><circle cx="16" cy="15.5" r="1.2" fill="${YELLOW}"/>`,
+  // an intercity locomotive: a split windscreen and a stripe
+  'train': `<path d="M8 18.5L5.5 22M16 18.5l2.5 3.5" fill="none" stroke="${DARK}" stroke-width="1.7" stroke-linecap="round"/><path fill="${RED}" d="M5 5.5l2-3h10l2 3v13H5z"/><path fill="${LIGHT}" d="M7 6.5h4.2v4.5H7zM12.8 6.5H17V11h-4.2z"/><path fill="${YELLOW}" d="M5 13h14v2H5z"/>`,
   // a flag on a pole
   'embassies': `<path fill="${DARK}" d="M4.5 2.5h2v19h-2z"/><path fill="${BLUE}" d="M6.5 4h13l-3 4.5 3 4.5h-13z"/><circle cx="11.5" cy="8.5" r="2" fill="${LIGHT}"/>`,
   // 911: a red beacon
@@ -48,3 +54,6 @@ export const PICTURES = {
   // 937: advice with a medical cross
   'advice': `<path fill="${BLUE}" d="M3 4h18v12.5H11.5L6.5 21v-4.5H3z"/><path fill="${LIGHT}" d="M10.8 6.3h2.4v2.7h2.7v2.4h-2.7v2.7h-2.4v-2.7H8.1V9h2.7z"/>`,
 };
+
+// the public transport category wears the metro train
+PICTURES['transport'] = PICTURES['metro'];
