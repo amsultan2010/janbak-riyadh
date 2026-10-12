@@ -1,0 +1,193 @@
+{
+ "checked": "2026-10-12",
+ "items": [
+  {
+   "file": "retail-chains",
+   "id": "nahdi",
+   "status": "filled",
+   "set": {
+    "customer_phone": "920024673"
+   },
+   "evidence": "Branch hours NOT confirmed: no official page that loaded states them. Phone only: the nahdionline.com home page schema.org contactPoint gives telephone +966-920024673 as 'customer service' and the contact-us page shows 'Phone 920024673'. /en-sa/store-locator returns 404, /en-sa/faqs has no hours, nahdi.sa returns 500/404, the App Store and Google Play (com.nahdi.main) descriptions only say 'Find a nearby Nahdi ... from the app', and the Internet Archive has no copy of a store-locator page (CDX empty). Branch finder is app-only, so no 24-hour branches captured.",
+   "sources": [
+    "https://www.nahdionline.com/en-sa",
+    "https://www.nahdionline.com/en-sa/contact-us",
+    "https://www.nahdionline.com/en-sa/faqs",
+    "https://play.google.com/store/apps/details?id=com.nahdi.main&hl=en&gl=sa",
+    "https://itunes.apple.com/search?term=nahdi&country=sa&entity=software&limit=5"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "al-dawaa",
+   "status": "filled",
+   "set": {
+    "customer_phone": "8002444444"
+   },
+   "evidence": "Branch hours NOT confirmed: no official page that loaded states them. Phone only: on the chain's Google Play listing the developer 'Al-Dawaa Medical Services Co.' answers reviews with 'please contact our customer care on this number 8002444444' (replies dated 2025-2026). Corporate site al-dawaa.com.sa lists only the Khobar head office, +966 920000838. The locator al-dawaa.com/english/storelocator and /arabic/storelocator still answer 403 (Cloudflare) even with full browser headers; the Internet Archive snapshot of 2026-02-14 holds no usable page body.",
+   "sources": [
+    "https://play.google.com/store/apps/details?id=com.kr.aldawaa&hl=en&gl=sa",
+    "https://www.al-dawaa.com.sa/en/Contact_Us/",
+    "https://www.al-dawaa.com.sa/ar/Contact_Us/",
+    "https://web.archive.org/web/20260214195444/https://www.al-dawaa.com/english/storelocator/"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "panda",
+   "status": "filled",
+   "set": {
+    "customer_phone": "920027707"
+   },
+   "evidence": "Branch hours NOT confirmed. Phone only: on the Google Play listing of the Panda app (com.todoorstep.store) the developer 'Panda Retail Company' replies to a review (3 September 2023) with 'Hotline number 920027707'. panda.com.sa still returns HTTP 429 (Vercel Security Checkpoint) on /en/store-locate and /ar with full browser headers; the Internet Archive has no copy of the locator and its 2026-06-07 home-page capture is the same 429 page. App Store description has no hours.",
+   "sources": [
+    "https://play.google.com/store/apps/details?id=com.todoorstep.store&hl=en&gl=sa",
+    "https://itunes.apple.com/search?term=panda%20%D8%A8%D9%86%D8%AF%D9%87&country=sa&entity=software&limit=6"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "lulu",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Nothing official states hours or a phone. luluhypermarket.com/en-sa/store-locator, gcc.luluhypermarket.com/en-sa/store-locator/ and luluretail.com all answer 403 (Cloudflare) with full browser headers; the Internet Archive has no 2026 copy of either locator (404, CDX empty). The Google Play listing (com.akinon.lulushopping, Lulu Group International) and the App Store description mention no hours and no Saudi customer-care number.",
+   "sources": [
+    "https://play.google.com/store/apps/details?id=com.akinon.lulushopping&hl=en&gl=sa",
+    "https://itunes.apple.com/search?term=lulu%20hypermarket&country=sa&entity=software&limit=5"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "carrefour",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Nothing official states hours or a phone. carrefourksa.com/mafsau/en/store-finder answers 503 and the help-centre page 500 (Akamai). The newest Internet Archive copy of the store finder is 2023-04-23 and is only a shell: the store list is marked 'will get populated from JavaScript', so it has labels ('Opening Hours', 'Call us on') but no store data. The MAF Carrefour App Store description has no hours.",
+   "sources": [
+    "https://web.archive.org/web/20230423143156/https://www.carrefourksa.com/mafsau/en/store-finder",
+    "https://itunes.apple.com/search?term=carrefour%20saudi&country=sa&entity=software&limit=5"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "united",
+   "status": "filled",
+   "set": {
+    "customer_phone": "8002444445"
+   },
+   "evidence": "Branch hours NOT confirmed: the current '24/7' is not supported by the chain's site. Phone: unitedpharmacy.sa header shows 'Customer Care 8002444445' and the footer 'HOTLINE CALL US TOLL FREE 8002444445'. The contact page's 'Hours Sat - Tue 9:00am - 4:00pm' sits under the Jeddah head-office address and is the customer-care desk, not branch hours. The locations page lists branches with address and the same phone but no hours.",
+   "sources": [
+    "https://unitedpharmacy.sa/en/contact",
+    "https://unitedpharmacy.sa/en/locations/"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "kunooz",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No official source for hours or a phone. The App Store listing 'Kunooz' by KUNOOZ HOLDING COMPANY describes 'Kunooz Pharmacy ... started with only one branch in 1999 ... now it covers most of Riyadh areas' but gives no hours and no number. kunooz.com.sa has an expired TLS certificate (not loaded), kunoozpharmacies.com does not resolve, and a search returned only third-party directories (near-place.com).",
+   "sources": [
+    "https://itunes.apple.com/search?term=kunooz%20pharmacy&country=sa&entity=software&limit=5",
+    "https://lite.duckduckgo.com/lite/?q=kunooz+pharmacy+riyadh+%D8%B5%D9%8A%D8%AF%D9%84%D9%8A%D8%A7%D8%AA+%D9%83%D9%86%D9%88%D8%B2"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "orange",
+   "status": "filled",
+   "set": {
+    "customer_phone": "920006277"
+   },
+   "evidence": "Branch hours NOT confirmed: the home page, branches page and contact page state none. Phone: orangepharmacy.sa contact page shows 'Email info@orangepharmacy.sa Phone 920006277'.",
+   "sources": [
+    "https://orangepharmacy.sa/en/contact-us/",
+    "https://orangepharmacy.sa/"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "lemon",
+   "status": "confirmed",
+   "set": {
+    "typical_hours": "24/7",
+    "customer_phone": "920013770",
+    "confidence": "medium"
+   },
+   "evidence": "lemon.sa contact page: 'اتصل بنا 920013770 ... ساعات العمل طوال اﻻسبوع 24/7 ... عنوان المتجر المملكة العربية السعودية الرياض' (working hours all week 24/7). The footer of the same page says orders can be placed at any time, so the statement is chain-level for the store/web shop and there is no per-branch flag: kept at medium, and all_branches_24h is not set. No individual 24-hour branch is named.",
+   "sources": [
+    "https://lemon.sa/index.php?route=information/contact"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "bindawood",
+   "status": "filled",
+   "set": {
+    "typical_hours": "Mo-Su 07:00-01:00",
+    "customer_phone": "8002442226",
+    "confidence": "medium"
+   },
+   "evidence": "bindawood.sa store locator (loaded today) shows 'Contact Us 8002442226' and, for its Riyadh rows, data-working_hours 'Saturday - Friday:7 am to 1 am' on 6 of 9 live locations; exceptions: Al Badiyah Express and Al Wadi-Irqa 07:00-02:00, Panorama 08:00-01:00. Caveat: the Riyadh rows carry Danube store names (Nakhla Compound, Panorama, Green Oasis, Hittin Express ...), so these are the Danube stores already recorded, not separate BinDawood-branded shops; hence medium.",
+   "sources": [
+    "https://www.bindawood.sa/en/store_locations",
+    "https://www.bindawood.sa/ar/store_locations"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "farm",
+   "status": "unverified",
+   "set": {},
+   "evidence": "farm.com.sa home page and the branch page /ar/Locations/1 load but state no opening hours and no customer-service number (the home page is a company profile; the branch page is the embedded map). /ar/ContactUs and /en return 404.",
+   "sources": [
+    "https://www.farm.com.sa/",
+    "https://www.farm.com.sa/ar/Locations/1"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "al-sadhan",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No official source for hours or a phone. An App Store listing 'AlSadhan Stores' by AL SADHAN TRADING CO exists but its description is generic ('immersive and unique experience ... online shopping') with no hours, branches or number. alsadhan.com.sa does not resolve and alsadhangroup.com timed out.",
+   "sources": [
+    "https://itunes.apple.com/search?term=%D8%A7%D9%84%D8%B3%D8%AF%D8%AD%D8%A7%D9%86&country=sa&entity=software&limit=5"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "retail-chains",
+   "id": "al-raya",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No official source for hours, phone or a Riyadh branch. An App Store search for 'أسواق الراية' returned no Al Raya app; the site bundle read earlier has no hours text and its only phone number belongs to SDAIA in the privacy policy.",
+   "sources": [
+    "https://itunes.apple.com/search?term=%D8%A3%D8%B3%D9%88%D8%A7%D9%82%20%D8%A7%D9%84%D8%B1%D8%A7%D9%8A%D8%A9&country=sa&entity=software&limit=5"
+   ],
+   "source_kind": "secondary"
+  },
+  {
+   "file": "retail-chains",
+   "id": "manuel",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No official source reachable: manuel.com.sa and manuelmarket.sa do not resolve, and an App Store search for 'manuel market' returned no Manuel app.",
+   "sources": [
+    "https://itunes.apple.com/search?term=manuel%20market&country=sa&entity=software&limit=5"
+   ],
+   "source_kind": "secondary"
+  }
+ ],
+ "branches": []
+}

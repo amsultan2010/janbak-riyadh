@@ -1,0 +1,315 @@
+{
+  "checked": "2026-10-12",
+  "items": [
+    {
+      "file": "hospitals",
+      "id": "aster-sanad-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "920004417",
+        "er_24h": true,
+        "hours": "24/7"
+      },
+      "evidence": "astersanad.sa header/footer tel link 920004417. Emergency-services page: 'immediate medical care to critically ill or injured patient's 24-hours a day' / Arabic 'على مدار 24 ساعة'. No separate ER number published.",
+      "sources": [
+        "https://www.astersanad.sa/ar/",
+        "https://www.astersanad.sa/ar/facilities/emergency-services",
+        "https://www.astersanad.sa/en/facilities/emergency-services"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "akdital-hospitals-riyadh-al-olaya",
+      "status": "confirmed",
+      "set": {
+        "phone": "920011066",
+        "er_24h": true,
+        "hours": "24/7"
+      },
+      "evidence": "alolayahospital.com header: 'Emergency Line: 920011066' and 'Emergency: [920011066] (24/7)'. akdital.sa facility page: 'EMERGENCY Open 24 hours / 7. Emergency information: 920011066. Phone: 920011066', address As Sidrah Street, Al Olaya, Riyadh 12241. The emergency line is the same number as the main line, so er_phone stays null. Complaints line 8001255000.",
+      "sources": [
+        "https://alolayahospital.com/",
+        "https://akdital.sa/facilities-al-olaya-hospital/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "obeid-specialized-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114750111",
+        "er_24h": true,
+        "hours": "24/7"
+      },
+      "evidence": "obeidhospital.sa prints 0114750111 and 0114767222; working hours block: 'الطوارئ 24 ساعة' / 'Emergency 24 Hours', outpatient clinics 8am-12pm and 4-9:30pm. Google Maps link on the site gives 24.6669794, 46.7226041 (matches entry).",
+      "sources": [
+        "https://obeidhospital.sa/",
+        "https://obeidhospital.sa/en/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "al-jazeera-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "920005322",
+        "er_24h": true,
+        "hours": "24/7"
+      },
+      "evidence": "aljazeerahospital.com.sa tel link 920005322 (second number 0539198631). Arabic: 'يعمل قسم الطوارئ على مدار 24 ساعة 7 ايام في الأسبوع و يستقبل جميع الحالات الطارئة للكبار و الأطفال'; English footer: 'Emergency 24 * 7'.",
+      "sources": [
+        "https://aljazeerahospital.com.sa/",
+        "https://aljazeerahospital.com.sa/en/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "green-crescent-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "920002063",
+        "er_24h": true,
+        "hours": "24/7"
+      },
+      "evidence": "gch.med.sa contact page: 'الطوارئ: 920002063', 'خدمة العملاء: 0556402082', clinics daily 8am-10pm '(قسم الطوارئ متاح على مدار 24 ساعة)'. The emergency number is the same unified number as the main line, so er_phone stays null.",
+      "sources": [
+        "https://gch.med.sa/",
+        "https://gch.med.sa/contact-us/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "dar-al-shifa-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "920008843"
+      },
+      "evidence": "daralshefa.com.sa tel links 920008843 (WhatsApp 0536139693); site lists an emergency department with a named head of department. The only round-the-clock wording is a general sentence on the English homepage ('The Ambulance and Emergency Department ... does not close them throughout the hours of the night'); no explicit '24 hours' line for this hospital's ER was found, so the existing er_24h=true rests on that sentence and is not re-asserted here.",
+      "sources": [
+        "https://daralshefa.com.sa/",
+        "https://daralshefa.com.sa/en/",
+        "https://daralshefa.com.sa/contact-us/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "hayat-hospital-riyadh-rabwah",
+      "status": "confirmed",
+      "set": {
+        "phone": "920000094"
+      },
+      "evidence": "hayathealth.com branch page and contact page show 920000094 ('خدمة عملاء على مدار الساعة' = customer care round the clock, not the ER). No mention of an emergency department on the branch page, so er_24h stays null. MoH directory record 402 'National Life Hospital' lists an older landline 00966114455555 and coordinates 24.69373449, 46.77286759 (match the entry).",
+      "sources": [
+        "https://hayathealth.com/facilities/hayathospital-riyadh",
+        "https://hayathealth.com/facilities/hayathospital-riyadh?lang=en",
+        "https://hayathealth.com/contact",
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetAllHospitals?language=0&hospitalType=3&nameSearch=&directorateID=11"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "family-care-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "920024111"
+      },
+      "evidence": "Site data feed: phoneNumberEn '+966 92 002 4111', address 'Al Raya st, Al Nadwah, Riyadh', location 24.8015728, 46.8708983; site bundle labels '+966 92 002 4111' as 'Emergency Call' (second number +966 53 124 8548). The only round-the-clock statement is for the paediatric emergency department (blog: 'قسم طوارئ الأطفال ليعمل على مدار الساعة'); no statement found for a general/adult ER, so er_24h=true is confirmed for paediatric emergencies only.",
+      "sources": [
+        "https://www.familycare.com.sa/",
+        "https://familycareapi.com/api/HospitalInfo/GetHospitalContacts",
+        "https://familycareapi.com/api/HospitalInfo/GetHospitalBlogs",
+        "https://www.familycare.com.sa/main.e1087231896b4bf0.js"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "al-osrah-international-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114311111",
+        "er_24h": true,
+        "hours": "24/7",
+        "confidence": "high"
+      },
+      "evidence": "Site bundle: 'Emergency: 011-4311111', phone '+ 011-4311111', address 'Exit 29 - Riyadh'; working hours 'EMERGENCY, PHARMACY, LABORATORY, PATIENT RELATIONS (IN-DUTY MANAGER): 24 Hours'; about text '24 hours round the clock services through the Emergency Department'. Embedded Google map centred on 24.584713, 46.592886 (matches entry). Emergency number is the main number, so er_phone stays null.",
+      "sources": [
+        "https://www.alosrah-hospital.com/",
+        "https://www.alosrah-hospital.com/main.679f6464e59e9402.js"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "al-jafel-international-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "920015888"
+      },
+      "evidence": "abeergroup.com KSA contact page header: 'Call Us Now +966920015888' (group unified number). The page loads its branch list from a feed that now answers 401, and nothing loaded mentions an emergency department for this branch, so er_24h stays null.",
+      "sources": [
+        "https://abeergroup.com/ksa/ContactUs.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "ali-bin-ali-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966112600000"
+      },
+      "evidence": "alibinali.sa: 'Emergency Cases Ali Bin Ali Hospital +966-11-2600000' (same as the main number); About page lists 'an emergency department'; appointments/WhatsApp +966-56-744-2834. No page says the ER is open 24 hours, so er_24h stays null. Contact-page map embed centred on 24.575374, 46.765488 (matches entry).",
+      "sources": [
+        "https://www.alibinali.sa/",
+        "https://www.alibinali.sa/contact-us/",
+        "https://www.alibinali.sa/about-us/",
+        "https://www.alibinali.sa/medical-departments/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "magrabi-health-eye-dental-ent-hospital-riyadh",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114705656",
+        "er_24h": true,
+        "hours": "24/7"
+      },
+      "evidence": "Official branch page data: phone '+966114705656', hotline '920018000'; 'قبول الحالات الطارئة على مدار 24 ساعة' (emergency cases accepted 24 hours); clinic hours Sat-Thu 8:30am-9:00pm. Specialty hospital (eye, dental, ENT), not a general ER.",
+      "sources": [
+        "https://www.magrabihealth.com/ar/sa/eye/branches/magrabi-health-eye-dental-and-ent-hospital--riyadh"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "riyadh-hospital-al-mughrizat",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966115215555"
+      },
+      "evidence": "rh.med.sa: 'Call Us Now +966 (011)-5215555', address 'King Abdullah Rd, Al Mughrizat, Riyadh 12481'. The site lists clinics and services but no emergency department or hours, so er_24h stays null.",
+      "sources": [
+        "https://rh.med.sa/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "rabia-medical-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114999000",
+        "er_24h": true,
+        "hours": "24/7"
+      },
+      "evidence": "rabiahospitals.com tel link +966114999000; English homepage '24/7 Emergency Support', Arabic homepage 'خدمة على مدار 24 ساعة'; dedicated 'قسم الطوارئ والاصابات' (Emergency and Trauma) department page; contact page 'دعم على مدار الساعة'.",
+      "sources": [
+        "https://rabiahospitals.com/ar",
+        "https://rabiahospitals.com/en",
+        "https://rabiahospitals.com/ar/departments/taware",
+        "https://rabiahospitals.com/ar/contact"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "almather-hospital-kfshrc",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966115152222",
+        "er_24h": true,
+        "hours": "24/7"
+      },
+      "evidence": "almather.kfshrc.edu.sa contact page: 'Phone +966 11 515 2222', 'Clinics: Sat-Thu, 9AM-9PM. Emergency Services: 24/7', 'Emergency Open 24 hours · 7 days', address Altakhassusi St, Al Maather, Riyadh 12714. The header banner shows '24/7 Emergency · +966 11 000 0000', which is a placeholder and must not be used as an ER number; the banner also still reads 'Soft launch May-June 2026'.",
+      "sources": [
+        "https://almather.kfshrc.edu.sa/en/",
+        "https://almather.kfshrc.edu.sa/ar/",
+        "https://almather.kfshrc.edu.sa/en/contact-us/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "al-falah-international-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114463737"
+      },
+      "evidence": "MoH interactive-map directory (private hospitals, Riyadh) record 390 'Al Falah International Hospital': Phone 00966114463737, Fax 00966114483608, 50 beds, no coordinates (-1), record last updated 2017-04-24. Phone matches. Secondary: OpenStreetMap node 4244291528 'مستشفى الفلاح' (amenity=hospital, شارع غبيرة العام) at 24.6191751, 46.7292391 matches the entry's coordinates. Not established: that it is operating today or has an emergency department (no hospital site; alfalah.com.sa does not resolve; the MoH record is silent on ER and hours). Confidence left low; er_24h stays null.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetAllHospitals?language=0&hospitalType=3&nameSearch=&directorateID=11",
+        "https://overpass-api.de/api/interpreter"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "elite-hospital-riyadh",
+      "status": "unverified",
+      "set": {},
+      "evidence": "No hospital site reachable (elitehospital.com.sa does not resolve). MoH directory record 2911 'Elite Medical and Surgical Center' / 'مركز شركة أطباء النخبة الطبية' (90 beds, updated 2020-08-24) has no phone and no coordinates, so neither the phone +966114616777 nor a location could be checked. No OpenStreetMap object found by name. Operating status and emergency department not established; confidence stays low, coordinates stay null.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetAllHospitals?language=0&hospitalType=3&nameSearch=&directorateID=11",
+        "https://nominatim.openstreetmap.org/search?q=Elite+Hospital+Riyadh&format=jsonv2",
+        "https://overpass-api.de/api/interpreter"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "hayat-hospital-riyadh-ghirnatah",
+      "status": "confirmed",
+      "set": {
+        "phone": "920000094",
+        "lat": 24.791731,
+        "lng": 46.743889,
+        "confidence": "medium"
+      },
+      "evidence": "hayathealth.com lists the branch 'مستشفى الحياة - الرياض- حي غرناطة' with tel link 920000094. MoH directory record 5595 'National Life Hospital - Granada': Phone '92000094' (one digit short of 920000094), Latitude 24.79173102, Longitude 46.74388896, email med.records.Ghirnatah@hayathospitals.com. So it is listed as operating at this location by both official sources. Neither the branch page (Arabic or English) nor the MoH record mentions an emergency department, so er_24h stays null.",
+      "sources": [
+        "https://hayathealth.com/facilities/hayathospital-Ghirnatah",
+        "https://hayathealth.com/facilities/hayathospital-Ghirnatah?lang=en",
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetAllHospitals?language=0&hospitalType=3&nameSearch=&directorateID=11"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "al-mubarak-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114015282"
+      },
+      "evidence": "MoH directory record 389 'مستشفى المبارك' / 'Al Mobark Hospital': Phone 00966114015282, no coordinates (-1), record last updated 2017-04-24. Phone matches. Secondary: OpenStreetMap node 4222647492 'مستشفى المبارك' (amenity=hospital) at 24.6566664, 46.7069690, King Faisal bin Abdulaziz St, Al Murabba, matches the entry's coordinates. Not established: that it is operating today or has an emergency department (no hospital site, no ER/hours tags). Confidence left low; er_24h stays null.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetAllHospitals?language=1&hospitalType=3&nameSearch=&directorateID=11",
+        "https://nominatim.openstreetmap.org/search?q=%D9%85%D8%B3%D8%AA%D8%B4%D9%81%D9%89+%D8%A7%D9%84%D9%85%D8%A8%D8%A7%D8%B1%D9%83&format=jsonv2"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "al-azhar-hospital-riyadh",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966112366788"
+      },
+      "evidence": "MoH directory record 387 'مستشفى الأزهار الطبي' / 'Al Azhar Hospital': Phone 00966112366788, Fax 00966112366703, 50 beds, no coordinates (-1), record last updated 2017-04-24. Phone matches. alazhar.sa returns only a one-line stub. No coordinates found in MoH or OpenStreetMap, so lat/lng stay null. Emergency department and hours not stated by any loaded source; er_24h stays null.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetAllHospitals?language=0&hospitalType=3&nameSearch=&directorateID=11",
+        "https://alazhar.sa/"
+      ],
+      "source_kind": "official"
+    }
+  ]
+}

@@ -1,0 +1,332 @@
+{
+ "checked": "2026-10-12",
+ "items": [
+  {
+   "file": "embassies",
+   "id": "embassy-pk",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Not confirmed. The foreign ministry mission page mofa.gov.pk/riyadh-saudi-arabia never answered on 2026-10-12: curl timed out after 25 s over https and http, www.mofa.gov.pk reset the connection, the site's wp-json feed timed out and WebFetch got ECONNRESET. No other official Pakistani page for the Riyadh embassy was found. Third-party directories in search results list +966 11 488 7272 and +966 11 488 4111; these are not official and are not set. pakembassyksa.com was not used.",
+   "sources": [],
+   "source_kind": "secondary"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-ps",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Not confirmed. embassyofpalestineksa.com loads and calls itself the embassy's site; it prints 'رقم الهاتف : 4880744 11 - 48101723 011' (the second number has one digit too many), 'لحالات الوفيات فقط : 4880744 11' (deaths only), P.O. Box 94302 Riyadh 11693 and a Google Maps link to a place named 'Embassy of Palestine' at 24.6835945, 46.6396112. No hours. The Palestinian foreign ministry home page (mofa.pna.ps) loaded and does not link this domain, and a web search found no official announcement of it, so nothing is set. Not in OSM (Nominatim returned nothing for the English and Arabic name).",
+   "sources": [
+    "https://embassyofpalestineksa.com/",
+    "https://embassyofpalestineksa.com/html/About.html",
+    "https://www.mofa.pna.ps/ar-jo/"
+   ],
+   "source_kind": "secondary"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-ng",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Not confirmed as official. nigeriaembassyriyadh.org loads live and says 'Welcome to the Official Website of the Embassy of the Federal Republic of Nigeria in Riyadh', '+966 54 214 9456', 'Abdullah Al Sahmi Street, Diplomatic Quater, Riyadh', 'Sunday - Thursday: 09:00 - 16:00' (would be 'Su-Th 09:00-16:00; Fr,Sa off'). It is a .org domain whose only phone is a mobile. The Nigerian foreign ministry's missions page lists 'Embassy of Nigeria, Riyadh, Saudi Arabia' with a 'Visit Site' link to https://riyadh.foreignaffairs.gov.ng/, not to the .org; that ministry address has a certificate that does not match its name and serves only a 'Foreign Affairs ID Card Portal' login page, with no contact details. Nothing ties the .org to the ministry, so nothing is set.",
+   "sources": [
+    "https://nigeriaembassyriyadh.org/",
+    "https://nigeriaembassyriyadh.org/contact-us/",
+    "https://foreignaffairs.gov.ng/diplomatic-missions/",
+    "http://riyadh.foreignaffairs.gov.ng/"
+   ],
+   "source_kind": "secondary"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-et",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Not confirmed. mfa.gov.et now loads but is a JavaScript app; its own data feed for missions (mfa.gov.et/api/missionoverseas/) returns a single record, 'Embassy of FDRE In Algeria', and nothing for Riyadh. No embassy website found. Third-party directories list +966 11 482 3919 / 482 4055; not official, not set.",
+   "sources": [
+    "https://mfa.gov.et/",
+    "https://mfa.gov.et/api/missionoverseas/"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-af",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Not confirmed. The Afghan foreign ministry home page loads and its menu links 'Afghanistan's Foreign Missions' (Saudi Arabia is in the country list), but that page, https://mfa.gov.af/en/afghanistans-foreign-mission, answers HTTP 410 'Page not found', as does /en/saudi-arabia. No phone, hours or site for the Riyadh mission on any page that loaded.",
+   "sources": [
+    "https://mfa.gov.af/en/"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-kw",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Not confirmed. www.mofa.gov.kw still answers HTTP 403 with a Cloudflare verification page; not bypassed. The Internet Archive availability API answered 429, so no newer snapshot was checked. The 2024 archived numbers in the record's notes stay unconfirmed.",
+   "sources": [],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-ru",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Not confirmed. riyadh.mid.ru and mid.ru/ru/maps/sa/ return only an F5 bot-challenge script (5,626 bytes, no content); not bypassed. The Russian MFA consular appointment site riyadh.kdmid.ru loads and is titled 'Consular Section of the Embassy of the Russian Federation to the Kingdom of Saudi Arabia (Riyadh)', but shows no address, phone or hours. Nominatim returned nothing for the embassy name or for 'Al Wasiti Street Riyadh', so no pin.",
+   "sources": [
+    "https://riyadh.kdmid.ru/",
+    "https://riyadh.kdmid.ru/queue-en/"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-ph",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Still archive-only. riyadhpe.dfa.gov.ph/contact-us and dfa.gov.ph answer HTTP 403 (Cloudflare challenge) to curl and to WebFetch on 2026-10-12; not bypassed. Nothing new to set.",
+   "sources": [],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-za",
+   "status": "filled",
+   "set": {
+    "phone": "+966114828515",
+    "emergency_phone": "+966558122215",
+    "website": "https://dirco1.azurewebsites.net/saudi_arabia/",
+    "enriched": true,
+    "confidence": "medium"
+   },
+   "evidence": "Mission site contacts page: 'Reception: +966 (11) 482 8515 / 482 8520 After Hours (Emergency): +966 (55) 812 2215 E-mail: riyadh.info@dirco.gov.za'. No opening hours on the home, contacts or consular pages. The same page still lists 'Public Holidays for 2025', so it may not have been updated this year: confidence medium.",
+   "sources": [
+    "https://dirco1.azurewebsites.net/saudi_arabia/",
+    "https://dirco1.azurewebsites.net/saudi_arabia/contacts.html",
+    "https://dirco1.azurewebsites.net/saudi_arabia/consularservices.html"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-it",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No hours published. Loaded Gli Uffici, Contatti, Cancelleria Consolare and Servizi consolari e visti: phone numbers only (+966 11 488 1212 switchboard); the only 'Orario' on the pages is the honorary consular agent in Al Khobar (weekdays 10-14), not the embassy.",
+   "sources": [
+    "https://ambriad.esteri.it/it/chi-siamo/gli-uffici/",
+    "https://ambriad.esteri.it/it/chi-siamo/contatti/",
+    "https://ambriad.esteri.it/it/chi-siamo/gli-uffici/cancelleria-consolare-dellambasciata-ditalia-a-riad/",
+    "https://ambriad.esteri.it/it/servizi-consolari-e-visti/"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-bd",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No hours found. riyadh.mofa.gov.bd loads and has 'Office Hour' and 'Consular Service Hour' menu items, but /pages/office-hour and /pages/consular-service-hour return 404 'Error occurred'. The older site's contact page shows only toll-free lines (Diplomatic Wing 8001000124, Labour Welfare Wing 8001000125, Passport & Visa Wing 8001000126) and no hours.",
+   "sources": [
+    "https://riyadh.mofa.gov.bd/",
+    "https://www.bangladeshembassy.org.sa/contact.html"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-ug",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No hours published. Home and contact pages loaded; contact page gives 'Phone: +966 11 521 1881' and the An Namudhajiyah address only.",
+   "sources": [
+    "https://riyadh.mofa.go.ug/",
+    "https://riyadh.mofa.go.ug/departments/contact"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-iq",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Hours still without days. Contact page: 'أوقات الدوام: يبدأ الدوام في الساعة التاسعة صباحاً ولغاية الساعة الثالثة ظهراً' (09:00 to 15:00), no days of the week stated, so hours not set.",
+   "sources": [
+    "https://mofa.gov.iq/riyadh/?page_id=1045"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-ke",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No hours published. Foreign ministry missions list: 'The Kingdom of Saudi Arabia Riyadh +966114882484 +966114881238 Riyadh@mfa.go.ke', no website and no hours.",
+   "sources": [
+    "https://mfa.go.ke/diplomatic-missions"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-bh",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Hours still without days. Contact page shows '08:00am - 02:00pm' next to the address and +966114880044, with no days of the week, so hours not set.",
+   "sources": [
+    "https://www.mofa.gov.bh/riyadh/en/contact"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-om",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No hours published. The ministry's page for the Riyadh embassy loaded; it has the ambassador, riyadh@fm.gov.om, phone and address, and no working hours.",
+   "sources": [
+    "https://www.fm.gov.om/en/missions/om-sa-riyadh-em/"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-tn",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Hours still without days. Ministry data feed entry for RIYADH: phone '(00966)114887900', 'hourly_winter': ' 09h00 - 15h00', 'hourly_summer': ' 08h30 - 15h30'; no days and no season dates, so hours not set.",
+   "sources": [
+    "https://back.diplomatie.gov.tn/index.php/api/get-diplomaties/192"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-ye",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No hours published. The home page FAQ item 'ما هي اوقات الدوام الرسمية الخاصة بالسفارة' still has no answer text.",
+   "sources": [
+    "https://yemenembassy-sa.org/"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-eg",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No hours published. Ministry record for the Riyadh embassy (updated 2025-09-08) holds only 'العنوان: شارع عبد الله بن حذيفة، الرياض', 'رقم الهاتف: (+9661) 4831469 – 483130' and embassy.riyadh@mfa.gov.eg.",
+   "sources": [
+    "https://www.mfa.gov.eg/ar/api/EmbassyDetails/362"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-sy",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Not re-checked. The ministry's missions page returned only its loading shell ('جاري التحميل...') to curl, so the Riyadh entry could not be read this time; no hours found.",
+   "sources": [
+    "https://mofaex.gov.sy/diplomatic-missions"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-ma",
+   "status": "unverified",
+   "set": {},
+   "evidence": "Not re-checked in detail. The ministry directory page loaded (it lists الرياض among mission cities) but the Riyadh entry's details were not extracted in the time box; the earlier finding of no published hours stands unconfirmed.",
+   "sources": [
+    "https://diplomatie.ma/ar/annuaire"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-gh",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No pin set. OpenStreetMap (Nominatim and Overpass) has 'Embassy of Ghana' as way 636137004 at 24.6873741, 46.6225614 in the Diplomatic Quarter, inside the bounds, but this conflicts with the Sulimaniyah address in Wikidata and no official page could settle it: the ministry-hosted mission site riyadh.mfa.gov.gh exists but answers 503 'SITE_MAINTENANCE: The website is temporarily unavailable'. ghanaembassy-saudiarabia.com does not resolve.",
+   "sources": [
+    "https://nominatim.openstreetmap.org/search?format=jsonv2&q=Embassy%20of%20Ghana%20Riyadh",
+    "https://riyadh.mfa.gov.gh/"
+   ],
+   "source_kind": "secondary"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-bg",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No pin. The ministry page gives the address 'B-53, Dareen street 4067 Diplomatic Quarter 12512 Riyadh' and no map; Nominatim returned nothing for the embassy name or for Dareen Street, and an Overpass query of all 106 diplomatic objects in the Riyadh bounds has no Bulgarian entry. The same page gives working hours 'от 9.00 ч. до 16.30 ч.' without days.",
+   "sources": [
+    "https://www.mfa.bg/en/embassies/saudiarabia",
+    "https://nominatim.openstreetmap.org/search?format=jsonv2&q=Embassy%20of%20Bulgaria%20Riyadh"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-ro",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No pin. riyadh.mae.ro/contact now answers 503 with a 'Verifying your browser' page (not bypassed); Nominatim returned nothing in English or Arabic and Overpass has no Romanian entry in Riyadh.",
+   "sources": [
+    "https://nominatim.openstreetmap.org/search?format=jsonv2&q=Embassy%20of%20Romania%20Riyadh"
+   ],
+   "source_kind": "secondary"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-rs",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No pin. riyadh.mfa.gov.rs/en/contact is 'Page not found'; Nominatim returned nothing and Overpass has no Serbian entry in Riyadh.",
+   "sources": [
+    "https://nominatim.openstreetmap.org/search?format=jsonv2&q=Embassy%20of%20Serbia%20Riyadh"
+   ],
+   "source_kind": "secondary"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-uz",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No pin and no details. gov.uz/en/saudia and /en/saudia/contacts return only the portal shell ('The Government portal of the Republic of Uzbekistan'); Nominatim returned nothing and Overpass has no Uzbek entry in Riyadh.",
+   "sources": [
+    "https://gov.uz/en/saudia",
+    "https://nominatim.openstreetmap.org/search?format=jsonv2&q=Embassy%20of%20Uzbekistan%20Riyadh"
+   ],
+   "source_kind": "secondary"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-vn",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No pin. The embassy contact page (lien-he) loaded and has no map link; Nominatim returned nothing and Overpass has no Vietnamese entry in Riyadh.",
+   "sources": [
+    "https://vnembassy-riyadh.mofa.gov.vn/lien-he",
+    "https://nominatim.openstreetmap.org/search?format=jsonv2&q=Embassy%20of%20Vietnam%20Riyadh"
+   ],
+   "source_kind": "official"
+  },
+  {
+   "file": "embassies",
+   "id": "embassy-mm",
+   "status": "unverified",
+   "set": {},
+   "evidence": "No pin. The only map on the embassy contact page is a Google embed centred on 26.40559, 50.154789 (an unrelated business in the Eastern Province, outside the bounds); Nominatim returned nothing and Overpass has no Myanmar entry in Riyadh.",
+   "sources": [
+    "https://meriyadh.org/contact-us/",
+    "https://nominatim.openstreetmap.org/search?format=jsonv2&q=Embassy%20of%20Myanmar%20Riyadh"
+   ],
+   "source_kind": "official"
+  }
+ ]
+}

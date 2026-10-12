@@ -1,0 +1,330 @@
+{
+  "checked": "2026-10-12",
+  "items": [
+    {
+      "file": "hospitals",
+      "id": "king-saud-medical-city",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114355555"
+      },
+      "evidence": "MoH Interactive Map record id=1 'King Saud Medical City' / 'المستشفى العام بمدينة الملك سعود الطبية': City Riyadh, Phone 00966114355555, LastUpdated 2024-10-10, WorkingHours null. No ER hours or ER number stated. Own site not loaded: www.ksmc.med.sa redirects to eportal.ksmc.med.sa, which reset the connection on every attempt.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=0&id=1",
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=1&id=1"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "king-fahad-medical-city",
+      "status": "confirmed",
+      "set": {
+        "phone": "8001277000"
+      },
+      "evidence": "kfmc.med.sa Contact page header: 'Contact Us 8001277000' / 'اتصل بنا 8001277000'. Main Hospital, Women and Children hospital pages loaded: no emergency-department hours or ER number. MoH map id=540 (record dated 2021-12-20) gives the Main Hospital switchboard as 00966112889999 (not applied; own site shows only 8001277000).",
+      "sources": [
+        "https://www.kfmc.med.sa/EN/About/Pages/Contact.aspx",
+        "https://www.kfmc.med.sa/AR/About/Pages/Contact.aspx",
+        "https://www.kfmc.med.sa/EN/MainHospital/Pages/default.aspx",
+        "https://www.kfmc.med.sa/AR/MainHospital/Pages/default.aspx",
+        "https://www.kfmc.med.sa/AR/WomenSpecializedHospital/Pages/default.aspx",
+        "https://www.kfmc.med.sa/AR/ChildrenSpecializedHospital/Pages/default.aspx",
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=0&id=540"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "al-iman-general-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966118260100"
+      },
+      "evidence": "MoH Interactive Map record id=32 'Al Iman General Hospital' / 'مستشفى الإيمان العام': City Riyadh, Phone 00966118260100, LastUpdated 2022-12-08, WorkingHours null. health.sa Riyadh First cluster page lists 'مستشفى الإيمان العام' among its hospitals. No ER hours stated anywhere loaded.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=0&id=32",
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=1&id=32",
+        "https://www.health.sa/ar/clusters/riyadh_first_health_cluster_v2"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "prince-mohammed-bin-abdulaziz-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "8001277000"
+      },
+      "evidence": "MoH Interactive Map record id=657: City Riyadh, Phone 8001277000. rc2.med.sa facility page shows 8001277000 and says the hospital includes 'اكبر وحدة طوارئ' / 'the largest emergency unit'. health.sa Second cluster page lists the hospital, contact number 8001277000. No 24-hour statement.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=0&id=657",
+        "https://www.rc2.med.sa/ar/AboutR2/R2components/Pages/ServiceProviderDetails.aspx?r2id=26",
+        "https://www.rc2.med.sa/en/AboutR2/R2components/Pages/ServiceProviderDetails.aspx?r2id=26",
+        "https://www.health.sa/ar/clusters/riyadh_second_health_cluster_v2"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "king-salman-hospital-riyadh",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114311100",
+        "er_24h": true,
+        "hours": "24/7"
+      },
+      "evidence": "Phone: MoH Interactive Map record id=16 'king Salman bin Abdulaziz Hospital': City Riyadh, Phone 00966114311100, LastUpdated 2022-10-17; listed on health.sa First cluster page. 24h: Saudi Press Agency report dated 20 Sep 2018, 'ويقدم المستشفى الخدمات الإسعافية على مدار الساعة'. The 24h statement is from the state news agency and is 8 years old; no newer official statement found.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=0&id=16",
+        "https://www.spa.gov.sa/1816439",
+        "https://www.health.sa/ar/clusters/riyadh_first_health_cluster_v2"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "al-yamamah-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "8001277000"
+      },
+      "evidence": "MoH Interactive Map record id=23 'Al Yamamah Hospital' / 'مستشفى اليمامة': City Riyadh, Phone 8001277000 (record dated 2021-08-02). rc2.med.sa facility page shows 8001277000; health.sa Second cluster page lists 'مستشفى اليمامة', contact number 8001277000. Neither page mentions emergency hours.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=0&id=23",
+        "https://www.rc2.med.sa/ar/AboutR2/R2components/Pages/ServiceProviderDetails.aspx?r2id=27",
+        "https://www.rc2.med.sa/en/AboutR2/R2components/Pages/ServiceProviderDetails.aspx?r2id=27",
+        "https://www.health.sa/ar/clusters/riyadh_second_health_cluster_v2"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "imam-abdulrahman-al-faisal-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114234000"
+      },
+      "evidence": "MoH Interactive Map record id=660 'مستشفى الامام عبدالرحمن الفيصل': City Riyadh, Phone 00966114234000, but the record was last updated 2017-05-01, so the number is confirmed only against an old official record. health.sa First cluster page lists 'مستشفى الإمام عبدالرحمن الفيصل' among current hospitals. No ER hours stated.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=0&id=660",
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=1&id=660",
+        "https://www.health.sa/ar/clusters/riyadh_first_health_cluster_v2"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "king-khaled-eye-specialist-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "920000583",
+        "er_phone": "+966118401593"
+      },
+      "evidence": "kkesh.med.sa contact page (last updated 2026/09/19): 'الطوارئ ٠١١٨٤٠١٥٩٣', 'الرقم الموحد ٩٢٠٠٠٠٥٨٣', 'هاتف المستشفى ٠١١٤٨٢١٢٣٤'. Patient guide (site API) also says the Emergency Department can be called at '4821234, extension 2798'. No statement of ER opening hours on the contact page, home page or patient guide.",
+      "sources": [
+        "https://kkesh.med.sa/contact-us",
+        "https://kkesh.med.sa/home",
+        "https://extapi.kkesh.med.sa/api/PtGService/GetPatientServices"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "kamc-ngha-riyadh",
+      "status": "filled",
+      "set": {
+        "phone": "+966118011111",
+        "er_phone": "+966118011115",
+        "er_24h": true,
+        "hours": "24/7",
+        "eligibility_note_ar": "المرضى المؤهلون من غير منسوبي الحرس الوطني يشملون: مرضى بخطاب إحالة ساري المفعول، ومرضى الطوارئ كما هو مذكور في شروط علاج مريض غير مؤهل قدم إلى إدارة الطوارئ."
+      },
+      "evidence": "Existing phone, ER line and 24h confirmed; Arabic eligibility note added. KAMC Riyadh page: 'Phone: +966-11-8011111'. ER page: 'The public can access this center by calling this number: 0118011115' (Emergency Command Center); 'All areas of Emergency Department has been managed and observed by the ED Coordinators for 24 hours'; 'provides care to all eligible patients who present to the department'. Eligibility page: eligible non-National Guard patients include 'Emergency room patients as identified in the guidelines for ineligible patient presenting to the emergency department'.",
+      "sources": [
+        "https://mngha.med.sa/english/medicalcities/alriyadh/medicalservices/emergencymedicine/pages/default.aspx",
+        "https://mngha.med.sa/arabic/medicalcities/alriyadh/medicalservices/emergencymedicine/pages/default.aspx",
+        "https://mngha.med.sa/english/medicalcities/alriyadh/pages/default.aspx",
+        "https://mngha.med.sa/arabic/medicalcities/alriyadh/pages/default.aspx",
+        "https://mngha.med.sa/english/patients/medicaleligibility",
+        "https://mngha.med.sa/arabic/patients/medicaleligibility"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "kasch-ngha-riyadh",
+      "status": "confirmed",
+      "set": {},
+      "evidence": "Operating with its own paediatric ER: mngha.med.sa lists 'مستشفى الملك عبدالله التخصصي للأطفال - الرياض' (page last modified 9/27/2026) and its Pediatric Emergency Medicine Department page (Triage Area, Urgent Care Unit, Resuscitation Unit, Acute Care Unit). The KASCH pages publish no phone and no ER hours: the entry's +966118011111 is the King Abdulaziz Medical City switchboard, which the KAMC Riyadh page states ('Phone: +966-11-8011111'), not a KASCH-specific number.",
+      "sources": [
+        "https://mngha.med.sa/english/medicalcities/kasch/medicaldep/pedemergmedi/pages/pediatric-emergency-department.aspx",
+        "https://mngha.med.sa/arabic/medicalcities/kasch/medicaldep/pedemergmedi/pages/pediatric-emergency-department.aspx",
+        "https://mngha.med.sa/english/medicalcities/kasch/pages/king-abdullah-specialist-childrens-hospital.aspx",
+        "https://mngha.med.sa/arabic/medicalcities/kasch/pages/king-abdullah-specialist-childrens-hospital.aspx",
+        "https://mngha.med.sa/english/medicalcities/alriyadh/pages/default.aspx"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "psmmc-riyadh",
+      "status": "filled",
+      "set": {
+        "phone": "+966114777714",
+        "eligibility_note_ar": "تقدم المدينة خدماتها الصحية لمنسوبي وزارة الدفاع وأسرهم والفئات المستحقة الأخرى."
+      },
+      "evidence": "Existing phone confirmed; Arabic eligibility note added. psmmc.med.sa footer/contact: 'مدينة الأمير سلطان الطبية العسكرية ... الرياض 11159 ... هاتف +966 11 4777714'. Medical departments list includes '12. الطوارئ'. Mission: 'لمنسوبي وزارة الدفاع و أسرهم و الفئات المستحقة الأخرى'. No ER hours, ER number or walk-in rule published.",
+      "sources": [
+        "https://www.psmmc.med.sa/Ar/ContactUs",
+        "https://www.psmmc.med.sa/Ar",
+        "https://www.psmmc.med.sa/Ar/MedicalAdmin",
+        "https://www.psmmc.med.sa/Ar/AboutUs",
+        "https://www.psmmc.med.sa/Ar/EServices"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "security-forces-hospital-riyadh",
+      "status": "filled",
+      "set": {
+        "phone": "+966118024444",
+        "eligibility_note_ar": "أهلية العلاج في المنشآت الصحية التابعة للإدارة العامة للخدمات الطبية بوزارة الداخلية: منسوبو وزارة الداخلية وذووهم، منسوبو رئاسة أمن الدولة وذووهم، وموظفو برنامج التشغيل الذاتي الذين ينص التعاقد معهم على تقديم الرعاية الصحية لهم."
+      },
+      "evidence": "Existing phone confirmed; Arabic eligibility note added. sfh.med.sa contact: 'المقسم الرئيسي 011-802-4444', appointments '920-003-688'. Eligibility page lists who has the right to treatment and gives a priority order that applies 'في الحالات غير الطارئة أو غير العاجلة طبياً' / 'for non-emergency, non-urgent medical cases'. The site still has no emergency-department page, ER number or ER hours (contact, services, departments-contact, visiting-hours, FAQ and sitemap checked).",
+      "sources": [
+        "https://www.sfh.med.sa/contact",
+        "https://www.sfh.med.sa/en/contact",
+        "https://www.sfh.med.sa/eligibility",
+        "https://www.sfh.med.sa/en/eligibility",
+        "https://www.sfh.med.sa/services",
+        "https://www.sfh.med.sa/services/contact-hospital-departments",
+        "https://www.sfh.med.sa/visiting-hours",
+        "https://www.sfh.med.sa/faq",
+        "https://www.sfh.med.sa/sitemap.xml"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "kfshrc-riyadh",
+      "status": "filled",
+      "set": {
+        "phone": "+966114647272",
+        "er_phone": "+966114647272",
+        "er_24h": true,
+        "hours": "24/7",
+        "eligibility_note_ar": "رعاية طارئة على مدار الساعة للبالغين والأطفال الذين يعانون من حالات طبية عاجلة أو مهدِّدة للحياة."
+      },
+      "evidence": "Existing phone and 24h confirmed; Arabic note added. Hospital Main Numbers page: 'King Faisal Specialists hospital & Research center - Riyadh 0114647272 ... Emergency 23838' (23838 is an extension of the main number); central helpline 199019. Emergency Medicine page: 'Consultant-led emergency care 24/7' / 'رعاية طبية طارئة بإشراف استشاريين على مدار الساعة'; 'نقدّم رعاية طارئة على مدار الساعة للبالغين والأطفال الذين يعانون من حالات طبية عاجلة أو مهدِّدة للحياة'.",
+      "sources": [
+        "https://www.kfshrc.edu.sa/en/healthcare/centres-and-specialties/all-specialties/emergency-medicine",
+        "https://www.kfshrc.edu.sa/ar/healthcare/centres-and-specialties/all-specialties/emergency-medicine",
+        "https://www.kfshrc.edu.sa/en/healthcare/patients-and-visitors/hospital-main-numbers",
+        "https://www.kfshrc.edu.sa/en/healthcare/patients-and-visitors/emergency",
+        "https://www.kfshrc.edu.sa/ar/healthcare/patients-and-visitors/emergency",
+        "https://www.kfshrc.edu.sa/en/healthcare/patients-and-visitors/patients-acceptance"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "kkuh-ksumc-riyadh",
+      "status": "confirmed",
+      "set": {
+        "er_24h": true,
+        "hours": "24/7"
+      },
+      "evidence": "KSU College of Medicine page: 'The department offers emergency health services 24 hours a day to patients of all ages', located 'in the ground floor of the King Khalid University Hospital Building, near the main entrance'. Phone is still missing: medicalcity.ksu.edu.sa returned an empty app shell with no phone, ksumc.med.sa did not resolve, and the College of Medicine pages give only office extensions.",
+      "sources": [
+        "https://medicine.ksu.edu.sa/en/node/1185",
+        "https://medicine.ksu.edu.sa/en/node/371",
+        "https://medicalcity.ksu.edu.sa/ar",
+        "https://medicalcity.ksu.edu.sa/en"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "kaauh-pnu-riyadh",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966118200000",
+        "er_24h": true,
+        "hours": "24/7"
+      },
+      "evidence": "kaauh.edu.sa home FAQ: 'Is emergency service available 24/7? Yes, the Emergency Department operates 24 hours a day.' / 'نعم , يعمل قسم الطوارئ 24 ساعة يوميا'. Contact page: 'Phone Number +966118200000', Airport Road, Riyadh 11564 (AR: 'الرقم الموحد 0118200000'). Eligibility page lists PNU Saudi and non-Saudi staff, their dependents and PNU students; it says nothing about emergency walk-ins.",
+      "sources": [
+        "https://www.kaauh.edu.sa/",
+        "https://www.kaauh.edu.sa/ar/",
+        "https://www.kaauh.edu.sa/contact-us/",
+        "https://www.kaauh.edu.sa/patients-visitors/eligibility/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "diriyah-hospital",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966118356500",
+        "confidence": "medium"
+      },
+      "evidence": "Phone and listing confirmed, emergency department still NOT confirmed by any official source. MoH Interactive Map record id=4575 'Aldiriyah hospital' / 'مستشفى الدرعية': Phone 00966118356500, LastUpdated 2022-10-06 (older than the April 2025 new building). The record gives City 'AD DIR'IYAH' / 'الدرعية', not Riyadh: coordinator to decide whether it fits a Riyadh-only list. health.sa Third cluster page lists 'مستشفى الدرعية', cluster contact number 920034342. Confidence raised only to medium because ER existence and hours are unverified.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=0&id=4575",
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=1&id=4575",
+        "https://www.health.sa/ar/clusters/riyadh_third_health_cluster_v2"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "pscc-riyadh",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114783000",
+        "confidence": "high"
+      },
+      "evidence": "pscc.med.sa footer (site bundle): 'tel:+966114783000' / '+966 11 4783000'. Site text names an 'ICU & Emergency Department' / 'وحدة العناية المركزة وقسم الطوارئ' under visiting hours and says 'Medical and Clinical services are provided 24 hours a day' / 'الخدمات الطبية والسريرية متوفرة على مدار 24 ساعة يومياً'. That is a general statement, not an ER-hours statement, so er_24h is not set; no ER number or walk-in rule published.",
+      "sources": [
+        "https://www.pscc.med.sa/",
+        "https://www.pscc.med.sa/chunk-EWGOV67P.js",
+        "https://www.pscc.med.sa/assets/i18n/en.json",
+        "https://www.pscc.med.sa/assets/i18n/ar.json"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "kauh-ksumc-riyadh",
+      "status": "unverified",
+      "set": {},
+      "evidence": "No official source reachable that states a phone, ER hours or ER eligibility for King Abdulaziz University Hospital. medicalcity.ksu.edu.sa (AR and EN) returned an empty app shell with no hospital data or phone; ksumc.med.sa did not resolve; the KSU College of Medicine pages loaded carry no phone or hours for this hospital.",
+      "sources": [
+        "https://medicalcity.ksu.edu.sa/ar",
+        "https://medicalcity.ksu.edu.sa/en",
+        "https://medicine.ksu.edu.sa/en/node/373",
+        "https://medicine.ksu.edu.sa/ar/node/3254"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "hospitals",
+      "id": "eradah-complex-mental-health-riyadh",
+      "status": "confirmed",
+      "set": {
+        "phone": "+966114804548",
+        "confidence": "medium"
+      },
+      "evidence": "Phone and listing confirmed, psychiatric emergency department still NOT confirmed by any official source. MoH Interactive Map record id=22 'Eradah Complex for Mental Health - Riyadh' / 'مجمع إرادة والصحة النفسية بالرياض': City Riyadh, Phone 00966114804548, LastUpdated 2026-04-20, WorkingHours null. health.sa Third cluster page lists 'مجمع إرادة للصحة النفسية الرياض', cluster contact number 920034342. Confidence raised only to medium because ER existence and hours are unverified.",
+      "sources": [
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=0&id=22",
+        "https://services.moh.gov.sa/InteractiveMapAPI/api/Hospital/GetHospitalByID?language=1&id=22",
+        "https://www.health.sa/ar/clusters/riyadh_third_health_cluster_v2"
+      ],
+      "source_kind": "official"
+    }
+  ]
+}
