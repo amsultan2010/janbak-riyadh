@@ -384,14 +384,14 @@ export const HELP_GROUPS = [
 
 export const ABOUT = {
   ar: [
-    ['ما هذا الموقع', 'دليل ثابت لسكان الرياض يجمع الأماكن الأساسية وساعات عملها وأرقام الاتصال في مكان واحد. لا ينشر أخباراً ولا تحديثات مباشرة.'],
+    ['ما هذا الموقع', 'جنبك دليل ثابت لسكان الرياض في المملكة العربية السعودية، يجمع الأماكن الأساسية وساعات عملها وأرقام الاتصال في مكان واحد. لا ينشر أخباراً ولا تحديثات مباشرة.'],
     ['من أين البيانات', 'من المواقع الرسمية للجهات والمستشفيات والسلاسل التجارية والسفارات، ومن وزارة الصحة، ومن خرائط OpenStreetMap. لكل مكان رابط مصدره إن وُجد.'],
     ['حدود الموقع', 'القوائم غير مكتملة، وقد تتغير الساعات والأرقام بعد تاريخ التحقق، خصوصاً في رمضان والأعياد. اتصل بالمكان قبل الذهاب.'],
     ['موقعك', 'إذا حدّدت موقعك فإنه يُحفظ على جهازك فقط ولا يُرسل إلينا. عند الضغط على «الاتجاهات» تُفتح خرائط Google ويُرسل إليها الموقع لحساب المسار.'],
     ['في الحالات الطارئة', 'لا تعتمد على هذا الموقع. اتصل بالرقم 911، أو بالرقم 997 لطلب الإسعاف.'],
   ],
   en: [
-    ['What this is', 'A plain reference for people in Riyadh: essential places, their opening hours and phone numbers in one place. It does not publish news or live updates.'],
+    ['What this is', 'Janbak (جنبك, Arabic for beside you) is a plain reference for people in Riyadh, Saudi Arabia: essential places, their opening hours and phone numbers in one place. It does not publish news or live updates.'],
     ['Where the data comes from', 'The official sites of agencies, hospitals, shop chains and embassies, the Ministry of Health, and OpenStreetMap. Each place links to its source where there is one.'],
     ['Limits', 'The lists are not complete, and hours and numbers can change after the check date, most of all in Ramadan and on holidays. Call the place before you go.'],
     ['Your location', 'If you set a location it is saved on your device only and is not sent to us. When you tap Directions, Google Maps opens and receives the location to work out the route.'],

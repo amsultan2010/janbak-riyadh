@@ -242,7 +242,7 @@ async function start(root) {
   function syncUrl() {
     const cat = catOf(type);
     history.replaceState(null, '', site.path + tail());
-    document.title = cat ? `${cat.name} | ${site.name}` : site.title;
+    document.title = cat ? `${say('cat.title', { name: cat.name })} | ${site.name}` : site.title;
     title.textContent = cat ? cat.name : site.h1;
     syncLang();
   }
