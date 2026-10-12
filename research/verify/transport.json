@@ -1,0 +1,77 @@
+{
+  "checked": "2026-10-12",
+  "about": "The two intercity stations in research/transport-stops.json come from OpenStreetMap. This pass gives them the names Saudi Arabia Railways (SAR) uses and SAR's customer care number, from the facts recorded in research/transport-service.json. SAR publishes no coordinates, so each station is matched to its OpenStreetMap entry by position: the northern one is Riyadh North, the one beside the metro station named Railway is the East Train station.",
+  "items": [
+    {
+      "file": "transport-stops",
+      "id": "train-w441199322",
+      "status": "corrected",
+      "set": {
+        "name_en": "Riyadh North",
+        "name_ar": "الرياض الشمال",
+        "phone": "8001262000",
+        "website": "https://www.sar.com.sa/",
+        "note_en": "North Train to Majmaah, Qassim, Hail, Jauf and Qurayyat.",
+        "note_ar": "قطار الشمال المتجه إلى المجمعة والقصيم وحائل والجوف والقريات."
+      },
+      "evidence": "SAR North Train stations page lists Riyadh North (الرياض الشمال) as the Riyadh station. SAR contact page gives customer care 800 126 2000.",
+      "sources": [
+        "https://www.sar.com.sa/northern-train/stations/",
+        "https://www.sar.com.sa/help/contactus/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "transport-stops",
+      "id": "train-n492520789",
+      "status": "corrected",
+      "set": {
+        "name_en": "Riyadh East",
+        "name_ar": "الرياض الشرق",
+        "phone": "8001262000",
+        "website": "https://www.sar.com.sa/",
+        "note_en": "East Train to Hufuf, Abqaiq and Dammam.",
+        "note_ar": "قطار الشرق المتجه إلى الهفوف وبقيق والدمام."
+      },
+      "evidence": "SAR East Train stations page lists Riyadh East (الرياض الشرق) as the Riyadh station. SAR contact page gives customer care 800 126 2000.",
+      "sources": [
+        "https://www.sar.com.sa/east-train/EastStations/",
+        "https://www.sar.com.sa/help/contactus/"
+      ],
+      "source_kind": "official"
+    },
+    {
+      "file": "transport-stops",
+      "id": "metro-n12339155045",
+      "status": "corrected",
+      "set": {
+        "name_ar": "الصالة 1-2"
+      },
+      "evidence": "Word order only. OpenStreetMap stores the Arabic name with the number before the word, which reads backwards. The words are unchanged and were not checked against the operator's own station list.",
+      "sources": [],
+      "source_kind": "openstreetmap"
+    },
+    {
+      "file": "transport-stops",
+      "id": "metro-n12339155044",
+      "status": "corrected",
+      "set": {
+        "name_ar": "الصالة 3-4"
+      },
+      "evidence": "Word order only. OpenStreetMap stores the Arabic name with the number before the word, which reads backwards. The words are unchanged and were not checked against the operator's own station list.",
+      "sources": [],
+      "source_kind": "openstreetmap"
+    },
+    {
+      "file": "transport-stops",
+      "id": "metro-n12339155043",
+      "status": "corrected",
+      "set": {
+        "name_ar": "الصالة 5"
+      },
+      "evidence": "Word order only. OpenStreetMap stores the Arabic name with the number before the word, which reads backwards. The words are unchanged and were not checked against the operator's own station list.",
+      "sources": [],
+      "source_kind": "openstreetmap"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 // Fails the build on a broken entry instead of shipping it.
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs';
 import { parseHours, encodeWeek } from '../src/lib/hours.js';
-import { CATEGORIES } from '../src/categories.js';
+import { CATEGORIES, KINDS } from '../src/categories.js';
 import { districtName } from '../src/lib/districts.js';
 
 const read = (name) => {
@@ -106,9 +106,10 @@ const tidy = (s) => s?.replace(/\s*[\u2013\u2014]\s*/g, ' - ').trim() ?? null;
 
 const places = [];
 const ids = new Set();
+const catOf = Object.fromEntries(KINDS.map((k) => [k.id, k.cat]));
 
-function add(cat, r, extra = {}) {
-  let id = `${cat}-${String(r.id).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+function add(kind, r, extra = {}) {
+  let id = `${kind}-${String(r.id).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
   while (ids.has(id)) id += '-2';
   ids.add(id);
 
@@ -130,7 +131,8 @@ function add(cat, r, extra = {}) {
 
   places.push({
     id,
-    cat,
+    cat: catOf[kind],
+    kind,
     name,
     district,
     area: area?.id ?? null,
@@ -166,6 +168,20 @@ for (const r of verified('blood-donation', [...(read('blood-donation')?.places ?
 // Urgent care, dialysis, mental health
 const MEDICAL = { urgent_care: 'urgent-care', dialysis: 'dialysis', mental_health: 'mental-health' };
 for (const r of verified('other-medical', read('other-medical')?.places ?? [])) add(MEDICAL[r.category], r);
+
+// Public transport: stations and stops from OpenStreetMap, service facts from the operators' own sites
+const fact = (topic) => read('transport-service')?.facts.find((f) => f.topic === topic)?.value ?? null;
+const metro = { hours: fact('metro_hours'), phone: fact('contact_phone') };
+const TRANSIT = { metro: 'metro', bus_stop: 'bus', bus_station: 'bus', train: 'train' };
+for (const r of verified('transport-stops', read('transport-stops')?.places ?? [])) {
+  const kind = TRANSIT[r.kind];
+  // an unnamed stop cannot be told apart from a private or disused one
+  if (!r.name_ar && !r.name_en) continue;
+  add(kind, { ...r, id: r.osm, ...(kind === 'metro' ? metro : {}) }, {
+    ...(kind === 'metro' ? { lines: r.lines } : {}),
+    ...(r.note_ar && r.note_en ? { note: { ar: r.note_ar, en: r.note_en } } : {}),
+  });
+}
 
 // Embassies
 for (const r of verified('embassies', read('embassies')?.places ?? [])) {

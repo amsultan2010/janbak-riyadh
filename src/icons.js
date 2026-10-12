@@ -10,7 +10,7 @@ export const ICONS = {
   'back': 'M15 5l-7 7 7 7',
 };
 
-// PICTURES: full-colour pictograms for the place categories and the emergency
+// PICTURES: full-colour pictograms for the place categories, their kinds and the emergency
 // numbers. They sit on a light tile in lists and on a light disc on the map.
 const RED = '#e03131';
 const BLUE = '#1c7ed6';
@@ -29,6 +29,8 @@ export const PICTURES = {
   'pharmacies': `<g transform="rotate(-45 12 12)"><path fill="${BLUE}" d="M12 7.5H7.5a4.5 4.5 0 0 0 0 9H12z"/><path fill="${YELLOW}" d="M12 7.5h4.5a4.5 4.5 0 0 1 0 9H12z"/></g>`,
   // a drop of blood carrying a cross
   'blood-donation': `<path fill="${RED}" d="M12 2.5c4.4 5.4 7 9.2 7 12.4a7 7 0 0 1-14 0c0-3.2 2.6-7 7-12.4z"/><path fill="${LIGHT}" d="M11 12h2v2h2v2h-2v2h-2v-2H9v-2h2z"/>`,
+  // the merged category: a drop of blood beside a kidney
+  'blood-dialysis': `<path fill="${RED}" d="M8 2.5c3.6 4.4 5.7 7.5 5.7 10.1a5.7 5.7 0 0 1-11.4 0C2.3 10 4.4 6.9 8 2.5z"/><path fill="#c2255c" d="M16.4 9.5c3 0 5.3 2.4 5.3 6s-2.3 6-5.3 6c-1.6 0-2.7-1-2.7-2.3 0-1.4 1.3-1.8 1.3-3.7s-1.3-2.3-1.3-3.7c0-1.3 1.1-2.3 2.7-2.3z"/>`,
   // a kidney and a drop
   'dialysis': `<path fill="#c2255c" d="M10 3.5c4.2 0 7.5 3.4 7.5 8.5s-3.3 8.5-7.5 8.5c-2.3 0-3.8-1.4-3.8-3.3 0-2 1.8-2.6 1.8-5.2S6.2 8.8 6.2 6.8c0-1.9 1.5-3.3 3.8-3.3z"/><path fill="${BLUE}" stroke="${LIGHT}" stroke-width="1" d="M19.2 12.8c1.4 1.9 2.3 3.2 2.3 4.4a2.3 2.3 0 0 1-4.6 0c0-1.2.9-2.5 2.3-4.4z"/>`,
   // a brain in two halves
@@ -37,6 +39,12 @@ export const PICTURES = {
   'supermarkets': `<circle cx="8.8" cy="8" r="3" fill="${ORANGE}"/><circle cx="14.6" cy="7.4" r="3.4" fill="${RED}"/><path fill="${GREEN}" d="M2.5 10h19l-2.2 10.5H4.7z"/><path d="M8.5 13v4.5M12 13v4.5M15.5 13v4.5" fill="none" stroke="${LIGHT}" stroke-width="1.4" stroke-linecap="round"/>`,
   // a fuel pump
   'fuel': `<path fill="${RED}" d="M5 3.5h9v17H5z"/><path fill="${LIGHT}" d="M7 6h5v4H7z"/><path fill="${DARK}" d="M3.5 20.5h12V22h-12z"/><path d="M14 11.5h2.3v5.8a1.7 1.7 0 0 0 3.4 0V8.6L17.6 6.5" fill="none" stroke="${DARK}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>`,
+  // a metro train seen from the front, on its rails
+  'metro': `<path d="M8.5 18.5L6 22M15.5 18.5L18 22" fill="none" stroke="${DARK}" stroke-width="1.7" stroke-linecap="round"/><path fill="${BLUE}" d="M6 7a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v9.5a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><path fill="${LIGHT}" d="M8.5 6.5h7v5h-7z"/><circle cx="9.3" cy="15" r="1.2" fill="${YELLOW}"/><circle cx="14.7" cy="15" r="1.2" fill="${YELLOW}"/>`,
+  // a bus seen from the front
+  'bus': `<path fill="${DARK}" d="M6 18h3.2v3.5H6zM14.8 18H18v3.5h-3.2z"/><path fill="${GREEN}" d="M4.5 3.5h15v15.5h-15z"/><path fill="${LIGHT}" d="M6.5 6h11v6h-11z"/><circle cx="8" cy="15.5" r="1.2" fill="${YELLOW}"/><circle cx="16" cy="15.5" r="1.2" fill="${YELLOW}"/>`,
+  // an intercity locomotive: a split windscreen and a stripe
+  'train': `<path d="M8 18.5L5.5 22M16 18.5l2.5 3.5" fill="none" stroke="${DARK}" stroke-width="1.7" stroke-linecap="round"/><path fill="${RED}" d="M5 5.5l2-3h10l2 3v13H5z"/><path fill="${LIGHT}" d="M7 6.5h4.2v4.5H7zM12.8 6.5H17V11h-4.2z"/><path fill="${YELLOW}" d="M5 13h14v2H5z"/>`,
   // a flag on a pole
   'embassies': `<path fill="${DARK}" d="M4.5 2.5h2v19h-2z"/><path fill="${BLUE}" d="M6.5 4h13l-3 4.5 3 4.5h-13z"/><circle cx="11.5" cy="8.5" r="2" fill="${LIGHT}"/>`,
   // 911: a red beacon
@@ -46,3 +54,6 @@ export const PICTURES = {
   // 937: advice with a medical cross
   'advice': `<path fill="${BLUE}" d="M3 4h18v12.5H11.5L6.5 21v-4.5H3z"/><path fill="${LIGHT}" d="M10.8 6.3h2.4v2.7h2.7v2.4h-2.7v2.7h-2.4v-2.7H8.1V9h2.7z"/>`,
 };
+
+// the public transport category wears the metro train
+PICTURES['transport'] = PICTURES['metro'];
