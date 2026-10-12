@@ -87,6 +87,8 @@ const T = {
   'place.unknown': { ar: 'ساعات العمل غير مؤكدة', en: 'Hours not confirmed' },
   'place.usual': { ar: 'هذه الساعات المعتادة للسلسلة، وقد يختلف هذا الفرع.', en: 'These are the usual hours for the chain. This branch may differ.' },
   'place.always': { ar: 'مفتوح 24 ساعة', en: 'Open 24 hours' },
+  'place.erAlways': { ar: 'الطوارئ تعمل 24 ساعة', en: 'Emergency open 24 hours' },
+  'place.erUnknown': { ar: 'ساعات الطوارئ غير منشورة', en: 'Emergency hours not published' },
   'place.everyDay': { ar: 'كل يوم', en: 'Every day' },
   'place.closed': { ar: 'مغلق', en: 'Closed' },
   'place.open': { ar: 'مفتوح', en: 'Open' },

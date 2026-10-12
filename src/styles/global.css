@@ -395,6 +395,7 @@ input::placeholder {
 }
 
 .check input {
+  font: inherit;
   display: grid;
   place-content: center;
   width: 1.6rem;
@@ -508,6 +509,14 @@ input::placeholder {
 .status.is-unknown {
   color: var(--soft);
   font-weight: 400;
+}
+
+.place-note {
+  margin-block-start: 0.35rem;
+  padding-inline-start: 0.75rem;
+  border-inline-start: var(--line) solid var(--rule);
+  color: var(--soft);
+  font-size: 0.95em;
 }
 
 .actions {
@@ -915,7 +924,7 @@ main.wide {
 
   .explorer h1 {
     padding-block-start: 1.75rem;
-    font-size: clamp(2.6rem, 3.4vw, 3.4rem);
+    font-size: clamp(3rem, 4vw, 4rem);
   }
 
   .explorer > .map-col {

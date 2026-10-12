@@ -17,7 +17,9 @@ const tags = [p.own && t(`own.${p.own}`), ...(p.flags ?? []).filter((f) => ['ped
 const words = { days: DAYS[lang], to: t('place.to'), everyDay: t('place.everyDay'), always: t('place.always'), closed: t('place.closed') };
 const lines = p.hours && p.hours !== '*' ? hoursLines(p.hours, lang, words) : [];
 const hasDetails = lines.length || p.phone2 || p.website || p.source;
-const fixed = p.hours === '*' ? ['is-open', t('place.always')] : !p.hours ? ['is-unknown', t('place.unknown')] : ['', ''];
+const er = p.cat === 'hospitals';
+const fixed = p.hours === '*' ? ['is-open', t(er ? 'place.erAlways' : 'place.always')] : !p.hours ? ['is-unknown', t(er ? 'place.erUnknown' : 'place.unknown')] : ['', ''];
+const note = p.note?.[lang];
 ---
 
 <li class="place" id={p.id} data-lat={p.lat} data-lng={p.lng} data-h={p.hours} data-q={search}>
@@ -29,6 +31,7 @@ const fixed = p.hours === '*' ? ['is-open', t('place.always')] : !p.hours ? ['is
     <span data-dist hidden></span>
   </p>
   <p class:list={['status', fixed[0]]} data-status>{fixed[1]}</p>
+  {note && <p class="place-note">{note}</p>}
   <div class="actions">
     {
       p.phone && (
