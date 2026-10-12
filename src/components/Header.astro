@@ -1,9 +1,10 @@
 ---
 import Icon from './Icon.astro';
 import { EMERGENCY } from '../categories.js';
+import { MARK, WORD_BOX, word } from '../logo.js';
 import { SITE, translator, path, otherLang } from '../i18n.js';
 
-const { lang, slug, wide = false } = Astro.props;
+const { lang, slug } = Astro.props;
 const t = translator(lang);
 const other = otherLang(lang);
 const section = slug.split('/')[0];
@@ -16,27 +17,37 @@ const nav = [
 ---
 
 <header>
-  <nav class="em" aria-label={t('em.label')}>
-    <ul>
+  <div class="topbar">
+    <a class="logo" href={path(lang)} aria-label={SITE[lang]}>
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true" set:html={MARK} />
       {
-        EMERGENCY.map((e) => (
-          <li>
-            <a href={`tel:${e.number}`}>
-              <Icon name={e.icon} />
-              <b>{e.number}</b>
-              <span>{t(e.key)}</span>
-            </a>
-          </li>
-        ))
+        lang === 'en' ? (
+          <svg class="wordmark" viewBox={WORD_BOX} aria-hidden="true" set:html={word()} />
+        ) : (
+          <span class="wordmark-ar">{SITE.ar}</span>
+        )
       }
-    </ul>
-  </nav>
-  <div class:list={['wrap', { wide }]}>
-    <div class="top">
-      <a class="name" href={path(lang)}>{SITE[lang]}</a>
-      <a class="lang" href={path(other, slug)} lang={other} hreflang={other}>{t('lang.other')}</a>
-    </div>
-    <nav class="nav" aria-label={t('nav.label')}>
+    </a>
+    <nav class="em" aria-label={t('em.label')}>
+      <ul>
+        {
+          EMERGENCY.map((e) => (
+            <li>
+              <a href={`tel:${e.number}`} aria-label={`${t(e.key)} ${e.number}`}>
+                <Icon name={e.icon} />
+                <b>
+                  <bdi dir="ltr">{e.number}</bdi>
+                </b>
+                <span>{t(e.key)}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+  <div class="subbar">
+    <nav class="tabs" aria-label={t('nav.label')}>
       <ul>
         {
           nav.map((n) => (
@@ -49,5 +60,6 @@ const nav = [
         }
       </ul>
     </nav>
+    <a class="ctl lang" href={path(other, slug)} lang={other} hreflang={other}>{t('lang.other')}</a>
   </div>
 </header>

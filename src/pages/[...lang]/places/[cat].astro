@@ -1,9 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import Icon from '../../../components/Icon.astro';
 import Explorer from '../../../components/Explorer.astro';
 import { CATEGORIES } from '../../../categories.js';
-import { CATEGORY_NOTES } from '../../../content.js';
 import { translator, path } from '../../../i18n.js';
 import { langPaths } from '../../../routes.js';
 
@@ -24,11 +22,5 @@ const crumbs = {
 ---
 
 <Base lang={lang} slug={slug} title={cat[lang]} description={t('cat.desc', { name: cat[lang] })} jsonld={[crumbs]} pageType="CollectionPage" wide>
-  <Explorer lang={lang} cat={cat}>
-    <p class="crumb">
-      <a href={path(lang)}><Icon name="back" flip />{t('cat.back')}</a>
-    </p>
-    <h1>{cat[lang]}</h1>
-    <p class="note">{CATEGORY_NOTES[cat.id][lang]}</p>
-  </Explorer>
+  <Explorer lang={lang} cat={cat} />
 </Base>

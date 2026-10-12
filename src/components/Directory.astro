@@ -15,21 +15,22 @@ const total = groups.reduce((n, g) => n + g.items.length, 0);
     <span class="vh">{t('dir.search')}</span>
     <input type="search" data-dir-search placeholder={t('dir.search')} autocomplete="off" enterkeyhint="search" />
   </label>
-  <nav class="cats jump" aria-label={t('dir.filter')}>
-    <a href="#main" data-group="" aria-current="true">{t('dir.all')}</a>
-    {groups.map((g) => <a href={`#${g.id}`} data-group={g.id}>{g.title[lang]}</a>)}
+  <nav class="filters" aria-label={t('dir.filter')}>
+    <a class="ctl" href="#main" data-group="" aria-current="true">{t('dir.all')}</a>
+    {groups.map((g) => <a class="ctl" href={`#${g.id}`} data-group={g.id}>{g.title[lang]}</a>)}
   </nav>
   <p class="results" data-dir-results aria-live="polite" hidden>{t('dir.results', { n: total, total })}</p>
   {
     groups.map((g) => (
       <section id={g.id}>
         <h2 class="label">{g.title[lang]}</h2>
+        {g.note && <p class="small">{g.note[lang]}</p>}
         <ul>
           {g.items.map((item) => {
             const url = item.url ? (item.url[lang] ?? item.url[other]) : null;
             const only = item.url && !item.url[lang] ? t(lang === 'ar' ? 'link.enOnly' : 'link.arOnly') : '';
             return (
-              <li class:list={['entry', { stack: item.page }]} data-q={[item.name.ar, item.name.en, item.text.ar, item.text.en, item.number].filter(Boolean).join(' ')}>
+              <li class:list={['entry', 'card', { stack: !item.number }]} data-q={[item.name.ar, item.name.en, item.text.ar, item.text.en, item.number].filter(Boolean).join(' ')}>
                 <div>
                   <h3>{item.name[lang]}</h3>
                   <p>
@@ -38,12 +39,13 @@ const total = groups.reduce((n, g) => n + g.items.length, 0);
                   </p>
                 </div>
                 {item.number && (
-                  <a class="btn btn-fill num" href={`tel:${item.number}`}>
+                  <a class:list={['btn', 'num', { 'btn-fill': g.id === 'emergency' }]} href={`tel:${item.number}`}>
                     <bdi dir="ltr">{item.number}</bdi>
                   </a>
                 )}
                 {url && (
-                  <a class="btn go" href={url} target="_blank" rel="noopener" aria-label={`${t('link.open')}: ${item.name[lang]}`} title={t('link.open')}>
+                  <a class="btn" href={url} target="_blank" rel="noopener" aria-label={`${t('link.open')}: ${item.name[lang]}`}>
+                    {t('link.open')}
                     <Icon name="open" flip />
                   </a>
                 )}
@@ -56,7 +58,6 @@ const total = groups.reduce((n, g) => n + g.items.length, 0);
             );
           })}
         </ul>
-        {g.note && <p class="note">{g.note[lang]}</p>}
       </section>
     ))
   }
