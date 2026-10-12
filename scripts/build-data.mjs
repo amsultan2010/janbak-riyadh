@@ -125,6 +125,7 @@ for (const r of verified('hospitals', read('hospitals')?.places ?? []).filter(su
   add('hospitals', { ...r, hours: r.hours ?? (r.er_24h ? '24/7' : null), phone: r.er_phone ?? r.phone }, {
     own: r.ownership ?? null,
     flags: r.flags ?? [],
+    ...(r.note_ar && r.note_en ? { note: { ar: r.note_ar, en: r.note_en } } : {}),
   });
 }
 

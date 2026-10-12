@@ -56,7 +56,7 @@ async function start(root) {
     return;
   }
 
-  let rows = data.map(([id, c, name, addr, district, lat, lng, phone, hours, usual, phone2, website, source, tags, alt], order) => ({
+  let rows = data.map(([id, c, name, addr, district, lat, lng, phone, hours, usual, phone2, website, source, tags, alt, note], order) => ({
     id,
     order,
     cat: cats[c],
@@ -74,6 +74,8 @@ async function start(root) {
     website: website || null,
     source: source || null,
     tags,
+    note: note || null,
+    er: cats[c].id === 'hospitals',
     q: fold([name, addr, district, tags.join(' '), alt, cats[c].name, cats[c].alt].filter(Boolean).join(' ')),
     open: false,
     state: null,
@@ -94,9 +96,9 @@ async function start(root) {
   let map = null;
 
   function statusOf(r) {
-    if (!r.week) return ['is-unknown', say('place.unknown')];
+    if (!r.week) return ['is-unknown', say(r.er ? 'place.erUnknown' : 'place.unknown')];
     const s = r.state;
-    if (s.always) return ['is-open', say('place.always')];
+    if (s.always) return ['is-open', say(r.er ? 'place.erAlways' : 'place.always')];
     if (s.open) return ['is-open', say('place.open') + sep + say('place.closes', { t: formatTime(s.until, lang) })];
     if (s.at === undefined) return ['is-closed', say('place.closed')];
     const when = (s.today ? '' : strings.days[s.day] + ' ') + formatTime(s.at, lang);
@@ -147,6 +149,7 @@ async function start(root) {
       ${r.addr ? `<p><bdi>${esc(r.addr)}</bdi></p>` : ''}
       <p class="meta">${meta}</p>
       <p class="status ${cls}">${esc(status)}</p>
+      ${r.note ? `<p class="place-note">${esc(r.note)}</p>` : ''}
       <div class="actions">
         ${r.phone ? `<a class="btn btn-fill" href="${tel(r.phone)}">${esc(say('place.call'))} <bdi dir="ltr">${esc(r.phone)}</bdi></a>` : ''}
         <a class="btn" href="${mapsUrl(r)}" target="_blank" rel="noopener">${esc(say(r.lat === null ? 'place.find' : 'place.directions'))}</a>
