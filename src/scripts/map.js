@@ -53,14 +53,6 @@ function pinImage(markup) {
   return image.decode().then(() => image);
 }
 
-// The warning sign for a marked zone: a yellow triangle, drawn large so it stays sharp as it grows with the map.
-function hazardImage() {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 24 24"><path fill="#fcc419" stroke="${INK}" stroke-width="1.5" stroke-linejoin="round" d="M12 2.8L22.3 20.6H1.7z"/><path fill="${INK}" d="M10.9 8.8h2.2v6.2h-2.2zM10.9 16.4h2.2v2.2h-2.2z"/></svg>`;
-  const image = new Image(512, 512);
-  image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-  return image.decode().then(() => image);
-}
-
 const loadZones = () => fetch('/data/zones.json').then((res) => (res.ok ? res.json() : [])).catch(() => []);
 
 export async function createMap(container, { kinds, onPick, onMove, onTilt, pad }) {
@@ -88,33 +80,17 @@ export async function createMap(container, { kinds, onPick, onMove, onTilt, pad 
   const pins = await Promise.all(kinds.map((kind) => pinImage(kind.pic)));
   kinds.forEach((kind, i) => map.addImage(`pin-${kind.id}`, pins[i], { pixelRatio: 2 }));
 
-  // Marked zones: a red shape over the area, under the place pins, with a warning sign that grows with the map.
+  // Marked zones: a red shape over the area, under the place pins.
   if (zones.length) {
-    map.addImage('hazard', await hazardImage(), { pixelRatio: 2 });
     map.addSource('zones', {
       type: 'geojson',
       data: {
         type: 'FeatureCollection',
-        features: zones.flatMap((z) => [
-          { type: 'Feature', properties: { id: z.id }, geometry: { type: 'Polygon', coordinates: [z.ring] } },
-          { type: 'Feature', properties: { id: z.id, sign: true }, geometry: { type: 'Point', coordinates: z.centre } },
-        ]),
+        features: zones.map((z) => ({ type: 'Feature', properties: { id: z.id }, geometry: { type: 'Polygon', coordinates: [z.ring] } })),
       },
     });
-    map.addLayer({ id: 'zone-fill', type: 'fill', source: 'zones', filter: ['!', ['has', 'sign']], paint: { 'fill-color': DANGER, 'fill-opacity': 0.38 } });
-    map.addLayer({ id: 'zone-edge', type: 'line', source: 'zones', filter: ['!', ['has', 'sign']], paint: { 'line-color': DANGER, 'line-width': 3 } });
-    map.addLayer({
-      id: 'zone-sign',
-      type: 'symbol',
-      source: 'zones',
-      filter: ['has', 'sign'],
-      layout: {
-        'icon-image': 'hazard',
-        'icon-size': ['interpolate', ['exponential', 1.6], ['zoom'], 8, 0.07, 10, 0.2, 12, 0.5, 14, 1.1, 16, 2],
-        'icon-allow-overlap': true,
-        'icon-ignore-placement': true,
-      },
-    });
+    map.addLayer({ id: 'zone-fill', type: 'fill', source: 'zones', paint: { 'fill-color': DANGER, 'fill-opacity': 0.38 } });
+    map.addLayer({ id: 'zone-edge', type: 'line', source: 'zones', paint: { 'line-color': DANGER, 'line-width': 3 } });
   }
 
   const empty = { type: 'FeatureCollection', features: [] };
@@ -198,13 +174,13 @@ export async function createMap(container, { kinds, onPick, onMove, onTilt, pad 
   // a tap on a marked zone (and not on a place) says what the zone is
   function showZone(e) {
     if (!zones.length) return;
-    const [hit] = map.queryRenderedFeatures(e.point, { layers: ['zone-fill', 'zone-sign'] });
+    const [hit] = map.queryRenderedFeatures(e.point, { layers: ['zone-fill'] });
     const zone = hit && zones.find((z) => z.id === hit.properties.id);
     if (!zone) return;
     const box = Object.assign(document.createElement('div'), { className: 'pop' });
     const date = new Date(`${zone.marked}T12:00:00`).toLocaleDateString(lang === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
     box.append(
-      Object.assign(document.createElement('p'), { className: 'zone-tag', textContent: say('zone.danger') }),
+      Object.assign(document.createElement('p'), { className: 'zone-tag', textContent: say('zone.caution') }),
       Object.assign(document.createElement('strong'), { textContent: zone[`name_${lang}`] }),
       Object.assign(document.createElement('p'), { textContent: say('zone.text') }),
       Object.assign(document.createElement('p'), { className: 'small', textContent: say('zone.marked', { date }) }),
