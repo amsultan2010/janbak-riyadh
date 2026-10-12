@@ -1,14 +1,10 @@
 ---
-import data from '../../research/districts.json';
+import areas from '../data/areas.json';
 import { translator } from '../i18n.js';
-import { districtName } from '../lib/districts.js';
 
 const { lang } = Astro.props;
 const t = translator(lang);
-const districts = data.districts
-  .map((d) => ({ ...districtName(d), lat: d.lat, lng: d.lng }))
-  .filter((d) => d.ar && d.en)
-  .sort((a, b) => a[lang].localeCompare(b[lang], lang));
+const districts = [...areas].sort((a, b) => a[lang].localeCompare(b[lang], lang));
 ---
 
 <section class="loc" data-loc aria-label={t('loc.title')} hidden>

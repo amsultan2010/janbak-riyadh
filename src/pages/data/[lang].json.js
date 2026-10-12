@@ -3,7 +3,7 @@ import { CATEGORIES } from '../../categories.js';
 import { translator, pick, otherLang, LANGS } from '../../i18n.js';
 
 // Every place for one language, as compact rows the explorer reads:
-// [id, category index, name, address, district, lat, lng, phone, hours, usual, phone2, website, source, tags, other-language search text, note]
+// [id, category index, name, address, district, lat, lng, phone, hours, usual, phone2, website, source, tags, other-language search text, note, district id]
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 
 export function GET({ params }) {
@@ -31,6 +31,7 @@ export function GET({ params }) {
       [p.own && t(`own.${p.own}`), ...(p.flags ?? []).filter((f) => ['pediatric_er', 'trauma_center', 'burns'].includes(f)).map((f) => t(`flag.${f}`))].filter(Boolean),
       [p.name[other], p.district[other], p.country?.[other]].filter(Boolean).join(' '),
       p.note?.[lang] ?? 0,
+      p.area ?? 0,
     ]);
   return new Response(JSON.stringify(rows), { headers: { 'Content-Type': 'application/json; charset=utf-8' } });
 }
