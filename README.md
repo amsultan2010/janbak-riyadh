@@ -11,7 +11,7 @@
 A plain, bilingual reference for people in Riyadh: where the essential places are, when
 they are open, how far they are, and which numbers to call. Arabic at `/`, English at `/en/`.
 
-**Live site: [janbak-riyadh.vercel.app](https://janbak-riyadh.vercel.app)**
+**Live site: [janbaksa.com](https://www.janbaksa.com)**
 
 ![Janbak share image](public/og-en.png)
 

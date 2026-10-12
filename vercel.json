@@ -6,12 +6,12 @@
   "redirects": [
     {
       "source": "/places/urgent-care/",
-      "destination": "/places/hospitals/?type=urgent-care",
+      "destination": "/places/hospitals/",
       "permanent": true
     },
     {
       "source": "/en/places/urgent-care/",
-      "destination": "/en/places/hospitals/?type=urgent-care",
+      "destination": "/en/places/hospitals/",
       "permanent": true
     },
     {
