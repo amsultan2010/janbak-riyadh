@@ -1,6 +1,6 @@
 // Merges research/*.json into src/data/places.json, the one file the site reads.
 // Fails the build on a broken entry instead of shipping it.
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } from 'node:fs';
 import { parseHours, encodeWeek } from '../src/lib/hours.js';
 import { CATEGORIES } from '../src/categories.js';
 
@@ -83,7 +83,9 @@ function add(cat, r, extra = {}) {
 const nearSame = (cat, p, limit) => places.some((q) => q.cat === cat && q.lat !== null && metres(p, q) < limit);
 
 // Hospitals with an emergency department
-for (const r of read('hospitals')?.places ?? []) {
+// (entries research marked low confidence are left out: a wrong hospital is worse than a missing one)
+const sure = (r) => r.confidence !== 'low';
+for (const r of (read('hospitals')?.places ?? []).filter(sure)) {
   add('hospitals', { ...r, hours: r.hours ?? (r.er_24h ? '24/7' : null), phone: r.er_phone ?? r.phone }, {
     own: r.ownership ?? null,
     flags: r.flags ?? [],
@@ -91,7 +93,7 @@ for (const r of read('hospitals')?.places ?? []) {
 }
 
 // Blood donation
-for (const r of read('blood-donation')?.places ?? []) {
+for (const r of (read('blood-donation')?.places ?? []).filter(sure)) {
   add('blood-donation', r, { booking: r.booking ?? null, bookingUrl: safeUrl(r.booking_url) });
 }
 
@@ -148,3 +150,10 @@ for (const c of CATEGORIES) {
   );
 }
 if (warnings.length) console.warn(`\n${warnings.length} warnings:\n` + warnings.map((w) => `  ${w}`).join('\n'));
+
+// The map library is served as plain files so the browser can find its worker next to it.
+const vendor = new URL('../public/vendor/maplibre/', import.meta.url);
+mkdirSync(vendor, { recursive: true });
+for (const file of ['maplibre-gl.mjs', 'maplibre-gl-shared.mjs', 'maplibre-gl-worker.mjs', 'maplibre-gl.css']) {
+  copyFileSync(new URL(`../node_modules/maplibre-gl/dist/${file}`, import.meta.url), new URL(file, vendor));
+}
