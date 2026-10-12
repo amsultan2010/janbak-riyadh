@@ -27,7 +27,7 @@ const count = (id) => places.filter((p) => p.cat === id).length;
               {CATEGORIES.filter((c) => c.group === g.id).map((c) => (
                 <li>
                   <a href={path(lang, `places/${c.id}`)}>
-                    <Icon name={c.id} color={c.color} />
+                    <Icon name={c.id} tile />
                     {c[lang]}
                     <span class="count">{count(c.id)}</span>
                     <Icon name="chevron" flip />

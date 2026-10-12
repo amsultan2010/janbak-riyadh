@@ -22,7 +22,7 @@ const nav = [
         EMERGENCY.map((e) => (
           <li>
             <a href={`tel:${e.number}`}>
-              <Icon name={e.icon} color={e.color} />
+              <Icon name={e.icon} />
               <b>{e.number}</b>
               <span>{t(e.key)}</span>
             </a>

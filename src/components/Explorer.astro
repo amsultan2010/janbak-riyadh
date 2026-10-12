@@ -8,7 +8,7 @@ import places from '../data/places.json';
 import areas from '../data/areas.json';
 import { CATEGORIES } from '../categories.js';
 import { CATEGORY_NOTES } from '../content.js';
-import { ICONS } from '../icons.js';
+import { ICONS, PICTURES } from '../icons.js';
 import { translator, otherLang, pick } from '../i18n.js';
 
 const { lang, cat = null } = Astro.props;
@@ -20,7 +20,7 @@ const fallback = cat ? places.filter((p) => p.cat === cat.id).sort((a, b) => sor
 const areaList = areas.filter((a) => a.n > 0).sort((a, b) => a[lang].localeCompare(b[lang], lang));
 const config = {
   pin: ICONS.pin,
-  cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], alt: c[other], icon: ICONS[c.id], color: c.color, note: CATEGORY_NOTES[c.id][lang] })),
+  cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], alt: c[other], pic: PICTURES[c.id], note: CATEGORY_NOTES[c.id][lang] })),
 };
 ---
 
@@ -41,7 +41,7 @@ const config = {
           </button>
           {CATEGORIES.map((c) => (
             <button type="button" data-cat-btn={c.id} aria-pressed="false">
-              <Icon name={c.id} color={c.color} />
+              <Icon name={c.id} tile />
               {c.short[lang]}
               <span class="n">{count(c.id)}</span>
             </button>
