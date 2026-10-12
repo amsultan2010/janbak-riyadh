@@ -59,7 +59,7 @@ const config = {
           </button>
           {cat.kinds.map((k) => (
             <button type="button" data-cat-btn={k.id} aria-pressed="false">
-              <Icon name={k.id} tile />
+              <Icon name={k.id} />
               {k[lang]}
               <span class="n">{countKind(k.id)}</span>
             </button>
