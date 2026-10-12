@@ -550,6 +550,14 @@ input::placeholder {
   color: var(--accent);
 }
 
+/* open round the clock: the one filled label in a row */
+.status.is-always {
+  width: fit-content;
+  padding-inline: 0.5rem;
+  background: var(--accent);
+  color: var(--deep);
+}
+
 .status.is-closed,
 .status.is-unknown {
   color: var(--soft);
