@@ -5,6 +5,7 @@ import Icon from './Icon.astro';
 import LocationSetter from './LocationSetter.astro';
 import PlaceRow from './PlaceRow.astro';
 import places from '../data/places.json';
+import areas from '../data/areas.json';
 import { CATEGORIES } from '../categories.js';
 import { CATEGORY_NOTES } from '../content.js';
 import { ICONS } from '../icons.js';
@@ -16,9 +17,10 @@ const other = otherLang(lang);
 const count = (id) => places.filter((p) => p.cat === id).length;
 const sortKey = (p) => (p.country ? pick(p.country, lang) : pick(p.name, lang));
 const fallback = cat ? places.filter((p) => p.cat === cat.id).sort((a, b) => sortKey(a).localeCompare(sortKey(b), lang)) : [];
+const areaList = areas.filter((a) => a.n > 0).sort((a, b) => a[lang].localeCompare(b[lang], lang));
 const config = {
   pin: ICONS.pin,
-  cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], alt: c[other], icon: ICONS[c.id], note: CATEGORY_NOTES[c.id][lang] })),
+  cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], alt: c[other], icon: ICONS[c.id], color: c.color, note: CATEGORY_NOTES[c.id][lang] })),
 };
 ---
 
@@ -39,7 +41,7 @@ const config = {
           </button>
           {CATEGORIES.map((c) => (
             <button type="button" data-cat-btn={c.id} aria-pressed="false">
-              <Icon name={c.id} />
+              <Icon name={c.id} color={c.color} />
               {c.short[lang]}
               <span class="n">{count(c.id)}</span>
             </button>
@@ -50,7 +52,8 @@ const config = {
   </div>
   <div class="map-col" data-map-col hidden>
     <div id="map" class="map" data-map data-loading={t('cat.mapLoading')} role="region" aria-label={t('cat.mapLabel')}></div>
-    <p class="map-credit">© OpenStreetMap · OpenMapTiles · OpenFreeMap</p>
+    <button type="button" class="map-mode" data-map-mode hidden></button>
+    <p class="map-credit" data-map-credit>© OpenStreetMap · OpenMapTiles · OpenFreeMap</p>
     <p class="small" data-map-error hidden>{t('cat.mapFail')}</p>
   </div>
   <div class="refine" data-refine hidden>
@@ -59,6 +62,13 @@ const config = {
       <label class="check"><input type="checkbox" data-always-only />{t('cat.always')}</label>
       <label class="check" data-in-view-label hidden><input type="checkbox" data-in-view />{t('cat.inView')}</label>
     </div>
+    <label class="field area">
+      <span>{t('cat.area')}</span>
+      <select data-area>
+        <option value="">{t('cat.areaAll')}</option>
+        {areaList.map((a) => <option value={a.id} data-bbox={a.bbox.join(',')}>{a[lang]}</option>)}
+      </select>
+    </label>
     <LocationSetter lang={lang} />
     <p class="note" data-cat-note hidden></p>
   </div>
