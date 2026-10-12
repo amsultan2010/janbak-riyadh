@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Directory from '../../components/Directory.astro';
 import { LINES } from '../../content.js';
 import { translator } from '../../i18n.js';
 import { langPaths } from '../../routes.js';
@@ -12,24 +13,5 @@ const t = translator(lang);
 <Base lang={lang} slug="numbers" title={t('numbers.title')} description={t('numbers.intro')}>
   <h1>{t('numbers.title')}</h1>
   <p class="lead">{t('numbers.intro')}</p>
-  <nav class="cats jump" aria-label={t('jump.label')}>
-    {LINES.map((group) => <a href={`#${group.id}`}>{group.title[lang]}</a>)}
-  </nav>
-  {
-    LINES.map((group) => (
-      <section id={group.id}>
-        <h2 class="label">{group.title[lang]}</h2>
-        {group.items.map((item) => (
-          <div class="entry">
-            <h3>{item.name[lang]}</h3>
-            <p>{item.text[lang]}</p>
-            <a class="btn btn-fill num" href={`tel:${item.number}`}>
-              <bdi dir="ltr">{item.number}</bdi>
-            </a>
-          </div>
-        ))}
-        {group.note && <p class="note">{group.note[lang]}</p>}
-      </section>
-    ))
-  }
+  <Directory lang={lang} groups={LINES} />
 </Base>
