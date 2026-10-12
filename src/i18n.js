@@ -121,6 +121,7 @@ const T = {
   'flag.pediatric_er': { ar: 'طوارئ أطفال', en: "Children's emergency" },
   'flag.trauma_center': { ar: 'مركز إصابات', en: 'Trauma centre' },
   'flag.burns': { ar: 'حروق', en: 'Burns' },
+  'tag.line': { ar: 'المسار {n}', en: 'Line {n}' },
 
   'numbers.title': { ar: 'أرقام مهمة', en: 'Important numbers' },
   'numbers.intro': {

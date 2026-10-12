@@ -3,6 +3,38 @@
   "outputDirectory": "dist",
   "cleanUrls": false,
   "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/places/urgent-care/",
+      "destination": "/places/hospitals/?type=urgent-care",
+      "permanent": true
+    },
+    {
+      "source": "/en/places/urgent-care/",
+      "destination": "/en/places/hospitals/?type=urgent-care",
+      "permanent": true
+    },
+    {
+      "source": "/places/blood-donation/",
+      "destination": "/places/blood-dialysis/?type=blood-donation",
+      "permanent": true
+    },
+    {
+      "source": "/en/places/blood-donation/",
+      "destination": "/en/places/blood-dialysis/?type=blood-donation",
+      "permanent": true
+    },
+    {
+      "source": "/places/dialysis/",
+      "destination": "/places/blood-dialysis/?type=dialysis",
+      "permanent": true
+    },
+    {
+      "source": "/en/places/dialysis/",
+      "destination": "/en/places/blood-dialysis/?type=dialysis",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/_astro/(.*)",

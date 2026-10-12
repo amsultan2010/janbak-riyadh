@@ -15,7 +15,7 @@ const tel = (n) => 'tel:' + n.replace(/\s*(?:ext\.?|x)\s*\d.*$/i, '').replace(/[
 
 async function start(root) {
   const config = JSON.parse(document.getElementById('explorer-config').textContent);
-  const cats = config.cats;
+  const { cats, kinds } = config;
   const preset = root.dataset.cat ?? null;
   const $ = (name) => root.querySelector(`[data-${name}]`);
   const controls = $('controls');
@@ -48,10 +48,11 @@ async function start(root) {
     return;
   }
 
-  let rows = data.map(([id, c, name, addr, district, lat, lng, phone, hours, usual, phone2, website, source, tags, alt, note, area], order) => ({
+  let rows = data.map(([id, k, name, addr, district, lat, lng, phone, hours, usual, phone2, website, source, tags, alt, note, area], order) => ({
     id,
     order,
-    cat: cats[c],
+    cat: cats[kinds[k].cat],
+    kind: kinds[k],
     name,
     addr: addr || null,
     district: district || null,
@@ -68,8 +69,8 @@ async function start(root) {
     tags,
     note: note || null,
     area: area || null,
-    er: cats[c].id === 'hospitals',
-    q: fold([name, addr, district, tags.join(' '), alt, cats[c].name, cats[c].alt].filter(Boolean).join(' ')),
+    er: kinds[k].id === 'hospitals',
+    q: fold([name, addr, district, tags.join(' '), alt, kinds[k].name, kinds[k].alt, cats[kinds[k].cat].name, cats[kinds[k].cat].alt].filter(Boolean).join(' ')),
     open: false,
     state: null,
     km: null,
@@ -79,7 +80,10 @@ async function start(root) {
 
   // filters start from the address bar, so a filtered view can be shared as a link
   const params = new URLSearchParams(location.search);
-  const selected = new Set(preset ? [] : (params.get('type') ?? '').split(',').filter((id) => cats.some((c) => c.id === id)));
+  // the strip picks categories on the home page and kinds on a category page
+  const pickable = preset ? kinds.filter((k) => cats[k.cat].id === preset) : cats;
+  const picked = (r) => (preset ? r.kind.id : r.cat.id);
+  const selected = new Set((params.get('type') ?? '').split(',').filter((id) => pickable.some((c) => c.id === id)));
   search.value = params.get('q') ?? '';
   openOnly.checked = params.has('open');
   alwaysOnly.checked = params.has('24h');
@@ -90,9 +94,9 @@ async function start(root) {
   let map = null;
 
   function statusOf(r) {
-    if (!r.week) return ['is-unknown', say(r.er ? 'place.erUnknown' : 'place.unknown')];
+    if (!r.week) return r.kind.untimed ? ['', ''] : ['is-unknown', say(r.er ? 'place.erUnknown' : 'place.unknown')];
     const s = r.state;
-    if (s.always) return ['is-open', say(r.er ? 'place.erAlways' : 'place.always')];
+    if (s.always) return ['is-open is-always', say(r.er ? 'place.erAlways' : 'place.always')];
     if (s.open) return ['is-open', say('place.open') + sep + say('place.closes', { t: formatTime(s.until, lang) })];
     if (s.at === undefined) return ['is-closed', say('place.closed')];
     const when = (s.today ? '' : strings.days[s.day] + ' ') + formatTime(s.at, lang);
@@ -140,13 +144,13 @@ async function start(root) {
     return `<li class="place" id="${r.id}">
       <div class="place-head">
         <div>
-          ${showKind ? `<p class="kind">${esc(r.cat.name)}</p>` : ''}
+          ${showKind || r.cat.multi ? `<p class="kind">${esc(r.kind.name)}</p>` : ''}
           <h2><bdi>${esc(r.name)}</bdi></h2>
           ${r.addr ? `<p><bdi>${esc(r.addr)}</bdi></p>` : ''}
           <p class="meta">${meta}</p>
           <p class="status ${cls}">${esc(status)}</p>
         </div>
-        <span class="place-icon">${pic(r.cat.pic)}</span>
+        <span class="place-icon">${pic(r.kind.pic)}</span>
       </div>
       ${r.note ? `<p class="place-note">${esc(r.note)}</p>` : ''}
       <div class="actions">
@@ -163,7 +167,7 @@ async function start(root) {
     const [cls, status] = statusOf(r);
     const box = document.createElement('div');
     box.className = 'pop';
-    box.innerHTML = `<p class="kind">${pic(r.cat.pic)}${esc(r.cat.name)}</p><strong><bdi>${esc(r.name)}</bdi></strong>
+    box.innerHTML = `<p class="kind">${pic(r.kind.pic)}${esc(r.kind.name)}</p><strong><bdi>${esc(r.name)}</bdi></strong>
       <p class="status ${cls}">${esc(status)}</p>
       <p class="pop-actions">${r.phone ? `<a href="${tel(r.phone)}">${esc(say('place.call'))}</a>` : ''}<a href="${mapsUrl(r)}" target="_blank" rel="noopener">${esc(say('place.directions'))}</a></p>`;
     return box;
@@ -174,7 +178,7 @@ async function start(root) {
     const box = inView.checked && map ? map.bounds() : null;
     const found = rows.filter(
       (r) =>
-        (!selected.size || selected.has(r.cat.id)) &&
+        (!selected.size || selected.has(picked(r))) &&
         (!openOnly.checked || r.open) &&
         (!alwaysOnly.checked || r.always) &&
         (!areaSelect.value || r.area === areaSelect.value) &&
@@ -292,7 +296,7 @@ async function start(root) {
       modeButton.textContent = say(satellite ? 'cat.modePlain' : 'cat.modeSat');
       credit.textContent = satellite ? 'Esri, Maxar, Earthstar Geographics · © OpenStreetMap' : '© OpenStreetMap · OpenMapTiles · OpenFreeMap';
     };
-    map = await createMap(mapBox, { cats, popup: popupFor, onMove: () => inView.checked && apply({ fit: false }), satellite });
+    map = await createMap(mapBox, { kinds, popup: popupFor, onMove: () => inView.checked && apply({ fit: false }), satellite });
     showMode();
     modeButton.hidden = false;
     modeButton.addEventListener('click', () => {
