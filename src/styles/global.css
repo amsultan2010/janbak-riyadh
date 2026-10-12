@@ -7,6 +7,7 @@
   --soft: #c9d8c8;
   --rule: #4f8266;
   --accent: #f4d058;
+  --deep: #06281a;
   --line: 1.5px;
   --pad: 1rem;
   --wide: 46rem;
@@ -120,22 +121,32 @@ header {
 }
 
 .em a {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 4.25rem;
-  padding: 0.4rem var(--pad);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  align-content: center;
+  column-gap: 0.5rem;
+  min-height: 4.5rem;
+  padding: 0.4rem 0.6rem;
   text-decoration: none;
   line-height: 1.25;
 }
 
+.em .icon {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.3rem;
+  color: var(--ink);
+}
+
 .em b {
-  font-size: clamp(1.6rem, 7vw, 2.1rem);
+  font-size: clamp(1.5rem, 6.5vw, 2.1rem);
   font-weight: 700;
   line-height: 1.1;
 }
 
 .em span {
+  grid-column: 1 / -1;
   font-size: 0.9rem;
 }
 
@@ -276,6 +287,13 @@ bdi[dir='ltr'] {
   stroke-width: 1.5;
   stroke-linecap: square;
   stroke-linejoin: miter;
+}
+
+/* a category's icon on a filled tile of its colour */
+.icon.tile {
+  padding: 0.2rem;
+  background: var(--c);
+  color: var(--deep);
 }
 
 [dir='rtl'] .flip {
@@ -497,8 +515,8 @@ input::placeholder {
   place-content: center;
   width: 3.75rem;
   height: 3.75rem;
-  border: var(--line) solid var(--rule);
-  color: var(--ink);
+  background: var(--c);
+  color: var(--deep);
 }
 
 .place-icon .icon {
@@ -712,8 +730,8 @@ main.wide {
 }
 
 .cats .icon {
-  width: 1.3rem;
-  height: 1.3rem;
+  width: 1.7rem;
+  height: 1.7rem;
 }
 
 .cats .n {
@@ -735,6 +753,10 @@ main.wide {
 
 .opts .check {
   margin: 0;
+}
+
+.refine .area {
+  margin-block: 0.25rem 0.9rem;
 }
 
 .refine .loc {
@@ -791,6 +813,30 @@ main.wide {
   place-content: center;
   background: var(--sunk);
   color: var(--soft);
+}
+
+.map-mode {
+  position: absolute;
+  inset-block-start: 0.6rem;
+  inset-inline-start: 0.6rem;
+  z-index: 3;
+  min-height: 2.75rem;
+  padding-inline: 0.9rem;
+  border: var(--line) solid var(--ground);
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--ground);
+  font: inherit;
+  font-weight: 700;
+}
+
+.map-mode:active {
+  background: var(--soft);
+}
+
+.map-mode:focus-visible {
+  outline-color: var(--ground);
+  outline-offset: -5px;
 }
 
 .map-credit {
@@ -906,8 +952,9 @@ main.wide {
 }
 
 .kind .icon {
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  padding: 0.15rem;
 }
 
 .btn-icon {
@@ -998,31 +1045,68 @@ main.wide {
   }
 }
 
-/* Phone lines and link lists */
+/* Phone lines and link lists: one compact row per entry, the action on the end side */
+.directory .search {
+  margin-block-end: 0.6rem;
+}
+
 .entry {
-  display: grid;
-  gap: 0.15rem;
-  padding-block: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  padding-block: 0.7rem;
   border-block-end: var(--line) solid var(--rule);
 }
 
+.entry > div {
+  min-width: 0;
+}
+
 .entry h3 {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.4;
 }
 
 .entry p {
   color: var(--soft);
+  font-size: 0.95em;
+  line-height: 1.5;
 }
 
 .entry .btn {
-  justify-self: start;
-  margin-block-start: 0.6rem;
+  flex: none;
+  min-width: 5.25rem;
 }
 
 .entry .num {
-  font-size: 1.3rem;
+  font-size: 1.15rem;
+}
+
+.entry .go {
+  width: 3.25rem;
+  min-width: 0;
+  min-height: 3.25rem;
+  padding: 0;
+}
+
+.entry.stack {
+  flex-wrap: wrap;
+}
+
+.cats a[aria-current] {
+  background: var(--ink);
+  color: var(--ground);
+  font-weight: 700;
+}
+
+.cats a[aria-current]:focus-visible {
+  outline-color: var(--ground);
+}
+
+.directory .label {
+  margin-block-start: 1.25rem;
 }
 
 .prose p {
@@ -1078,7 +1162,7 @@ footer a,
   .rows a:hover,
   .nav a:not([aria-current]):hover,
   .cats button[aria-pressed='false']:hover,
-  .cats a:hover {
+  .cats a:not([aria-current]):hover {
     background: var(--sunk);
   }
 
@@ -1092,6 +1176,7 @@ footer a,
     border-color: var(--accent);
   }
 
+  .map-mode:hover,
   .map .maplibregl-ctrl-group button:hover,
   .map .maplibregl-popup-close-button:hover {
     background-color: var(--accent);
@@ -1119,7 +1204,8 @@ footer a,
   .text-btn,
   .check,
   .check input,
-  .cats button {
+  .cats button,
+  .map-mode {
     cursor: pointer;
   }
 }
@@ -1191,6 +1277,20 @@ a,
 
     .em span {
       animation-name: em-label;
+    }
+
+    .em .icon {
+      animation: em-icon linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 9rem;
+    }
+
+    @keyframes em-icon {
+      to {
+        width: 1.45rem;
+        height: 1.45rem;
+        padding: 0.2rem;
+      }
     }
 
     @keyframes em-cell {

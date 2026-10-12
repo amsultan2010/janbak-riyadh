@@ -2,25 +2,16 @@
 // category and opening hours, and sorted by distance once a location is set.
 import { decodeWeek, openState, formatTime } from '../lib/hours.js';
 import { hoursLines } from '../lib/hours-text.js';
-import { getHome, setHome, lang, say, strings } from './home.js';
+import { getHome, setHome, lang, say, strings, fold } from './home.js';
 
 const PAGE = 30;
 const sep = lang === 'ar' ? '، ' : ', ';
 const words = { days: strings.days, to: say('place.to'), everyDay: say('place.everyDay'), always: say('place.always'), closed: say('place.closed') };
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-const icon = (d) => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"></path></svg>`;
+const icon = (d, color) =>
+  `<svg class="icon${color ? ' tile' : ''}"${color ? ` style="--c:${color}"` : ''} viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"></path></svg>`;
 const tel = (n) => 'tel:' + n.replace(/\s*(?:ext\.?|x)\s*\d.*$/i, '').replace(/[^\d+]/g, '');
-
-// so that a search matches whatever spelling of alef, hamza or ta marbuta was typed
-const fold = (s) =>
-  s
-    .toLowerCase()
-    .normalize('NFKD')
-    .replace(/[ً-ٰٟـ̀-ͯ]/g, '')
-    .replace(/[أإآٱ]/g, 'ا')
-    .replace(/ة/g, 'ه')
-    .replace(/ى/g, 'ي');
 
 async function start(root) {
   const config = JSON.parse(document.getElementById('explorer-config').textContent);
@@ -32,6 +23,7 @@ async function start(root) {
   const openOnly = $('open-only');
   const alwaysOnly = $('always-only');
   const inView = $('in-view');
+  const areaSelect = $('area');
   const note = $('cat-note');
   const mapCol = $('map-col');
   const mapBox = $('map');
@@ -56,7 +48,7 @@ async function start(root) {
     return;
   }
 
-  let rows = data.map(([id, c, name, addr, district, lat, lng, phone, hours, usual, phone2, website, source, tags, alt, note], order) => ({
+  let rows = data.map(([id, c, name, addr, district, lat, lng, phone, hours, usual, phone2, website, source, tags, alt, note, area], order) => ({
     id,
     order,
     cat: cats[c],
@@ -75,6 +67,7 @@ async function start(root) {
     source: source || null,
     tags,
     note: note || null,
+    area: area || null,
     er: cats[c].id === 'hospitals',
     q: fold([name, addr, district, tags.join(' '), alt, cats[c].name, cats[c].alt].filter(Boolean).join(' ')),
     open: false,
@@ -90,6 +83,7 @@ async function start(root) {
   search.value = params.get('q') ?? '';
   openOnly.checked = params.has('open');
   alwaysOnly.checked = params.has('24h');
+  if ([...areaSelect.options].some((o) => o.value === params.get('area'))) areaSelect.value = params.get('area');
 
   let home = getHome();
   let limit = PAGE;
@@ -152,7 +146,7 @@ async function start(root) {
           <p class="meta">${meta}</p>
           <p class="status ${cls}">${esc(status)}</p>
         </div>
-        <span class="place-icon">${icon(r.cat.icon)}</span>
+        <span class="place-icon" style="--c:${r.cat.color}">${icon(r.cat.icon)}</span>
       </div>
       ${r.note ? `<p class="place-note">${esc(r.note)}</p>` : ''}
       <div class="actions">
@@ -169,7 +163,7 @@ async function start(root) {
     const [cls, status] = statusOf(r);
     const box = document.createElement('div');
     box.className = 'pop';
-    box.innerHTML = `<p class="kind">${icon(r.cat.icon)}${esc(r.cat.name)}</p><strong><bdi>${esc(r.name)}</bdi></strong>
+    box.innerHTML = `<p class="kind">${icon(r.cat.icon, r.cat.color)}${esc(r.cat.name)}</p><strong><bdi>${esc(r.name)}</bdi></strong>
       <p class="status ${cls}">${esc(status)}</p>
       <p class="pop-actions">${r.phone ? `<a href="${tel(r.phone)}">${esc(say('place.call'))}</a>` : ''}<a href="${mapsUrl(r)}" target="_blank" rel="noopener">${esc(say('place.directions'))}</a></p>`;
     return box;
@@ -183,6 +177,7 @@ async function start(root) {
         (!selected.size || selected.has(r.cat.id)) &&
         (!openOnly.checked || r.open) &&
         (!alwaysOnly.checked || r.always) &&
+        (!areaSelect.value || r.area === areaSelect.value) &&
         (!box || (r.lat !== null && box.contains([r.lng, r.lat]))) &&
         tokens.every((t) => r.q.includes(t)),
     );
@@ -195,6 +190,7 @@ async function start(root) {
     if (selected.size) next.set('type', [...selected].join(','));
     if (openOnly.checked) next.set('open', '1');
     if (alwaysOnly.checked) next.set('24h', '1');
+    if (areaSelect.value) next.set('area', areaSelect.value);
     const query = next.toString();
     history.replaceState(null, '', location.pathname + (query ? `?${query}` : '') + location.hash);
     if (langLink) langLink.href = langLink.pathname + (query ? `?${query}` : '');
@@ -215,7 +211,7 @@ async function start(root) {
       if (single) note.textContent = cats.find((c) => c.id === single).note;
     }
     syncUrl();
-    map?.setPoints(found.filter((r) => r.lat !== null), home, fit && !inView.checked);
+    map?.setPoints(found.filter((r) => r.lat !== null), home, fit && !inView.checked && !areaSelect.value);
   }
 
   const reset = () => {
@@ -228,6 +224,15 @@ async function start(root) {
     typing = setTimeout(reset, 140);
   });
   for (const box of [openOnly, alwaysOnly, inView]) box.addEventListener('change', reset);
+  // choosing a district narrows the list to it and moves the map there
+  const showArea = () => {
+    const bbox = areaSelect.selectedOptions[0]?.dataset.bbox?.split(',').map(Number);
+    if (bbox && map) map.lookAt([[bbox[0], bbox[1]], [bbox[2], bbox[3]]]);
+  };
+  areaSelect.addEventListener('change', () => {
+    reset();
+    showArea();
+  });
   allButton?.addEventListener('click', () => {
     selected.clear();
     reset();
@@ -274,11 +279,37 @@ async function start(root) {
 
   try {
     const { createMap } = await import('./map.js');
-    map = await createMap(mapBox, { cats, popup: popupFor, onMove: () => inView.checked && apply({ fit: false }) });
+    // satellite imagery by default; the choice is remembered on this device
+    const modeButton = $('map-mode');
+    const credit = $('map-credit');
+    let satellite = true;
+    try {
+      satellite = localStorage.getItem('mapMode') !== 'plain';
+    } catch {
+      // storage unavailable: keep the default
+    }
+    const showMode = () => {
+      modeButton.textContent = say(satellite ? 'cat.modePlain' : 'cat.modeSat');
+      credit.textContent = satellite ? 'Esri, Maxar, Earthstar Geographics · © OpenStreetMap' : '© OpenStreetMap · OpenMapTiles · OpenFreeMap';
+    };
+    map = await createMap(mapBox, { cats, popup: popupFor, onMove: () => inView.checked && apply({ fit: false }), satellite });
+    showMode();
+    modeButton.hidden = false;
+    modeButton.addEventListener('click', () => {
+      satellite = !satellite;
+      map.setSatellite(satellite);
+      showMode();
+      try {
+        localStorage.setItem('mapMode', satellite ? 'satellite' : 'plain');
+      } catch {
+        // not saved, still switched
+      }
+    });
     root.classList.add('has-map');
     $('in-view-label').hidden = false;
     document.dispatchEvent(new CustomEvent('mapready'));
     apply();
+    showArea();
   } catch {
     mapBox.hidden = true;
     $('map-error').hidden = false;

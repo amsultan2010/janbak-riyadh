@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+import { EMERGENCY } from '../categories.js';
 import { SITE, translator, path, otherLang } from '../i18n.js';
 
 const { lang, slug, wide = false } = Astro.props;
@@ -11,20 +13,16 @@ const nav = [
   { slug: 'help', key: 'nav.help', on: section === 'help' },
   { slug: 'links', key: 'nav.links', on: section === 'links' },
 ];
-const emergency = [
-  { number: '911', key: 'em.911' },
-  { number: '997', key: 'em.997' },
-  { number: '937', key: 'em.937' },
-];
 ---
 
 <header>
   <nav class="em" aria-label={t('em.label')}>
     <ul>
       {
-        emergency.map((e) => (
+        EMERGENCY.map((e) => (
           <li>
             <a href={`tel:${e.number}`}>
+              <Icon name={e.icon} color={e.color} />
               <b>{e.number}</b>
               <span>{t(e.key)}</span>
             </a>

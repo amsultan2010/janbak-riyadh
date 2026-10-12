@@ -53,14 +53,46 @@ function metres(a, b) {
   return Math.sqrt(x * x + y * y) * 6371000;
 }
 
-const districts = read('districts')?.districts ?? [];
-function nearestDistrict(p) {
-  let best = null;
-  for (const d of districts) {
-    const m = metres(p, d);
-    if (m < 5000 && (!best || m < best.m)) best = { m, d };
+// Districts: drawn boundaries where OpenStreetMap has them, a centre point otherwise.
+// Every mapped place is assigned to one, which gives the district filter on the site.
+const slug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const areas = [];
+for (const d of read('district-areas')?.districts ?? []) {
+  const name = districtName(d);
+  if (!name.ar) continue;
+  areas.push({ ...name, en: name.en ?? name.ar, lat: d.lat, lng: d.lng, bbox: d.bbox, rings: d.rings });
+}
+for (const d of read('districts')?.districts ?? []) {
+  const name = districtName(d);
+  if (!name.ar || !name.en || areas.some((a) => a.ar === name.ar)) continue;
+  areas.push({ ...name, lat: d.lat, lng: d.lng, bbox: [d.lng - 0.012, d.lat - 0.011, d.lng + 0.012, d.lat + 0.011], rings: null });
+}
+areas.forEach((a) => {
+  let id = slug(a.en) || 'area';
+  while (areas.some((b) => b !== a && b.id === id)) id += '-2';
+  a.id = id;
+});
+
+function inside(p, ring) {
+  let hit = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [xi, yi] = ring[i];
+    const [xj, yj] = ring[j];
+    if (yi > p.lat !== yj > p.lat && p.lng < ((xj - xi) * (p.lat - yi)) / (yj - yi) + xi) hit = !hit;
   }
-  return best ? districtName(best.d) : { ar: null, en: null };
+  return hit;
+}
+
+function areaOf(p) {
+  const drawn = areas.find((a) => a.rings && p.lng >= a.bbox[0] && p.lng <= a.bbox[2] && p.lat >= a.bbox[1] && p.lat <= a.bbox[3] && a.rings.some((r) => inside(p, r)));
+  if (drawn) return drawn;
+  let best = null;
+  for (const a of areas) {
+    if (a.rings) continue;
+    const m = metres(p, a);
+    if (m < 2500 && (!best || m < best.m)) best = { m, a };
+  }
+  return best?.a ?? null;
 }
 
 // Sites that research found had been taken over; never link them.
@@ -90,12 +122,8 @@ function add(cat, r, extra = {}) {
   const week = parseHours(r.hours);
   if (r.hours && !week) warn(`${id}: hours not understood: ${r.hours}`);
 
-  const district =
-    r.district_ar && r.district_en
-      ? { ar: r.district_ar, en: r.district_en }
-      : lat !== null
-        ? nearestDistrict({ lat, lng })
-        : { ar: r.district_ar ?? null, en: r.district_en ?? null };
+  const area = lat !== null ? areaOf({ lat, lng }) : null;
+  const district = area ? { ar: area.ar, en: area.en } : { ar: r.district_ar ?? null, en: r.district_en ?? null };
 
   const name = { ar: tidy(r.name_ar), en: tidy(r.name_en) };
   if (!name.ar && !name.en) throw new Error(`${id}: no name`);
@@ -105,6 +133,7 @@ function add(cat, r, extra = {}) {
     cat,
     name,
     district,
+    area: area?.id ?? null,
     lat: lat === null ? null : +lat.toFixed(5),
     lng: lng === null ? null : +lng.toFixed(5),
     // toll-free and unified numbers are dialled without the country code
@@ -196,6 +225,14 @@ for (const key of fixes.keys()) {
 
 places.sort((a, b) => a.cat.localeCompare(b.cat) || (a.name.en ?? a.name.ar).localeCompare(b.name.en ?? b.name.ar));
 writeFileSync(new URL('../src/data/places.json', import.meta.url), JSON.stringify(places));
+// only districts that hold at least one place are offered as a filter
+const counts = new Map();
+for (const p of places) if (p.area) counts.set(p.area, (counts.get(p.area) ?? 0) + 1);
+writeFileSync(
+  new URL('../src/data/areas.json', import.meta.url),
+  JSON.stringify(areas.map(({ id, ar, en, lat, lng, bbox }) => ({ id, ar, en, lat, lng, bbox, n: counts.get(id) ?? 0 }))),
+);
+console.log(`${areas.length} districts (${areas.filter((a) => a.rings).length} with boundaries), ${places.filter((p) => p.area).length} of ${places.length} places placed in one`);
 
 for (const c of CATEGORIES) {
   const list = places.filter((p) => p.cat === c.id);

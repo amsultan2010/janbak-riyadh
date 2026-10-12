@@ -365,6 +365,26 @@ export const HELP = [
   },
 ];
 
+// The Ways to help page, in groups.
+export const HELP_GROUPS = [
+  {
+    id: 'blood',
+    title: { ar: 'تبرّع بالدم', en: 'Give blood' },
+    items: [
+      {
+        name: { ar: 'مراكز التبرع بالدم في الرياض', en: 'Blood donation centres in Riyadh' },
+        text: {
+          ar: 'يمكنك التبرع إذا كان عمرك بين 18 و65 سنة ووزنك 50 كجم على الأقل. أحضر الهوية الوطنية أو الإقامة أو جواز السفر.',
+          en: 'You can donate if you are 18 to 65 and weigh at least 50 kg. Bring your national ID, iqama or passport.',
+        },
+        page: 'places/blood-donation',
+      },
+    ],
+  },
+  { id: 'volunteer', title: { ar: 'تطوّع وتدرّب', en: 'Volunteer and train' }, items: HELP.slice(0, 4) },
+  { id: 'donate', title: { ar: 'تبرّع', en: 'Donate' }, items: HELP.slice(4) },
+];
+
 export const ABOUT = {
   ar: [
     ['ما هذا الموقع', 'دليل ثابت لسكان الرياض يجمع الأماكن الأساسية وساعات عملها وأرقام الاتصال في مكان واحد. لا ينشر أخباراً ولا تحديثات مباشرة.'],
