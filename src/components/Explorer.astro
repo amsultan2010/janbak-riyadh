@@ -1,0 +1,79 @@
+---
+// The map-first finder. On the home page it covers every category; on a category
+// page it is preset to one, and the server-rendered list stays as the fallback.
+import Icon from './Icon.astro';
+import LocationSetter from './LocationSetter.astro';
+import PlaceRow from './PlaceRow.astro';
+import places from '../data/places.json';
+import { CATEGORIES } from '../categories.js';
+import { CATEGORY_NOTES } from '../content.js';
+import { ICONS } from '../icons.js';
+import { translator, otherLang, pick } from '../i18n.js';
+
+const { lang, cat = null } = Astro.props;
+const t = translator(lang);
+const other = otherLang(lang);
+const count = (id) => places.filter((p) => p.cat === id).length;
+const sortKey = (p) => (p.country ? pick(p.country, lang) : pick(p.name, lang));
+const fallback = cat ? places.filter((p) => p.cat === cat.id).sort((a, b) => sortKey(a).localeCompare(sortKey(b), lang)) : [];
+const config = {
+  pin: ICONS.pin,
+  cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], alt: c[other], icon: ICONS[c.id], note: CATEGORY_NOTES[c.id][lang] })),
+};
+---
+
+<div class="explorer" data-explorer data-cat={cat?.id}>
+  <div class="explorer-head">
+    <slot />
+  </div>
+  <div class="controls" data-controls hidden>
+    <label class="search">
+      <span class="vh">{t('cat.search')}</span>
+      <input type="search" data-search placeholder={t('cat.search')} autocomplete="off" enterkeyhint="search" />
+    </label>
+    {
+      !cat && (
+        <div class="cats" role="group" aria-label={t('cat.kinds')}>
+          <button type="button" data-cat-all aria-pressed="true">
+            {t('cat.all')}
+          </button>
+          {CATEGORIES.map((c) => (
+            <button type="button" data-cat-btn={c.id} aria-pressed="false">
+              <Icon name={c.id} />
+              {c.short[lang]}
+              <span class="n">{count(c.id)}</span>
+            </button>
+          ))}
+        </div>
+      )
+    }
+  </div>
+  <div class="map-col" data-map-col hidden>
+    <div id="map" class="map" data-map role="region" aria-label={t('cat.mapLabel')}></div>
+    <p class="small" data-map-error hidden>{t('cat.mapFail')}</p>
+  </div>
+  <div class="refine" data-refine hidden>
+    <div class="opts">
+      <label class="check"><input type="checkbox" data-open-only />{t('cat.openNow')}</label>
+      <label class="check"><input type="checkbox" data-always-only />{t('cat.always')}</label>
+      <label class="check" data-in-view-label hidden><input type="checkbox" data-in-view />{t('cat.inView')}</label>
+    </div>
+    <LocationSetter lang={lang} />
+    <p class="note" data-cat-note hidden></p>
+  </div>
+  <p class="results" data-results aria-live="polite">
+    {cat ? t('cat.results', { n: fallback.length, total: fallback.length }) : ''}
+  </p>
+  <ol class="places" data-places>
+    {fallback.map((p) => <PlaceRow p={p} lang={lang} />)}
+  </ol>
+  <p class="note" data-none hidden>{t('cat.none')}</p>
+  <div class="more-wrap"><button type="button" class="btn more" data-more hidden>{t('cat.more')}</button></div>
+  <p class="small caveat">{t('cat.caveat')}</p>
+  <slot name="after" />
+</div>
+<script type="application/json" id="explorer-config" set:html={JSON.stringify(config)} />
+
+<script>
+  import '../scripts/explorer.js';
+</script>

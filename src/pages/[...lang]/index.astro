@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
-import LocationSetter from '../../components/LocationSetter.astro';
+import Explorer from '../../components/Explorer.astro';
 import places from '../../data/places.json';
 import { CATEGORIES, GROUPS } from '../../categories.js';
 import { translator, path } from '../../i18n.js';
@@ -11,51 +11,33 @@ export const getStaticPaths = langPaths;
 const { lang } = Astro.props;
 const t = translator(lang);
 const count = (id) => places.filter((p) => p.cat === id).length;
-const more = [
-  { slug: 'numbers', key: 'nav.numbers' },
-  { slug: 'help', key: 'nav.help' },
-  { slug: 'links', key: 'nav.links' },
-];
 ---
 
-<Base lang={lang} title={t('home.title')} description={t('home.desc')}>
-  <h1>{t('home.h1')}</h1>
-  <p class="lead">{t('home.intro')}</p>
-  <LocationSetter lang={lang} />
-  {
-    GROUPS.map((g) => (
-      <section>
-        <h2 class="label">{g[lang]}</h2>
-        <ul class="rows">
-          {CATEGORIES.filter((c) => c.group === g.id).map((c) => (
-            <li>
-              <a href={path(lang, `places/${c.id}`)}>
-                <Icon name={c.id} />
-                {c[lang]}
-                <span class="count">{count(c.id)}</span>
-                <Icon name="chevron" flip />
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    ))
-  }
-  <section>
-    <h2 class="label">{t('home.more')}</h2>
-    <ul class="rows">
+<Base lang={lang} title={t('home.title')} description={t('home.desc')} wide>
+  <Explorer lang={lang}>
+    <h1>{t('home.h1')}</h1>
+    <p class="lead">{t('home.intro')}</p>
+    <section slot="after" class="browse">
+      <h2 class="label">{t('cat.browse')}</h2>
       {
-        more.map((m) => (
-          <li>
-            <a href={path(lang, m.slug)}>
-              <Icon name={m.slug} />
-              {t(m.key)}
-              <span class="count" />
-              <Icon name="chevron" flip />
-            </a>
-          </li>
+        GROUPS.map((g) => (
+          <>
+            <h3 class="sub">{g[lang]}</h3>
+            <ul class="rows">
+              {CATEGORIES.filter((c) => c.group === g.id).map((c) => (
+                <li>
+                  <a href={path(lang, `places/${c.id}`)}>
+                    <Icon name={c.id} />
+                    {c[lang]}
+                    <span class="count">{count(c.id)}</span>
+                    <Icon name="chevron" flip />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
         ))
       }
-    </ul>
-  </section>
+    </section>
+  </Explorer>
 </Base>
