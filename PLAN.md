@@ -10,8 +10,8 @@ Arabic is the default at `/`, English is the same path under `/en/`.
 
 | Page | Path | What is on it |
 | --- | --- | --- |
-| Places (home) | `/` | Location setter, the nine categories with counts |
-| One category | `/places/<category>/` | Search, open-now filter, list sorted by distance, map |
+| Places (home) | `/` | The explorer: map, search and filters over all 1,567 places |
+| One category | `/places/<category>/` | The same explorer preset to one category, with a plain list as fallback |
 | Numbers | `/numbers/` | Emergency, health, mental health, family, utilities, residents |
 | Ways to help | `/help/` | Blood donation, volunteering, licensed donation platforms |
 | Official links | `/links/` | Government sites and apps, grouped |
@@ -20,18 +20,21 @@ Arabic is the default at `/`, English is the same path under `/en/`.
 Every page starts with the emergency bar: 911, 997, 937 as tap-to-call. In Riyadh 911
 covers police, Civil Defense and traffic; 998 and 999 are for regions without a 911 centre.
 
-## How the finder works
+## How the explorer works
 
-- Location: "Use my current location" (browser GPS) or pick one of 150 districts. Saved on
-  the device only.
-- With a location set, every list sorts nearest first and shows straight-line distance.
-- Directions opens Google Maps with the route filled in
-  (`/maps/dir/?api=1&origin=..&destination=..&hl=ar|en`). No API key.
-- Open or closed is worked out in Riyadh time from each place's hours. Unknown hours say
-  "Hours not confirmed" and never count as open.
-- The map (MapLibre with OpenFreeMap tiles, no key) loads only when "Show map" is tapped.
-  Its labels follow the page language. If it fails, the list still works.
-- With JavaScript off, every list and phone link still works.
+- The map is always on screen: under the search and category strip on a phone, beside the
+  list at full height on a wide screen. Pins carry the category icon and cluster when dense.
+- Search covers name, district, address and type in both languages, and ignores Arabic
+  spelling variants (hamza, ta marbuta, diacritics).
+- Filters: any mix of the nine categories, open now, open 24 hours, and "only inside the
+  map view". The current filters live in the address bar, so a view can be shared as a link.
+- Location: browser GPS, one of 150 districts, or a tap on the map. Saved on the device only.
+  With a location set, results sort nearest first and show straight-line distance.
+- Each result has Call, Directions (Google Maps with the route filled in, no API key) and
+  a button that flies the map to it. Tapping a pin shows the same actions.
+- Open or closed is worked out in Riyadh time. Unknown hours never count as open.
+- MapLibre with OpenFreeMap tiles, no key. Labels follow the page language. If the map
+  fails, the list still works; with JavaScript off, category pages still show full lists.
 
 ## Data (checked 12 October 2026)
 
@@ -85,8 +88,8 @@ to 150 ms state changes and is off under reduced-motion.
 ## Tech
 
 - Astro, static output: 28 pages plus a 404. No server, so it scales with the CDN.
-- About 4 KB of JavaScript on first load. The map library (about 430 KB compressed) is fetched only
-  on demand from `/vendor/`.
+- About 6 KB of script on first load, then one 58 KB data file per language and the map
+  library (about 430 KB compressed, cached) in the background.
 - Largest page (fuel, 722 rows) is about 40 KB compressed.
 - `vercel.json` sets long cache lifetimes for hashed assets.
 - Tests: `npm test` covers the opening-hours logic (overnight shifts, Friday split hours,

@@ -1,5 +1,5 @@
 ---
-import { translator, pick } from '../i18n.js';
+import { translator, pick, DAYS } from '../i18n.js';
 import { hoursLines } from '../lib/hours-text.js';
 
 const { p, lang } = Astro.props;
@@ -14,7 +14,8 @@ const maps = mapped
   : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name} ${lang === 'ar' ? 'الرياض' : 'Riyadh'}`)}&hl=${lang}`;
 const search = [p.name.ar, p.name.en, p.addr?.ar, p.addr?.en, p.district.ar, p.district.en, p.country?.ar, p.country?.en].filter(Boolean).join(' ').toLowerCase();
 const tags = [p.own && t(`own.${p.own}`), ...(p.flags ?? []).filter((f) => ['pediatric_er', 'trauma_center', 'burns'].includes(f)).map((f) => t(`flag.${f}`))].filter(Boolean);
-const lines = p.hours && p.hours !== '*' ? hoursLines(p.hours, lang, t) : [];
+const words = { days: DAYS[lang], to: t('place.to'), everyDay: t('place.everyDay'), always: t('place.always'), closed: t('place.closed') };
+const lines = p.hours && p.hours !== '*' ? hoursLines(p.hours, lang, words) : [];
 const hasDetails = lines.length || p.phone2 || p.website || p.source;
 const fixed = p.hours === '*' ? ['is-open', t('place.always')] : !p.hours ? ['is-unknown', t('place.unknown')] : ['', ''];
 ---
