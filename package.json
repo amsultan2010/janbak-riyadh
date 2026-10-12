@@ -1,5 +1,15 @@
 {
   "name": "janbak-riyadh",
+  "description": "Static, bilingual (Arabic and English) reference for Riyadh: essential places with hours and directions, phone lines and official links.",
+  "license": "MIT",
+  "homepage": "https://janbak-riyadh.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amsultan2010/janbak-riyadh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amsultan2010/janbak-riyadh/issues"
+  },
   "type": "module",
   "private": true,
   "scripts": {
