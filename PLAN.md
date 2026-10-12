@@ -10,14 +10,15 @@ Arabic is the default at `/`, English is the same path under `/en/`.
 
 | Page | Path | What is on it |
 | --- | --- | --- |
-| Places (home) | `/` | The explorer: map, search and filters over all 1,567 places |
+| Places (home) | `/` | The explorer: map, search and filters over all 1,570 places |
 | One category | `/places/<category>/` | The same explorer preset to one category, with a plain list as fallback |
 | Numbers | `/numbers/` | Emergency, health, mental health, family, utilities, residents |
 | Ways to help | `/help/` | Blood donation, volunteering, licensed donation platforms |
 | Official links | `/links/` | Government sites and apps, grouped |
 | About | `/about/` | What it is, data sources, limits, privacy |
 
-Every page starts with the emergency bar: 911, 997, 937 as tap-to-call. In Riyadh 911
+Every page starts with the emergency bar: 911, 997, 937 as tap-to-call. It stays on screen
+and tightens as the page scrolls. In Riyadh 911
 covers police, Civil Defense and traffic; 998 and 999 are for regions without a 911 centre.
 
 ## How the explorer works
@@ -36,31 +37,48 @@ covers police, Civil Defense and traffic; 998 and 999 are for regions without a 
 - MapLibre with OpenFreeMap tiles, no key. Labels follow the page language. If the map
   fails, the list still works; with JavaScript off, category pages still show full lists.
 
-## Data (checked 12 October 2026)
+## Data (checked 12 October 2026, two passes)
 
 | Category | Places | On the map | With hours | Main source |
 | --- | --- | --- | --- | --- |
-| Hospitals with emergency | 51 | 50 | 34 | Hospital sites, Ministry of Health |
+| Hospitals | 54 | 53 | 33 | Hospital sites, Ministry of Health records |
 | Urgent care | 24 | 24 | 24 | Ministry of Health on-duty list |
-| Pharmacies | 205 | 205 | 68 | Chain locators, OpenStreetMap |
-| Blood donation | 23 | 23 | 6 | Ministry of Health directory, hospital sites |
+| Pharmacies | 205 | 205 | 72 | Chain locators, OpenStreetMap |
+| Blood donation | 23 | 23 | 7 | Ministry of Health directory, hospital sites |
 | Dialysis | 7 | 7 | 6 | Operators' sites |
-| Mental health | 15 | 14 | 1 | Ministry of Health guide |
+| Mental health | 15 | 15 | 7 | Ministry of Health guide, clinic listings |
 | Supermarkets | 392 | 392 | 248 | Chain locators, OpenStreetMap |
 | Fuel stations | 722 | 722 | 5 | Chain locators, OpenStreetMap |
 | Embassies | 128 | 91 | 57 | Embassy sites, OpenStreetMap |
 
-Raw research with a source per entry is in `research/`. `npm run data` merges it into
-`src/data/places.json` and fails loudly on a broken entry.
+`research/*.json` is the first pass, with a source per entry. `research/verify/*.json` is the
+second pass: each entry re-checked against the facility's own site or the Ministry, with
+corrections and fills. `npm run data` merges both into `src/data/places.json` and warns on
+anything that does not match.
 
-Known gaps:
+What the second pass found:
 
-- Nahdi and Al-Dawaa pharmacies are mostly missing: their branch finders are app-only or
-  block automated access. Panda, Lulu and Carrefour branches come from OpenStreetMap only.
+- Hospitals: all 59 re-checked. No phone number was wrong. 33 have an official statement
+  that the emergency department runs 24 hours; the rest say "Emergency hours not published",
+  including the large Ministry hospitals, whose sites do not state it per hospital.
+  Five that could not be shown to be operating with an emergency department are left out.
+- Urgent care: all 24 match the Ministry's Arabic list. Three centres differ between the
+  Arabic and English lists on Friday and Saturday opening.
+- Mental health: 6 clinics gained hours and 3 had outdated phone numbers replaced, from map
+  listings (no clinic publishes them on its own site). Eradah Complex moved in February 2026.
+- Blood donation: only the Central Blood Bank gained hours. 16 centres still have a time
+  window from the Ministry with no days, so they show as not confirmed.
+- Phone lines: every number re-confirmed on an official page. Three descriptions were
+  corrected (937 is not stated to be free, 19922 and 19911 are not round the clock) and the
+  child helpline 116111 was added.
+- Pharmacy and supermarket chains: Nahdi, Al-Dawaa, Panda, Lulu and Carrefour still block
+  automated access, so their branch hours remain unconfirmed.
+- Embassies: Pakistan, Palestine, Nigeria, Ethiopia, Afghanistan, Kuwait, Russia and the
+  Philippines could not be confirmed from an official page (sites down or blocking access).
+
+Other known gaps:
+
 - Fuel station hours are not published by any chain.
-- 17 blood donation centres have a time window from the Ministry but no days, so they
-  show as not confirmed.
-- 8 hospitals and 2 blood centres that research marked low confidence are left out.
 - 37 embassies have no map pin (they get a Google Maps search link instead).
 - Districts come from OpenStreetMap: 150 of roughly 190. Al Malqa and As Sahafah are missing.
 - Left out for thin data: police and Civil Defense stations, ATMs, bakeries.
@@ -97,7 +115,7 @@ to 150 ms state changes and is off under reduced-motion.
 
 ## Still to decide
 
-1. Name and address. "Riyadh Guide / دليل الرياض" is a working name; set `SITE_URL` to the
+1. Name and address. "Riyadh Guide / دليل الرياض" is a working name (suggested: قريب / Qareeb); set `SITE_URL` to the
    real address before deploying (it feeds canonical links, the sitemap and share images).
 2. Arabic copy review: read `src/i18n.js` and `src/content.js` once as a native speaker.
 3. Whether to fill the pharmacy gap by hand from the Nahdi and Al-Dawaa apps.
