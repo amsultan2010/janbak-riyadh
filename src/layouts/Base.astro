@@ -1,0 +1,73 @@
+---
+import '@fontsource/ibm-plex-sans-arabic/arabic-400.css';
+import '@fontsource/ibm-plex-sans-arabic/arabic-700.css';
+import '@fontsource/ibm-plex-sans-arabic/latin-400.css';
+import '@fontsource/ibm-plex-sans-arabic/latin-700.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import { SITE, DAYS, translator, clientStrings, path, otherLang } from '../i18n.js';
+
+const { lang, slug = '', title, description, jsonld = [], noindex = false } = Astro.props;
+const t = translator(lang);
+const url = (l) => new URL(path(l, slug), Astro.site).href;
+const pageTitle = slug === '' ? title : `${title} | ${SITE[lang]}`;
+const ogImage = new URL(`/og-${lang}.png`, Astro.site).href;
+const strings = { ...clientStrings(lang), days: DAYS[lang] };
+const siteData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebSite', '@id': `${url(lang)}#site`, url: new URL(path(lang), Astro.site).href, name: SITE[lang], inLanguage: lang },
+    { '@type': 'Organization', name: SITE.en, alternateName: SITE.ar, url: Astro.site.href },
+    ...jsonld,
+  ],
+};
+---
+
+<!doctype html>
+<html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5f2e7" />
+    {noindex && <meta name="robots" content="noindex" />}
+    {
+      !noindex && (
+        <>
+          <link rel="canonical" href={url(lang)} />
+          <link rel="alternate" hreflang="ar" href={url('ar')} />
+          <link rel="alternate" hreflang="en" href={url('en')} />
+          <link rel="alternate" hreflang="x-default" href={url('ar')} />
+          <meta property="og:url" content={url(lang)} />
+        </>
+      )
+    }
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE[lang]} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={lang === 'ar' ? 'ar_SA' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'ar' ? 'en_US' : 'ar_SA'} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(siteData)} />
+  </head>
+  <body>
+    <a class="skip" href="#main">{t('skip')}</a>
+    <Header lang={lang} slug={slug} />
+    <main id="main" class="wrap">
+      <slot />
+    </main>
+    <footer class="wrap">
+      <p>{t('footer.note')}</p>
+      <p>{t('checked')}. <a href={path(lang, 'about')}>{t('nav.about')}</a></p>
+    </footer>
+    <script type="application/json" id="strings" set:html={JSON.stringify(strings)} />
+  </body>
+</html>
