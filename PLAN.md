@@ -1,4 +1,4 @@
-# Riyadh Guide: plan and state
+# Janbak (جنبك): plan and state
 
 Static, bilingual (Arabic and English) reference for people in Riyadh: where the
 essential places are, when they are open, how far they are, and which numbers to call.
@@ -121,8 +121,9 @@ to 150 ms state changes and is off under reduced-motion.
 
 ## Still to decide
 
-1. Name and address. "Riyadh Guide / دليل الرياض" is a working name (suggested: قريب / Qareeb); set `SITE_URL` to the
-   real address before deploying (it feeds canonical links, the sitemap and share images).
+1. Address. The site is named Janbak (جنبك, "beside you"). Set `SITE_URL` to the real address
+   before deploying (it feeds canonical links, the sitemap and share images); until then it
+   falls back to a placeholder.
 2. Arabic copy review: read `src/i18n.js` and `src/content.js` once as a native speaker.
 3. Whether to fill the pharmacy gap by hand from the Nahdi and Al-Dawaa apps.
 4. Satellite imagery comes from Esri's public tile service, which needs no key but is meant for
