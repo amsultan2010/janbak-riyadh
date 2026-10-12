@@ -1,5 +1,5 @@
 ---
-// The finder. On the home page it opens on the first category; on a category page it is
+// The finder. On the home page it opens on every place; on a category page it is
 // preset to that one, and the server-rendered list stays as the fallback.
 import Icon from './Icon.astro';
 import LocationSetter from './LocationSetter.astro';
@@ -14,7 +14,6 @@ import { SITE, translator, otherLang, pick, path } from '../i18n.js';
 const { lang, cat = null } = Astro.props;
 const t = translator(lang);
 const other = otherLang(lang);
-const first = cat ?? CATEGORIES[0];
 const count = (id) => places.filter((p) => p.cat === id).length;
 const countKind = (id) => places.filter((p) => p.kind === id).length;
 const sortKey = (p) => (p.country ? pick(p.country, lang) : pick(p.name, lang));
@@ -22,7 +21,7 @@ const fallback = cat ? places.filter((p) => p.cat === cat.id).sort((a, b) => sor
 const areaList = areas.filter((a) => a.n > 0).sort((a, b) => a[lang].localeCompare(b[lang], lang));
 const config = {
   icons: { pin: ICONS.pin, back: ICONS.back, chevron: ICONS.chevron, open: ICONS.open, info: ICONS.info },
-  site: { first: CATEGORIES[0].id, path: path(lang), other: path(other), name: SITE[lang], title: t('home.title'), h1: t('home.h1'), intro: t('home.intro') },
+  site: { path: path(lang), other: path(other), name: SITE[lang], title: t('home.title'), h1: t('home.h1'), intro: t('home.intro') },
   cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], short: c.short[lang], alt: c[other], note: CATEGORY_NOTES[c.id][lang], pic: PICTURES[c.id] })),
   kinds: KINDS.map((k) => ({ id: k.id, cat: CATEGORIES.findIndex((c) => c.id === k.cat), name: k[lang], alt: k[other], pic: PICTURES[k.id], untimed: k.untimed })),
 };
@@ -39,9 +38,9 @@ const config = {
     </div>
     <div class="tools">
       <button type="button" class="ctl type" data-cat-open aria-haspopup="dialog">
-        <span class="slot" data-cat-pic><Icon name={first.id} /></span>
-        <span data-cat-name>{first.short[lang]}</span>
-        <span class="n" data-cat-count>{count(first.id)}</span>
+        <span class="slot" data-cat-pic><Icon name={cat?.id ?? 'pin'} /></span>
+        <span data-cat-name>{cat ? cat.short[lang] : t('cat.back')}</span>
+        <span class="n" data-cat-count>{cat ? count(cat.id) : places.length}</span>
         <Icon name="down" />
       </button>
       <button type="button" class="ctl" data-open-only aria-pressed="false">{t('cat.openShort')}</button>

@@ -95,12 +95,12 @@ async function start(root) {
   const sizes = new Map(cats.map((c) => [c.id, rows.filter((r) => r.cat === c).length]));
 
   // What is on show. `type` is one category, or '' for every place. It starts from the page
-  // (a category page, or the first category on the home page) and from the address bar,
+  // (a category page, or every place on the home page) and from the address bar,
   // so a filtered view can be shared as a link.
   const params = new URLSearchParams(location.search);
   const asked = (params.get('type') ?? '').split(',').filter(Boolean);
   const want = byId.get(decodeURIComponent(location.hash.slice(1)));
-  let type = preset ?? site.first;
+  let type = preset ?? '';
   const kindsOn = new Set();
   if (preset) for (const k of kinds) if (asked.includes(k.id) && cats[k.cat].id === preset) kindsOn.add(k.id);
   if (!preset) type = asked.includes('all') || params.has('q') ? '' : (asked.find(catOf) ?? want?.cat.id ?? type);
@@ -226,8 +226,7 @@ async function start(root) {
 
   function tail() {
     const next = new URLSearchParams();
-    if (!type) next.set('type', 'all');
-    else if (kindsOn.size) next.set('type', [...kindsOn].join(','));
+    if (kindsOn.size) next.set('type', [...kindsOn].join(','));
     if (search.value.trim()) next.set('q', search.value.trim());
     if (openOnly) next.set('open', '1');
     if (alwaysOnly.checked) next.set('24h', '1');
