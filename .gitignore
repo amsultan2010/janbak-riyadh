@@ -4,4 +4,3 @@ dist
 .vercel
 .DS_Store
 src/data/places.json
-public/vendor
