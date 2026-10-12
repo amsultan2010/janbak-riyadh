@@ -1,0 +1,53 @@
+name: Data correction
+description: A wrong or missing phone number, hours, address, place or link
+title: "data: "
+labels: ["data"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks. You can write in Arabic or English.
+        Phone numbers and official links are only changed with an official source.
+  - type: input
+    id: place
+    attributes:
+      label: Place, number or link
+      description: The name as the site shows it, or the page address.
+      placeholder: King Saud Medical City
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is wrong
+      options:
+        - Phone number
+        - Opening hours
+        - Location on the map or address
+        - Name or translation
+        - The place has closed or moved
+        - A place is missing
+        - A link is broken or wrong
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: correct
+    attributes:
+      label: What it should say
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: A link to the official page (the agency, hospital, chain, embassy or ministry) that shows the right value.
+      placeholder: https://
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+    validations:
+      required: false

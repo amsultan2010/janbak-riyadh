@@ -1,0 +1,29 @@
+name: Idea
+description: Suggest a category, a page or a change
+title: "idea: "
+labels: ["idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You can write in Arabic or English.
+        Janbak is Riyadh only and carries no news, live status, alerts or crowd-sourced content. Ideas outside that will be closed.
+  - type: textarea
+    id: need
+    attributes:
+      label: What do you need that the site does not do
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What you suggest
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Where the data would come from
+      description: For a new category or list, the official source that publishes it.
+    validations:
+      required: false
