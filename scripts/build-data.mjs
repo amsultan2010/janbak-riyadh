@@ -224,6 +224,8 @@ for (const key of fixes.keys()) {
 }
 
 places.sort((a, b) => a.cat.localeCompare(b.cat) || (a.name.en ?? a.name.ar).localeCompare(b.name.en ?? b.name.ar));
+// src/data holds only generated files, so it does not exist in a fresh checkout
+mkdirSync(new URL('../src/data/', import.meta.url), { recursive: true });
 writeFileSync(new URL('../src/data/places.json', import.meta.url), JSON.stringify(places));
 // only districts that hold at least one place are offered as a filter
 const counts = new Map();
