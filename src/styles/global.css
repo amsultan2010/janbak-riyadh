@@ -635,6 +635,14 @@ footer p + p {
   margin-block-start: 0.35rem;
 }
 
+/* text links that stand alone still need a full-size tap target */
+footer a,
+.facts a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
 [hidden] {
   display: none !important;
 }
