@@ -6,12 +6,13 @@ const { p, lang } = Astro.props;
 const t = translator(lang);
 const name = pick(p.name, lang);
 const district = pick(p.district, lang);
+const addr = pick(p.addr, lang);
 const tel = (n) => 'tel:' + n.replace(/\s*(?:ext\.?|x)\s*\d.*$/i, '').replace(/[^\d+]/g, '');
 const mapped = p.lat !== null;
 const maps = mapped
   ? `https://www.google.com/maps/dir/?api=1&destination=${p.lat}%2C${p.lng}&hl=${lang}`
   : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name} ${lang === 'ar' ? 'الرياض' : 'Riyadh'}`)}&hl=${lang}`;
-const search = [p.name.ar, p.name.en, p.district.ar, p.district.en, p.country?.ar, p.country?.en].filter(Boolean).join(' ').toLowerCase();
+const search = [p.name.ar, p.name.en, p.addr?.ar, p.addr?.en, p.district.ar, p.district.en, p.country?.ar, p.country?.en].filter(Boolean).join(' ').toLowerCase();
 const tags = [p.own && t(`own.${p.own}`), ...(p.flags ?? []).filter((f) => ['pediatric_er', 'trauma_center', 'burns'].includes(f)).map((f) => t(`flag.${f}`))].filter(Boolean);
 const lines = p.hours && p.hours !== '*' ? hoursLines(p.hours, lang, t) : [];
 const hasDetails = lines.length || p.phone2 || p.website || p.source;
@@ -20,6 +21,7 @@ const fixed = p.hours === '*' ? ['is-open', t('place.always')] : !p.hours ? ['is
 
 <li class="place" id={p.id} data-lat={p.lat} data-lng={p.lng} data-h={p.hours} data-q={search}>
   <h2>{name}</h2>
+  {addr && <p>{addr}</p>}
   <p class="meta">
     {district && <span>{district}</span>}
     {tags.map((tag) => <span>{tag}</span>)}

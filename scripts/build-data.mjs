@@ -21,14 +21,21 @@ function metres(a, b) {
   return Math.sqrt(x * x + y * y) * 6371000;
 }
 
-const districts = read('districts')?.districts ?? [];
+// a few OpenStreetMap districts carry a Latin name in the Arabic slot
+const districts = (read('districts')?.districts ?? []).map((d) => ({
+  ...d,
+  name_ar: hasArabic(d.name_ar) ? d.name_ar : null,
+  name_en: d.name_en ?? (hasArabic(d.name_ar) ? null : d.name_ar),
+}));
 function nearestDistrict(p) {
   let best = null;
   for (const d of districts) {
     const m = metres(p, d);
     if (m < 5000 && (!best || m < best.m)) best = { m, d };
   }
-  return best ? { ar: best.d.name_ar, en: best.d.name_en } : { ar: null, en: null };
+  return best
+    ? { ar: best.d.name_ar?.replace(/^حي\s+/, '') ?? null, en: best.d.name_en?.replace(/`/g, '') ?? null }
+    : { ar: null, en: null };
 }
 
 // Sites that research found had been taken over; never link them.
@@ -62,7 +69,9 @@ function add(cat, r, extra = {}) {
         ? nearestDistrict({ lat, lng })
         : { ar: r.district_ar ?? null, en: r.district_en ?? null };
 
-  const name = { ar: r.name_ar ?? null, en: r.name_en ?? null };
+  // one kind of dash in names, whatever the source used
+  const tidy = (s) => s?.replace(/\s*[\u2013\u2014]\s*/g, ' - ').trim() ?? null;
+  const name = { ar: tidy(r.name_ar), en: tidy(r.name_en) };
   if (!name.ar && !name.en) throw new Error(`${id}: no name`);
 
   places.push({
@@ -72,7 +81,8 @@ function add(cat, r, extra = {}) {
     district,
     lat: lat === null ? null : +lat.toFixed(5),
     lng: lng === null ? null : +lng.toFixed(5),
-    phone: r.phone ?? null,
+    // toll-free and unified numbers are dialled without the country code
+    phone: r.phone?.replace(/^\+966[\s-]*(?=800|9200)/, '') ?? null,
     hours: week ? encodeWeek(week) : null,
     website: safeUrl(r.website),
     source: pickSource(r.sources),
@@ -118,7 +128,13 @@ for (const b of retail.branches) {
   const chain = chainById[b.chain_id];
   if (b.lat == null || !inRiyadh(b.lat, b.lng)) continue;
   if (nearSame(cat, b, 60)) continue;
-  add(cat, { ...b, name_ar: b.name_ar ?? chain?.name_ar, name_en: b.name_en ?? chain?.name_en });
+  const split = (s) => {
+    const at = s?.indexOf(' - ') ?? -1;
+    return at > 0 ? [s.slice(0, at), s.slice(at + 3)] : [s ?? null, null];
+  };
+  const [name_ar, addr_ar] = split(b.name_ar ?? chain?.name_ar);
+  const [name_en, addr_en] = split(b.name_en ?? chain?.name_en);
+  add(cat, { ...b, name_ar, name_en }, addr_ar || addr_en ? { addr: { ar: addr_ar, en: addr_en } } : {});
 }
 
 // OpenStreetMap fills the gaps the locators left
