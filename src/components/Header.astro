@@ -1,0 +1,55 @@
+---
+import { SITE, translator, path, otherLang } from '../i18n.js';
+
+const { lang, slug } = Astro.props;
+const t = translator(lang);
+const other = otherLang(lang);
+const section = slug.split('/')[0];
+const nav = [
+  { slug: '', key: 'nav.places', on: section === '' || section === 'places' },
+  { slug: 'numbers', key: 'nav.numbers', on: section === 'numbers' },
+  { slug: 'help', key: 'nav.help', on: section === 'help' },
+  { slug: 'links', key: 'nav.links', on: section === 'links' },
+];
+const emergency = [
+  { number: '911', key: 'em.911' },
+  { number: '997', key: 'em.997' },
+  { number: '937', key: 'em.937' },
+];
+---
+
+<header>
+  <nav class="em" aria-label={t('em.label')}>
+    <ul>
+      {
+        emergency.map((e) => (
+          <li>
+            <a href={`tel:${e.number}`}>
+              <b>{e.number}</b>
+              <span>{t(e.key)}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <div class="wrap">
+    <div class="top">
+      <a class="name" href={path(lang)}>{SITE[lang]}</a>
+      <a class="lang" href={path(other, slug)} lang={other} hreflang={other}>{t('lang.other')}</a>
+    </div>
+    <nav class="nav" aria-label={t('nav.label')}>
+      <ul>
+        {
+          nav.map((n) => (
+            <li>
+              <a href={path(lang, n.slug)} aria-current={n.on && n.slug === slug ? 'page' : n.on ? 'true' : undefined}>
+                {t(n.key)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

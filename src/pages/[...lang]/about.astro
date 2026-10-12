@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import { ABOUT } from '../../content.js';
+import { translator } from '../../i18n.js';
+import { langPaths } from '../../routes.js';
+
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props;
+const t = translator(lang);
+---
+
+<Base lang={lang} slug="about" title={t('about.title')} description={ABOUT[lang][0][1]}>
+  <h1>{t('about.title')}</h1>
+  {
+    ABOUT[lang].map(([heading, text]) => (
+      <section class="prose">
+        <h2 class="label">{heading}</h2>
+        <p>{text}</p>
+      </section>
+    ))
+  }
+  <p class="small">{t('checked')}. {t('footer.osm')}.</p>
+</Base>

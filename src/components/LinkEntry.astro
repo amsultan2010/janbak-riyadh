@@ -1,0 +1,16 @@
+---
+import { translator, otherLang } from '../i18n.js';
+
+const { item, lang } = Astro.props;
+const t = translator(lang);
+const url = item.url[lang] ?? item.url[otherLang(lang)];
+const only = item.url[lang] ? '' : t(lang === 'ar' ? 'link.enOnly' : 'link.arOnly');
+---
+
+<div class="entry">
+  <h3>{item.name[lang]}</h3>
+  <p>{item.text[lang]}</p>
+  <a class="btn" href={url} target="_blank" rel="noopener">
+    {t('link.open')}{only && ` (${only})`}
+  </a>
+</div>

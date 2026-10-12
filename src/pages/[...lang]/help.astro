@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import LinkEntry from '../../components/LinkEntry.astro';
+import { HELP } from '../../content.js';
+import { translator, path } from '../../i18n.js';
+import { langPaths } from '../../routes.js';
+
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props;
+const t = translator(lang);
+---
+
+<Base lang={lang} slug="help" title={t('help.title')} description={t('help.intro')}>
+  <h1>{t('help.title')}</h1>
+  <p class="lead">{t('help.intro')}</p>
+  <section>
+    <h2 class="label">{t('help.blood')}</h2>
+    <div class="entry">
+      <p>{t('help.bloodText')}</p>
+      <a class="btn btn-fill" href={path(lang, 'places/blood-donation')}>{t('help.bloodLink')}</a>
+    </div>
+  </section>
+  <section>
+    <h2 class="label">{t('nav.help')}</h2>
+    {HELP.map((item) => <LinkEntry item={item} lang={lang} />)}
+  </section>
+</Base>

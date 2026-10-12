@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import LinkEntry from '../../components/LinkEntry.astro';
+import { LINKS } from '../../content.js';
+import { translator } from '../../i18n.js';
+import { langPaths } from '../../routes.js';
+
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props;
+const t = translator(lang);
+---
+
+<Base lang={lang} slug="links" title={t('links.title')} description={t('links.intro')}>
+  <h1>{t('links.title')}</h1>
+  <p class="lead">{t('links.intro')}</p>
+  {
+    LINKS.map((group) => (
+      <section>
+        <h2 class="label">{group.title[lang]}</h2>
+        {group.items.map((item) => <LinkEntry item={item} lang={lang} />)}
+      </section>
+    ))
+  }
+</Base>
