@@ -102,7 +102,7 @@ async function start(root) {
   const want = byId.get(decodeURIComponent(location.hash.slice(1)));
   let type = preset ?? '';
   const kindsOn = new Set();
-  if (preset) for (const k of kinds) if (asked.includes(k.id) && cats[k.cat].id === preset) kindsOn.add(k.id);
+  if (preset) for (const k of kinds) if (!k.urgent && asked.includes(k.id) && cats[k.cat].id === preset) kindsOn.add(k.id);
   if (!preset) type = asked.includes('all') || params.has('q') ? '' : (asked.find(catOf) ?? want?.cat.id ?? type);
   search.value = params.get('q') ?? '';
   let openOnly = params.has('open');

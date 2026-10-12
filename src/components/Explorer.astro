@@ -23,7 +23,7 @@ const config = {
   icons: { pin: ICONS.pin, back: ICONS.back, chevron: ICONS.chevron, open: ICONS.open, info: ICONS.info },
   site: { path: path(lang), other: path(other), name: SITE[lang], title: t('home.title'), h1: t('home.h1'), intro: t('home.intro') },
   cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], short: c.short[lang], alt: c[other], note: CATEGORY_NOTES[c.id][lang], pic: PICTURES[c.id] })),
-  kinds: KINDS.map((k) => ({ id: k.id, cat: CATEGORIES.findIndex((c) => c.id === k.cat), name: k[lang], alt: k[other], pic: PICTURES[k.id], untimed: k.untimed })),
+  kinds: KINDS.map((k) => ({ id: k.id, cat: CATEGORIES.findIndex((c) => c.id === k.cat), name: k[lang], alt: k[other], pic: PICTURES[k.id], untimed: k.untimed, urgent: k.urgent })),
 };
 ---
 
@@ -98,12 +98,12 @@ const config = {
             <div class="rows">
               {CATEGORIES.filter((c) => c.group === g.id).map((c) => (
                 <>
-                  <button type="button" class="row" data-cat-btn={c.id} aria-pressed="false">
+                  <button type="button" class:list={['row', { urgent: c.urgent }]} data-cat-btn={c.id} aria-pressed="false">
                     <Icon name={c.id} />
                     {c[lang]}
                     <span class="n">{count(c.id)}</span>
                   </button>
-                  {c.kinds && (
+                  {c.kinds && !c.urgent && (
                     <div class="kinds" data-kinds={c.id} role="group" aria-label={c[lang]} hidden>
                       {c.kinds.map((k) => (
                         <button type="button" class="ctl" data-kind-btn={k.id} aria-pressed="false">

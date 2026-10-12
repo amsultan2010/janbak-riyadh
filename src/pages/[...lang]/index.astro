@@ -24,7 +24,7 @@ const count = (id) => places.filter((p) => p.cat === id).length;
             <ul class="rows">
               {CATEGORIES.filter((c) => c.group === g.id).map((c) => (
                 <li>
-                  <a class="row" href={path(lang, `places/${c.id}`)}>
+                  <a class:list={['row', { urgent: c.urgent }]} href={path(lang, `places/${c.id}`)}>
                     <Icon name={c.id} />
                     {c[lang]}
                     <span class="n">{count(c.id)}</span>

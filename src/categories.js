@@ -8,6 +8,8 @@ export const GROUPS = [
 
 // A category that holds more than one kind of place lists them in `kinds`; each kind has
 // its own pictogram and can be picked on the category's page.
+// `urgent` marks emergency care: it stays one list that is never split by kind, and its
+// pictograms wear a red ring.
 export const CATEGORIES = [
   {
     id: 'hospitals',
@@ -15,6 +17,7 @@ export const CATEGORIES = [
     ar: 'المستشفيات والرعاية العاجلة',
     en: 'Hospitals and urgent care',
     short: { ar: 'مستشفيات ورعاية عاجلة', en: 'Hospitals, urgent care' },
+    urgent: true,
     kinds: [
       { id: 'hospitals', ar: 'طوارئ مستشفى', en: 'Hospital emergency' },
       { id: 'urgent-care', ar: 'رعاية عاجلة', en: 'Urgent care' },
@@ -52,7 +55,7 @@ export const CATEGORIES = [
 ];
 
 // Every kind of place in one list, in category order. A category without `kinds` is its own kind.
-export const KINDS = CATEGORIES.flatMap((c) => (c.kinds ?? [c]).map((k) => ({ id: k.id, cat: c.id, ar: k.ar, en: k.en, untimed: !!k.untimed })));
+export const KINDS = CATEGORIES.flatMap((c) => (c.kinds ?? [c]).map((k) => ({ id: k.id, cat: c.id, ar: k.ar, en: k.en, untimed: !!k.untimed, urgent: !!c.urgent })));
 
 // The three numbers on the emergency bar.
 export const EMERGENCY = [
