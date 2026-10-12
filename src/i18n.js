@@ -158,6 +158,7 @@ const T = {
   },
   'footer.osm': { ar: 'بيانات الخريطة: مساهمو OpenStreetMap، والخرائط من OpenMapTiles و OpenFreeMap', en: 'Map data: OpenStreetMap contributors. Map tiles: OpenMapTiles and OpenFreeMap' },
   'footer.nav': { ar: 'روابط أسفل الصفحة', en: 'Footer links' },
+  'footer.built': { ar: 'من تطوير عبدالله سلطان', en: 'Built by Abdullah Sultan' },
 
   'e404.title': { ar: 'الصفحة غير موجودة', en: 'Page not found' },
   'e404.text': { ar: 'لا توجد صفحة بهذا العنوان.', en: 'There is no page at this address.' },
