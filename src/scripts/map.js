@@ -81,9 +81,9 @@ function setMode(map, satellite) {
   }
 }
 
-// A round light pin carrying the kind's colour pictogram, drawn at twice the size for sharp screens.
+// A round pin in the ground green carrying the kind's pictogram, drawn at twice the size for sharp screens.
 function pinImage(markup) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="38.5" fill="${INK}" stroke="${DEEP}" stroke-width="5"/><g transform="translate(18 18) scale(2)">${markup}</g></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="38.5" fill="${GROUND}" stroke="${INK}" stroke-width="5"/><g transform="translate(18 18) scale(2)">${markup}</g></svg>`;
   const image = new Image(84, 84);
   image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
   return image.decode().then(() => image);

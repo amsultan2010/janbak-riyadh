@@ -294,10 +294,11 @@ bdi[dir='ltr'] {
   height: 1.6rem;
 }
 
-/* on the green ground a pictogram sits on a light tile so its colours read */
-.pic.tile {
-  padding: 0.15rem;
-  background: var(--ink);
+/* category pictograms are drawn for the green ground; on a light surface they keep a square of it */
+.cats button[aria-pressed='true'] .pic,
+.pop .kind .pic {
+  outline: 0.15rem solid var(--ground);
+  background: var(--ground);
 }
 
 [dir='rtl'] .flip {
@@ -515,14 +516,10 @@ input::placeholder {
 
 .place-icon {
   flex: none;
-  display: grid;
-  place-content: center;
-  width: 3.75rem;
-  height: 3.75rem;
-  background: var(--ink);
 }
 
 .place-icon .pic {
+  display: block;
   width: 2.7rem;
   height: 2.7rem;
 }
