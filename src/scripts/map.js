@@ -23,17 +23,19 @@ function loadLibrary() {
   return import(/* @vite-ignore */ `${location.origin}/vendor/maplibre/maplibre-gl.mjs`);
 }
 
-// Place names on the base map follow the page language.
-function localiseLabels(map) {
+// The base style, adjusted before the map starts: place names follow the page
+// language, and the US road-shield layers (which only log warnings here) are dropped.
+async function loadStyle() {
+  const style = await (await fetch(STYLE)).json();
   const field =
     lang === 'ar'
       ? ['coalesce', ['get', 'name:ar'], ['get', 'name']]
       : ['coalesce', ['get', 'name:en'], ['get', 'name_en'], ['get', 'name:latin'], ['get', 'name']];
-  for (const layer of map.getStyle().layers) {
-    if (layer.type === 'symbol' && JSON.stringify(layer.layout?.['text-field'] ?? '').includes('name')) {
-      map.setLayoutProperty(layer.id, 'text-field', field);
-    }
+  style.layers = style.layers.filter((layer) => !layer.id.includes('shield'));
+  for (const layer of style.layers) {
+    if (layer.type === 'symbol' && JSON.stringify(layer.layout?.['text-field'] ?? '').includes('name')) layer.layout['text-field'] = field;
   }
+  return style;
 }
 
 // A round pin carrying the category's line icon, drawn at twice the size for sharp screens.
@@ -57,11 +59,11 @@ function pinImage(path) {
 }
 
 export async function createMap(container, { cats, popup, onMove }) {
-  const gl = await loadLibrary();
+  const [gl, style] = await Promise.all([loadLibrary(), loadStyle()]);
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const map = new gl.Map({
     container,
-    style: STYLE,
+    style,
     center: RIYADH,
     zoom: 10,
     minZoom: 8,
@@ -69,14 +71,14 @@ export async function createMap(container, { cats, popup, onMove }) {
     // on a touch screen one finger scrolls the page and two move the map
     cooperativeGestures: matchMedia('(pointer: coarse)').matches,
     locale: lang === 'ar' ? AR_GESTURES : {},
-    attributionControl: { compact: true },
+    attributionControl: false,
   });
   map.addControl(new gl.NavigationControl({ showCompass: false }), lang === 'ar' ? 'top-left' : 'top-right');
   await new Promise((resolve, reject) => {
     map.once('load', resolve);
     map.once('error', (e) => reject(e.error));
   });
-  localiseLabels(map);
+  container.classList.add('is-ready');
   for (const cat of cats) map.addImage(`pin-${cat.id}`, pinImage(cat.icon), { pixelRatio: 2 });
 
   const empty = { type: 'FeatureCollection', features: [] };
@@ -155,7 +157,9 @@ export async function createMap(container, { cats, popup, onMove }) {
         features: rows.map((r) => ({ type: 'Feature', properties: { id: r.id, cat: r.cat.id }, geometry: { type: 'Point', coordinates: [r.lng, r.lat] } })),
       });
       homeMarker?.remove();
-      homeMarker = home ? new gl.Marker({ color: ACCENT }).setLngLat([home.lng, home.lat]).addTo(map) : null;
+      homeMarker = home
+        ? new gl.Marker({ element: Object.assign(document.createElement('div'), { className: 'home-pin' }) }).setLngLat([home.lng, home.lat]).addTo(map)
+        : null;
       if (!fit) return;
 
       // with a location set, frame the nearest few; otherwise frame everything that matched
