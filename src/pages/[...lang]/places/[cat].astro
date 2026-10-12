@@ -21,6 +21,6 @@ const crumbs = {
 };
 ---
 
-<Base lang={lang} slug={slug} title={cat[lang]} description={t('cat.desc', { name: cat[lang] })} jsonld={[crumbs]} pageType="CollectionPage" wide>
+<Base lang={lang} slug={slug} title={t('cat.title', { name: cat[lang] })} description={t('cat.desc', { name: cat[lang] })} jsonld={[crumbs]} pageType="CollectionPage" wide>
   <Explorer lang={lang} cat={cat} />
 </Base>

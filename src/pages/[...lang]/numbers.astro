@@ -10,8 +10,8 @@ const { lang } = Astro.props;
 const t = translator(lang);
 ---
 
-<Base lang={lang} slug="numbers" title={t('numbers.title')} description={t('numbers.intro')}>
-  <h1>{t('numbers.title')}</h1>
+<Base lang={lang} slug="numbers" title={t('seo.numbers.title')} description={t('seo.numbers.desc')}>
+  <h1>{t('seo.numbers.h1')}</h1>
   <p class="lead">{t('numbers.intro')}</p>
   <Directory lang={lang} groups={LINES} />
 </Base>
