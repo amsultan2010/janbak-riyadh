@@ -28,6 +28,9 @@ const nav = [
         )
       }
     </a>
+    <button type="button" class="ctl tour-btn" data-tour-open aria-haspopup="dialog" aria-label={t('tour.open')} title={t('tour.open')} hidden>
+      {t('tour.mark')}
+    </button>
     <nav class="em" aria-label={t('em.label')}>
       <ul>
         {
@@ -63,3 +66,23 @@ const nav = [
     <a class="ctl lang" href={path(other, slug)} lang={other} hreflang={other}>{t('lang.other')}</a>
   </div>
 </header>
+
+<dialog class="tour" data-tour aria-labelledby="tour-title">
+  <div class="tour-ring" data-tour-ring></div>
+  <div class="tour-card card" data-tour-card>
+    <div class="sheet-head">
+      <p class="small"><bdi dir="ltr" data-tour-count></bdi></p>
+      <button type="button" class="ctl" data-close>{t('close')}</button>
+    </div>
+    <h2 id="tour-title" data-tour-title></h2>
+    <p data-tour-text></p>
+    <div class="actions">
+      <button type="button" class="btn" data-tour-step>{t('tour.back')}</button>
+      <button type="button" class="btn btn-fill" data-tour-step autofocus>{t('tour.next')}</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import '../scripts/tour.js';
+</script>
