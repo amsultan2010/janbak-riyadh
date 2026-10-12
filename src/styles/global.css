@@ -9,6 +9,8 @@
   --sunk: #d9e2ec;
   --accent: #ff8a3d;
   --accent-deep: #f47a26;
+  /* the pictograms' red, for the ring around emergency care */
+  --urgent: #cc2823;
   --line: 1.5px;
   --card: 14px;
   --ctl: 10px;
@@ -457,6 +459,11 @@ h1 {
   padding: 0.125rem;
   border-radius: 50%;
   background: var(--surface);
+}
+
+/* emergency care wears a red ring, here and on its map pins */
+.row.urgent .pic {
+  outline: 2px solid var(--urgent);
 }
 
 .row .n,
