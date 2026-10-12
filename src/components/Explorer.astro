@@ -6,7 +6,7 @@ import LocationSetter from './LocationSetter.astro';
 import PlaceRow from './PlaceRow.astro';
 import places from '../data/places.json';
 import areas from '../data/areas.json';
-import { CATEGORIES, GROUPS, KINDS } from '../categories.js';
+import { CATEGORIES, KINDS } from '../categories.js';
 import { CATEGORY_NOTES } from '../content.js';
 import { ICONS, PICTURES } from '../icons.js';
 import { SITE, translator, otherLang, pick, path } from '../i18n.js';
@@ -65,7 +65,7 @@ const config = {
     <slot name="after" />
   </div>
 
-  <dialog class="sheet" data-cat-sheet aria-labelledby="cat-title">
+  <dialog class="sheet picker" data-cat-sheet aria-labelledby="cat-title">
     <div class="sheet-body">
       <div class="sheet-head">
         <h2 id="cat-title">{t('cat.kinds')}</h2>
@@ -83,43 +83,33 @@ const config = {
         <span class="vh">{t('cat.search')}</span>
         <input type="search" data-search placeholder={t('cat.search')} autocomplete="off" enterkeyhint="search" />
       </label>
-      <h3>{t('nav.places')}</h3>
       <div class="rows">
         <button type="button" class="row" data-cat-btn="" aria-pressed="false">
           <Icon name="pin" />
           {t('cat.back')}
-          <span class="n">{places.length}</span>
         </button>
+        {
+          CATEGORIES.map((c) => (
+            <>
+              <button type="button" class:list={['row', { urgent: c.urgent }]} data-cat-btn={c.id} aria-pressed="false">
+                <Icon name={c.id} />
+                {c[lang]}
+              </button>
+              {c.kinds && !c.urgent && (
+                <div class="kinds" data-kinds={c.id} role="group" aria-label={c[lang]} hidden>
+                  {c.kinds.map((k) => (
+                    <button type="button" class="ctl" data-kind-btn={k.id} aria-pressed="false">
+                      <Icon name={k.id} />
+                      {k[lang]}
+                      <span class="n">{countKind(k.id)}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </>
+          ))
+        }
       </div>
-      {
-        GROUPS.map((g) => (
-          <>
-            <h3>{g[lang]}</h3>
-            <div class="rows">
-              {CATEGORIES.filter((c) => c.group === g.id).map((c) => (
-                <>
-                  <button type="button" class:list={['row', { urgent: c.urgent }]} data-cat-btn={c.id} aria-pressed="false">
-                    <Icon name={c.id} />
-                    {c[lang]}
-                    <span class="n">{count(c.id)}</span>
-                  </button>
-                  {c.kinds && !c.urgent && (
-                    <div class="kinds" data-kinds={c.id} role="group" aria-label={c[lang]} hidden>
-                      {c.kinds.map((k) => (
-                        <button type="button" class="ctl" data-kind-btn={k.id} aria-pressed="false">
-                          <Icon name={k.id} />
-                          {k[lang]}
-                          <span class="n">{countKind(k.id)}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </>
-              ))}
-            </div>
-          </>
-        ))
-      }
     </div>
   </dialog>
   <dialog class="sheet detail" data-detail aria-labelledby="detail-name"></dialog>
