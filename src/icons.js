@@ -8,24 +8,26 @@ export const ICONS = {
   'pin': 'M12 21s-6-6.5-6-11a6 6 0 0 1 12 0c0 4.5-6 11-6 11z M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
   'chevron': 'M9 5l7 7-7 7',
   'back': 'M15 5l-7 7 7 7',
+  'down': 'M6 9l6 6 6-6',
+  'info': 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 11v5.5 M12 7.6v.2',
 };
 
 // PICTURES: flat pictograms for the place categories, their kinds and the emergency numbers.
 // One set of rules for all of them: plain filled shapes, no outlines, one neutral
 // and at most one colour each, 2 unit lines, and nothing behind them.
-// Categories are drawn for the green ground: ink and a tint.
-const INK = '#f5f2e7';
-const RED = '#fa695e';
-const ORANGE = '#f99f55';
-const AMBER = '#f4d058';
-const GREEN = '#6ad895';
-const BLUE = '#72b8f2';
-const LILAC = '#bca1ed';
-const ROSE = '#ef90ae';
-// The emergency three sit on the light bar: the ground green and a deeper shade.
-const GROUND = '#0a4b2c';
-const BAR_RED = '#cc2823';
-const BAR_BLUE = '#1762b6';
+// They are drawn for the light surfaces: the ink blue and one colour deep enough to read on white.
+const INK = '#0f2540';
+const RED = '#cc2823';
+const ORANGE = '#d9641a';
+const AMBER = '#b98300';
+const GREEN = '#1e8a4c';
+const BLUE = '#1762b6';
+const LILAC = '#7b55c7';
+const ROSE = '#c9366f';
+// The emergency three use the same ink with the red and the blue.
+const GROUND = INK;
+const BAR_RED = RED;
+const BAR_BLUE = BLUE;
 
 export const PICTURES = {
   // a red cross
