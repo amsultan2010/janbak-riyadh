@@ -13,7 +13,7 @@ body:
     attributes:
       label: Page
       description: The address of the page where it happens.
-      placeholder: https://janbak-riyadh.vercel.app/en/places/pharmacies/
+      placeholder: https://www.janbaksa.com/en/places/pharmacies/
     validations:
       required: true
   - type: textarea

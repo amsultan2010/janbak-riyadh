@@ -130,6 +130,60 @@ const T = {
   'flag.burns': { ar: 'حروق', en: 'Burns' },
   'tag.line': { ar: 'المسار {n}', en: 'Line {n}' },
 
+  'tour.open': { ar: 'جولة في الموقع', en: 'Take a tour of the site' },
+  'tour.mark': { ar: '؟', en: '?' },
+  'tour.back': { ar: 'السابق', en: 'Back' },
+  'tour.next': { ar: 'التالي', en: 'Next' },
+  'tour.done': { ar: 'تم', en: 'Done' },
+  'tour.type.title': { ar: 'اختر نوع المكان', en: 'Choose a type of place' },
+  'tour.type.text': {
+    ar: 'مستشفيات وصيدليات وأسواق ومحطات وقود ونقل عام وسفارات. اضغط هنا لتغيير النوع، أو ابقَ على كل الأماكن.',
+    en: 'Hospitals, pharmacies, supermarkets, fuel, public transport and embassies. Tap here to switch, or stay on all places.',
+  },
+  'tour.search.title': { ar: 'ابحث', en: 'Search' },
+  'tour.search.text': {
+    ar: 'اكتب اسم المكان أو الحي أو النوع. البحث يشمل كل الأنواع.',
+    en: 'Type a name, a district or a kind of place. A search looks through every type.',
+  },
+  'tour.filter.title': { ar: 'صفِّ النتائج', en: 'Filter' },
+  'tour.filter.text': {
+    ar: 'اعرض ما يعمل 24 ساعة فقط، أو ما يقع ضمن الخريطة، أو حيًّا واحدًا.',
+    en: 'Keep only places open 24 hours, places inside the map view, or one district.',
+  },
+  'tour.now.title': { ar: 'مفتوح الآن', en: 'Open now' },
+  'tour.now.text': { ar: 'أخفِ كل ما هو مغلق في هذه اللحظة.', en: 'Hide every place that is closed at this moment.' },
+  'tour.loc.title': { ar: 'موقعك', en: 'Your location' },
+  'tour.loc.text': {
+    ar: 'حدّده لتُرتَّب الأماكن من الأقرب إليك، مع الاتجاهات من مكانك. يُحفظ على جهازك فقط.',
+    en: 'Set it and the list runs nearest first, with directions from where you are. It stays on this device.',
+  },
+  'tour.map.title': { ar: 'الخريطة', en: 'The map' },
+  'tour.map.text': {
+    ar: 'اضغط على أي علامة لعرض مكانها. الحلقة الحمراء تميّز طوارئ المستشفيات والرعاية العاجلة.',
+    en: 'Tap a pin to bring up its place. A red ring marks hospital emergency departments and urgent care.',
+  },
+  'tour.card.title': { ar: 'كل مكان', en: 'Each place' },
+  'tour.card.text': {
+    ar: 'اتصل، أو اطلب الاتجاهات، أو افتح ساعات العمل والتفاصيل.',
+    en: 'Call, get directions, or open the hours and details.',
+  },
+  'tour.find.title': { ar: 'ابحث في هذه الصفحة', en: 'Search this page' },
+  'tour.find.text': { ar: 'اكتب اسمًا أو رقمًا لتضييق القائمة.', en: 'Type a name or a number to narrow the list.' },
+  'tour.group.title': { ar: 'اختر قسمًا', en: 'Pick a section' },
+  'tour.group.text': { ar: 'اعرض قسمًا واحدًا من الصفحة في كل مرة.', en: 'Show one section of the page at a time.' },
+  'tour.tabs.title': { ar: 'أكثر من الأماكن', en: 'More than places' },
+  'tour.tabs.text': {
+    ar: 'في «الأرقام» خطوط هاتف رسمية، وفي «المساعدة» طرق مرخّصة للتبرع، وفي «الروابط» مواقع حكومية.',
+    en: 'Numbers has official phone lines, Help has licensed ways to give, and Links has government sites.',
+  },
+  'tour.em.title': { ar: 'أرقام الطوارئ', en: 'Emergency numbers' },
+  'tour.em.text': { ar: 'تبقى أعلى كل صفحة. اضغط على الرقم للاتصال.', en: 'Always at the top of every page. Tap one to call.' },
+  'tour.lang.title': { ar: 'اللغة', en: 'Language' },
+  'tour.lang.text': {
+    ar: 'بدّل بين العربية والإنجليزية، وتبقى على العرض نفسه.',
+    en: 'Switch between Arabic and English. The view you are on carries over.',
+  },
+
   'numbers.title': { ar: 'أرقام مهمة', en: 'Important numbers' },
   'numbers.intro': {
     ar: 'أرقام رسمية تعمل في الرياض. اضغط على الرقم للاتصال.',
@@ -158,6 +212,7 @@ const T = {
   },
   'footer.osm': { ar: 'بيانات الخريطة: مساهمو OpenStreetMap، والخرائط من OpenMapTiles و OpenFreeMap', en: 'Map data: OpenStreetMap contributors. Map tiles: OpenMapTiles and OpenFreeMap' },
   'footer.nav': { ar: 'روابط أسفل الصفحة', en: 'Footer links' },
+  'footer.built': { ar: 'من تطوير عبدالله سلطان', en: 'Built by Abdullah Sultan' },
 
   'e404.title': { ar: 'الصفحة غير موجودة', en: 'Page not found' },
   'e404.text': { ar: 'لا توجد صفحة بهذا العنوان.', en: 'There is no page at this address.' },
@@ -182,7 +237,7 @@ export function translator(lang) {
 
 // The strings the browser scripts need, for one language.
 export function clientStrings(lang) {
-  const keys = Object.keys(T).filter((k) => /^(place|cat|loc|dir|zone)\./.test(k));
+  const keys = Object.keys(T).filter((k) => /^(place|cat|loc|dir|zone|tour)\./.test(k));
   return Object.fromEntries(keys.map((k) => [k, T[k][lang]]));
 }
 

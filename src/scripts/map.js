@@ -13,6 +13,7 @@ const INK = '#0f2540';
 const SURFACE = '#ffffff';
 const ACCENT = '#ff8a3d';
 const DANGER = '#e03131';
+const URGENT = '#cc2823';
 
 const AR_GESTURES = {
   'CooperativeGesturesHandler.WindowsHelpText': 'اضغط Ctrl مع التمرير لتكبير الخريطة',
@@ -46,8 +47,10 @@ async function loadStyle() {
 }
 
 // A round white pin carrying the kind's pictogram, drawn at twice the size for sharp screens.
-function pinImage(markup) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="38.5" fill="${SURFACE}" stroke="${INK}" stroke-width="5"/><g transform="translate(18 18) scale(2)">${markup}</g></svg>`;
+// Emergency care wears a heavier red ring, so it is found first among every other pin.
+function pinImage({ pic: markup, urgent }) {
+  const ring = urgent ? `r="37" fill="${SURFACE}" stroke="${URGENT}" stroke-width="8"` : `r="38.5" fill="${SURFACE}" stroke="${INK}" stroke-width="5"`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" ${ring}/><g transform="translate(18 18) scale(2)">${markup}</g></svg>`;
   const image = new Image(84, 84);
   image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
   return image.decode().then(() => image);
@@ -77,7 +80,7 @@ export async function createMap(container, { kinds, onPick, onMove, onTilt, pad 
     map.once('error', (e) => reject(e.error));
   });
   container.classList.add('is-ready');
-  const pins = await Promise.all(kinds.map((kind) => pinImage(kind.pic)));
+  const pins = await Promise.all(kinds.map(pinImage));
   kinds.forEach((kind, i) => map.addImage(`pin-${kind.id}`, pins[i], { pixelRatio: 2 }));
 
   // Marked zones: a red shape over the area, under the place pins.
