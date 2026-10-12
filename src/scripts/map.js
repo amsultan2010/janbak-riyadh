@@ -45,7 +45,7 @@ async function loadStyle() {
   return style;
 }
 
-// A round white pin carrying the kind's colour pictogram, drawn at twice the size for sharp screens.
+// A round white pin carrying the kind's pictogram, drawn at twice the size for sharp screens.
 function pinImage(markup) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="38.5" fill="${SURFACE}" stroke="${INK}" stroke-width="5"/><g transform="translate(18 18) scale(2)">${markup}</g></svg>`;
   const image = new Image(84, 84);

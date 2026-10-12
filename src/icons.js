@@ -12,49 +12,56 @@ export const ICONS = {
   'info': 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 11v5.5 M12 7.6v.2',
 };
 
-// PICTURES: full-colour pictograms for the place categories, their kinds and the emergency
-// numbers. They sit on a light tile in lists and on a light disc on the map.
-const RED = '#e03131';
-const BLUE = '#1c7ed6';
-const YELLOW = '#fcc419';
-const ORANGE = '#f76707';
-const GREEN = '#37b24d';
-const DARK = '#2b3a33';
-const LIGHT = '#f5f2e7';
+// PICTURES: flat pictograms for the place categories, their kinds and the emergency numbers.
+// One set of rules for all of them: plain filled shapes, no outlines, one neutral
+// and at most one colour each, 2 unit lines, and nothing behind them.
+// They are drawn for the light surfaces: the ink blue and one colour deep enough to read on white.
+const INK = '#0f2540';
+const RED = '#cc2823';
+const ORANGE = '#d9641a';
+const AMBER = '#b98300';
+const GREEN = '#1e8a4c';
+const BLUE = '#1762b6';
+const LILAC = '#7b55c7';
+const ROSE = '#c9366f';
+// The emergency three use the same ink with the red and the blue.
+const GROUND = INK;
+const BAR_RED = RED;
+const BAR_BLUE = BLUE;
 
 export const PICTURES = {
   // a red cross
   'hospitals': `<path fill="${RED}" d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>`,
-  // a clock with a small red cross: care that cannot wait
-  'urgent-care': `<circle cx="11" cy="11" r="8.5" fill="${ORANGE}"/><circle cx="11" cy="11" r="6" fill="${LIGHT}"/><path d="M11 7.2V11l2.6 1.8" fill="none" stroke="${DARK}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path fill="${RED}" stroke="${LIGHT}" stroke-width="1" d="M16.3 13.5h3v2.3h2.3v3h-2.3v2.3h-3v-2.3H14v-3h2.3z"/>`,
-  // a capsule, half blue and half yellow
-  'pharmacies': `<g transform="rotate(-45 12 12)"><path fill="${BLUE}" d="M12 7.5H7.5a4.5 4.5 0 0 0 0 9H12z"/><path fill="${YELLOW}" d="M12 7.5h4.5a4.5 4.5 0 0 1 0 9H12z"/></g>`,
-  // a drop of blood carrying a cross
-  'blood-donation': `<path fill="${RED}" d="M12 2.5c4.4 5.4 7 9.2 7 12.4a7 7 0 0 1-14 0c0-3.2 2.6-7 7-12.4z"/><path fill="${LIGHT}" d="M11 12h2v2h2v2h-2v2h-2v-2H9v-2h2z"/>`,
+  // a stopwatch carrying a red cross: care that cannot wait
+  'urgent-care': `<path fill="${INK}" d="M9.5 1.5h5v2H13V5h-2V3.5H9.5z"/><circle cx="12" cy="13.5" r="7.5" fill="none" stroke="${INK}" stroke-width="2"/><path fill="${RED}" d="M10.5 9h3v3h3v3h-3v3h-3v-3h-3v-3h3z"/>`,
+  // a capsule, half green
+  'pharmacies': `<g transform="rotate(-45 12 12)"><path fill="${GREEN}" d="M12 7H7a5 5 0 0 0 0 10h5z"/><path fill="${INK}" d="M12 7h5a5 5 0 0 1 0 10h-5z"/></g>`,
+  // a drop of blood with a cross cut out of it
+  'blood-donation': `<path fill="${RED}" fill-rule="evenodd" d="M12 2.5l5.46 8.48a6.5 6.5 0 1 1-10.92 0zM10.75 11.25h2.5v2.25h2.25V16h-2.25v2.25h-2.5V16H8.5v-2.5h2.25z"/>`,
   // the merged category: a drop of blood beside a kidney
-  'blood-dialysis': `<path fill="${RED}" d="M8 2.5c3.6 4.4 5.7 7.5 5.7 10.1a5.7 5.7 0 0 1-11.4 0C2.3 10 4.4 6.9 8 2.5z"/><path fill="#c2255c" d="M16.4 9.5c3 0 5.3 2.4 5.3 6s-2.3 6-5.3 6c-1.6 0-2.7-1-2.7-2.3 0-1.4 1.3-1.8 1.3-3.7s-1.3-2.3-1.3-3.7c0-1.3 1.1-2.3 2.7-2.3z"/>`,
+  'blood-dialysis': `<path fill="${RED}" d="M7.3 3l4.16 6.22a5 5 0 1 1-8.32 0z"/><path fill="${INK}" d="M16.9 9.5c3 0 5.3 2.4 5.3 6s-2.3 6-5.3 6c-1.6 0-2.7-1-2.7-2.3 0-1.4 1.3-1.8 1.3-3.7s-1.3-2.3-1.3-3.7c0-1.3 1.1-2.3 2.7-2.3z"/>`,
   // a kidney and a drop
-  'dialysis': `<path fill="#c2255c" d="M10 3.5c4.2 0 7.5 3.4 7.5 8.5s-3.3 8.5-7.5 8.5c-2.3 0-3.8-1.4-3.8-3.3 0-2 1.8-2.6 1.8-5.2S6.2 8.8 6.2 6.8c0-1.9 1.5-3.3 3.8-3.3z"/><path fill="${BLUE}" stroke="${LIGHT}" stroke-width="1" d="M19.2 12.8c1.4 1.9 2.3 3.2 2.3 4.4a2.3 2.3 0 0 1-4.6 0c0-1.2.9-2.5 2.3-4.4z"/>`,
+  'dialysis': `<path fill="${ROSE}" d="M10.5 3.5c-4.2 0-7.5 3.4-7.5 8.5s3.3 8.5 7.5 8.5c2.3 0 3.8-1.4 3.8-3.3 0-2-1.8-2.6-1.8-5.2s1.8-3.2 1.8-5.2c0-1.9-1.5-3.3-3.8-3.3z"/><path fill="${INK}" d="M18.5 8.5l2.65 3.9a3.2 3.2 0 1 1-5.3 0z"/>`,
   // a brain in two halves
-  'mental-health': `<path fill="#f783ac" d="M11.5 4.2a3.9 3.9 0 0 0-6.9 2A3.9 3.9 0 0 0 3 12a3.9 3.9 0 0 0 1.9 5.5 3.9 3.9 0 0 0 6.6 2.3z"/><path fill="#d6336c" d="M12.5 4.2a3.9 3.9 0 0 1 6.9 2A3.9 3.9 0 0 1 21 12a3.9 3.9 0 0 1-1.9 5.5 3.9 3.9 0 0 1-6.6 2.3z"/>`,
-  // a basket of groceries
-  'supermarkets': `<circle cx="8.8" cy="8" r="3" fill="${ORANGE}"/><circle cx="14.6" cy="7.4" r="3.4" fill="${RED}"/><path fill="${GREEN}" d="M2.5 10h19l-2.2 10.5H4.7z"/><path d="M8.5 13v4.5M12 13v4.5M15.5 13v4.5" fill="none" stroke="${LIGHT}" stroke-width="1.4" stroke-linecap="round"/>`,
+  'mental-health': `<path fill="${LILAC}" d="M11.25 4.2a3.9 3.9 0 0 0-6.9 2A3.9 3.9 0 0 0 2.75 12a3.9 3.9 0 0 0 1.9 5.5 3.9 3.9 0 0 0 6.6 2.3zM12.75 4.2a3.9 3.9 0 0 1 6.9 2 3.9 3.9 0 0 1 1.6 5.8 3.9 3.9 0 0 1-1.9 5.5 3.9 3.9 0 0 1-6.6 2.3z"/>`,
+  // a shopping basket
+  'supermarkets': `<path d="M6.5 9.5L12 3.5l5.5 6" fill="none" stroke="${INK}" stroke-width="2"/><path fill="${INK}" d="M2 9h20v2.5H2z"/><path fill="${ORANGE}" fill-rule="evenodd" d="M3.5 11.5h17L18.8 21H5.2zM8 14h1.5v4.5H8zM11.25 14h1.5v4.5h-1.5zM14.5 14H16v4.5h-1.5z"/>`,
   // a fuel pump
-  'fuel': `<path fill="${RED}" d="M5 3.5h9v17H5z"/><path fill="${LIGHT}" d="M7 6h5v4H7z"/><path fill="${DARK}" d="M3.5 20.5h12V22h-12z"/><path d="M14 11.5h2.3v5.8a1.7 1.7 0 0 0 3.4 0V8.6L17.6 6.5" fill="none" stroke="${DARK}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>`,
+  'fuel': `<path fill="${AMBER}" fill-rule="evenodd" d="M4.5 3h9v16h-9zM6.5 5.5h5V10h-5z"/><path fill="${INK}" d="M3 19h12v2.5H3z"/><path d="M13.5 12.5H17v5.25a1.75 1.75 0 0 0 3.5 0V8.5L18 6" fill="none" stroke="${INK}" stroke-width="2"/>`,
   // a metro train seen from the front, on its rails
-  'metro': `<path d="M8.5 18.5L6 22M15.5 18.5L18 22" fill="none" stroke="${DARK}" stroke-width="1.7" stroke-linecap="round"/><path fill="${BLUE}" d="M6 7a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v9.5a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><path fill="${LIGHT}" d="M8.5 6.5h7v5h-7z"/><circle cx="9.3" cy="15" r="1.2" fill="${YELLOW}"/><circle cx="14.7" cy="15" r="1.2" fill="${YELLOW}"/>`,
+  'metro': `<path d="M8.5 18.5L6 22M15.5 18.5L18 22" fill="none" stroke="${INK}" stroke-width="2"/><path fill="${BLUE}" fill-rule="evenodd" d="M6 7a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v11.5H6zM8.5 6.5h7v5h-7zM8.5 14h2v2h-2zM13.5 14h2v2h-2z"/>`,
   // a bus seen from the front
-  'bus': `<path fill="${DARK}" d="M6 18h3.2v3.5H6zM14.8 18H18v3.5h-3.2z"/><path fill="${GREEN}" d="M4.5 3.5h15v15.5h-15z"/><path fill="${LIGHT}" d="M6.5 6h11v6h-11z"/><circle cx="8" cy="15.5" r="1.2" fill="${YELLOW}"/><circle cx="16" cy="15.5" r="1.2" fill="${YELLOW}"/>`,
+  'bus': `<path fill="${INK}" d="M6 18.5h3v3H6zM15 18.5h3v3h-3z"/><path fill="${GREEN}" fill-rule="evenodd" d="M4.5 3h15v15.5h-15zM6.5 5.5h11v6h-11zM6.5 14H9v2H6.5zM15 14h2.5v2H15z"/>`,
   // an intercity locomotive: a split windscreen and a stripe
-  'train': `<path d="M8 18.5L5.5 22M16 18.5l2.5 3.5" fill="none" stroke="${DARK}" stroke-width="1.7" stroke-linecap="round"/><path fill="${RED}" d="M5 5.5l2-3h10l2 3v13H5z"/><path fill="${LIGHT}" d="M7 6.5h4.2v4.5H7zM12.8 6.5H17V11h-4.2z"/><path fill="${YELLOW}" d="M5 13h14v2H5z"/>`,
+  'train': `<path d="M8 18.5L5.5 22M16 18.5l2.5 3.5" fill="none" stroke="${INK}" stroke-width="2"/><path fill="${RED}" fill-rule="evenodd" d="M5 5.5l2-3h10l2 3v13H5zM7 6.5h4.2V11H7zM12.8 6.5H17V11h-4.2zM5 13.5h14V15H5z"/>`,
   // a flag on a pole
-  'embassies': `<path fill="${DARK}" d="M4.5 2.5h2v19h-2z"/><path fill="${BLUE}" d="M6.5 4h13l-3 4.5 3 4.5h-13z"/><circle cx="11.5" cy="8.5" r="2" fill="${LIGHT}"/>`,
+  'embassies': `<path fill="${INK}" d="M4 2.5h2V20h2v1.5H2V20h2z"/><path fill="${BLUE}" d="M6 4h14.5l-3 4.5 3 4.5H6z"/>`,
   // 911: a red beacon
-  'siren': `<path d="M12 2v2.4M4.9 4.9l1.7 1.7M19.1 4.9l-1.7 1.7" fill="none" stroke="#f59f00" stroke-width="1.9" stroke-linecap="round"/><path fill="${RED}" d="M7 17v-4a5 5 0 0 1 10 0v4z"/><path fill="${DARK}" d="M4.5 17h15v4h-15z"/><path d="M9.6 13a2.4 2.4 0 0 1 2.4-2.4" fill="none" stroke="${LIGHT}" stroke-width="1.3" stroke-linecap="round"/>`,
+  'siren': `<path d="M12 1v3.5M4 3.5L6.5 6M20 3.5L17.5 6" fill="none" stroke="${GROUND}" stroke-width="2"/><path fill="${BAR_RED}" d="M7 17v-5a5 5 0 0 1 10 0v5z"/><path fill="${GROUND}" d="M4.5 17h15v4.5h-15z"/>`,
   // 997: an ambulance
-  'ambulance': `<path fill="${RED}" d="M8.5 3.8h3v2.2h-3z"/><path fill="#fff" stroke="${DARK}" stroke-width="1.3" stroke-linejoin="round" d="M2 6h11.5v11H2zM13.5 9.5h4.2l4 4V17h-8.2z"/><path fill="#74c0fc" d="M15 10.9h2.1l2.2 2.3H15z"/><path fill="${RED}" d="M6.7 8.3h2.2v2h2v2.2h-2v2H6.7v-2h-2v-2.2h2z"/><circle cx="6.5" cy="17.6" r="2.2" fill="${DARK}"/><circle cx="17.5" cy="17.6" r="2.2" fill="${DARK}"/>`,
+  'ambulance': `<path fill="${GROUND}" d="M5.5 4h4v2.5h-4z"/><path fill="${BAR_RED}" fill-rule="evenodd" d="M1.5 6.5H14V10h4l4.5 4v4.5h-2a3 3 0 0 0-6 0H9a3 3 0 0 0-6 0H1.5zM6.75 8h2v2h2v2h-2v2h-2v-2h-2v-2h2zM15.5 11.5h2l2.8 2.5h-4.8z"/><circle cx="6" cy="18.5" r="2" fill="${GROUND}"/><circle cx="17.5" cy="18.5" r="2" fill="${GROUND}"/>`,
   // 937: advice with a medical cross
-  'advice': `<path fill="${BLUE}" d="M3 4h18v12.5H11.5L6.5 21v-4.5H3z"/><path fill="${LIGHT}" d="M10.8 6.3h2.4v2.7h2.7v2.4h-2.7v2.7h-2.4v-2.7H8.1V9h2.7z"/>`,
+  'advice': `<path fill="${BAR_BLUE}" fill-rule="evenodd" d="M3 3.5h18V16h-9l-5 4.5V16H3zM10.75 5.5h2.5v3h3V11h-3v3h-2.5v-3h-3V8.5h3z"/>`,
 };
 
 // the public transport category wears the metro train
