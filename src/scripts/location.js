@@ -7,28 +7,22 @@ if (box) {
   const change = box.querySelector('[data-loc-change]');
   const remove = box.querySelector('[data-loc-remove]');
   const gps = box.querySelector('[data-loc-gps]');
+  const pick = box.querySelector('[data-loc-pick]');
   const select = box.querySelector('[data-loc-district]');
   const msg = box.querySelector('[data-loc-msg]');
   let current = getHome();
 
   function render(open = !current) {
-    text.textContent = current ? (current[lang] ?? say('loc.current')) : say('loc.none');
+    text.textContent = current ? (current[lang] ?? say(current.picked ? 'loc.picked' : 'loc.current')) : say('loc.none');
     change.hidden = !current || open;
     remove.hidden = !current;
     form.hidden = !open;
   }
 
-  function save(home) {
-    current = home;
-    setHome(home);
-    msg.textContent = say('loc.privacy');
-    render(false);
-  }
-
   change.addEventListener('click', () => render(true));
   remove.addEventListener('click', () => {
     select.value = '';
-    save(null);
+    setHome(null);
     render(true);
   });
 
@@ -36,7 +30,7 @@ if (box) {
     const option = select.selectedOptions[0];
     if (!option.value) return;
     const [lat, lng] = option.value.split(',').map(Number);
-    save({ lat, lng, ar: option.dataset.ar, en: option.dataset.en });
+    setHome({ lat, lng, ar: option.dataset.ar, en: option.dataset.en });
   });
 
   gps.addEventListener('click', () => {
@@ -50,7 +44,7 @@ if (box) {
       (pos) => {
         gps.disabled = false;
         select.value = '';
-        save({ lat: +pos.coords.latitude.toFixed(5), lng: +pos.coords.longitude.toFixed(5) });
+        setHome({ lat: +pos.coords.latitude.toFixed(5), lng: +pos.coords.longitude.toFixed(5) });
       },
       () => {
         gps.disabled = false;
@@ -58,6 +52,19 @@ if (box) {
       },
       { timeout: 15000, maximumAge: 300000 },
     );
+  });
+
+  // the explorer turns this on once its map is ready, and answers "pickstart"
+  document.addEventListener('mapready', () => (pick.hidden = false));
+  pick.addEventListener('click', () => {
+    msg.textContent = say('loc.pickHint');
+    document.dispatchEvent(new CustomEvent('pickstart'));
+  });
+
+  document.addEventListener('homechange', (e) => {
+    current = e.detail;
+    msg.textContent = say('loc.privacy');
+    render(!current);
   });
 
   box.hidden = false;

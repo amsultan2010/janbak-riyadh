@@ -1,12 +1,10 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import Icon from '../../../components/Icon.astro';
-import LocationSetter from '../../../components/LocationSetter.astro';
-import PlaceRow from '../../../components/PlaceRow.astro';
-import places from '../../../data/places.json';
+import Explorer from '../../../components/Explorer.astro';
 import { CATEGORIES } from '../../../categories.js';
 import { CATEGORY_NOTES } from '../../../content.js';
-import { translator, path, pick } from '../../../i18n.js';
+import { translator, path } from '../../../i18n.js';
 import { langPaths } from '../../../routes.js';
 
 export function getStaticPaths() {
@@ -16,9 +14,6 @@ export function getStaticPaths() {
 const { lang, cat } = Astro.props;
 const t = translator(lang);
 const slug = `places/${cat.id}`;
-const sortKey = (p) => (p.country ? pick(p.country, lang) : pick(p.name, lang));
-const list = places.filter((p) => p.cat === cat.id).sort((a, b) => sortKey(a).localeCompare(sortKey(b), lang));
-const withHours = list.filter((p) => p.hours).length;
 const crumbs = {
   '@type': 'BreadcrumbList',
   itemListElement: [
@@ -28,41 +23,12 @@ const crumbs = {
 };
 ---
 
-<Base lang={lang} slug={slug} title={cat[lang]} description={t('cat.desc', { name: cat[lang] })} jsonld={[crumbs]}>
-  <p class="top">
-    <a href={path(lang)}><Icon name="back" flip />{t('cat.back')}</a>
-  </p>
-  <h1>{cat[lang]}</h1>
-  <p class="note">{CATEGORY_NOTES[cat.id][lang]}</p>
-  <LocationSetter lang={lang} />
-  <div class="tools" data-tools hidden>
-    <label class="field">
-      <span>{t('cat.search')}</span>
-      <input type="search" data-search autocomplete="off" enterkeyhint="search" />
-    </label>
-    {
-      withHours / list.length > 0.15 && (
-        <label class="check">
-          <input type="checkbox" data-open-only />
-          {t('cat.openNow')}
-        </label>
-      )
-    }
-    <button type="button" class="btn map-toggle" data-map-toggle aria-expanded="false" aria-controls="map">{t('cat.map')}</button>
-    <div id="map" class="map" data-map role="region" aria-label={t('cat.mapLabel')} hidden></div>
-    <p class="small" data-map-error hidden>{t('cat.mapFail')}</p>
-  </div>
-  <p class="results" data-results aria-live="polite">
-    {t('cat.results', { n: list.length, total: list.length })}
-  </p>
-  <ol data-places>
-    {list.map((p) => <PlaceRow p={p} lang={lang} />)}
-  </ol>
-  <p class="note" data-none hidden>{t('cat.none')}</p>
-  <button type="button" class="btn more" data-more hidden>{t('cat.more')}</button>
-  <p class="small">{t('cat.caveat')}</p>
+<Base lang={lang} slug={slug} title={cat[lang]} description={t('cat.desc', { name: cat[lang] })} jsonld={[crumbs]} wide>
+  <Explorer lang={lang} cat={cat}>
+    <p class="crumb">
+      <a href={path(lang)}><Icon name="back" flip />{t('cat.back')}</a>
+    </p>
+    <h1>{cat[lang]}</h1>
+    <p class="note">{CATEGORY_NOTES[cat.id][lang]}</p>
+  </Explorer>
 </Base>
-
-<script>
-  import '../../../scripts/finder.js';
-</script>

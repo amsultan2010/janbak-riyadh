@@ -1,16 +1,16 @@
 import { decodeWeek, groupWeek, isAlwaysOpen, formatTime } from './hours.js';
-import { DAYS } from '../i18n.js';
 
 // The weekly table shown under a place, as [{ days, times }] in one language.
-export function hoursLines(encoded, lang, t) {
+// `words` carries the few translated words so this file works in the build and the browser.
+export function hoursLines(encoded, lang, words) {
   const week = decodeWeek(encoded);
-  if (isAlwaysOpen(week)) return [{ days: t('place.everyDay'), times: t('place.always') }];
+  if (isAlwaysOpen(week)) return [{ days: words.everyDay, times: words.always }];
   const groups = groupWeek(week);
-  const to = ` ${t('place.to')} `;
+  const to = ` ${words.to} `;
   return groups.map((g) => ({
-    days: groups.length === 1 ? t('place.everyDay') : g.from === g.to ? DAYS[lang][g.from] : DAYS[lang][g.from] + to + DAYS[lang][g.to],
+    days: groups.length === 1 ? words.everyDay : g.from === g.to ? words.days[g.from] : words.days[g.from] + to + words.days[g.to],
     times: g.ranges.length
       ? g.ranges.map(([a, b]) => formatTime(a, lang) + to + formatTime(b, lang)).join(lang === 'ar' ? '، ' : ', ')
-      : t('place.closed'),
+      : words.closed,
   }));
 }
