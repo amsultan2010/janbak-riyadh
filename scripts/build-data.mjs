@@ -1,8 +1,9 @@
 // Merges research/*.json into src/data/places.json, the one file the site reads.
 // Fails the build on a broken entry instead of shipping it.
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs';
 import { parseHours, encodeWeek } from '../src/lib/hours.js';
 import { CATEGORIES } from '../src/categories.js';
+import { districtName } from '../src/lib/districts.js';
 
 const read = (name) => {
   const path = new URL(`../research/${name}.json`, import.meta.url);
@@ -11,6 +12,37 @@ const read = (name) => {
 
 const warnings = [];
 const warn = (msg) => warnings.push(msg);
+
+// research/verify/*.json holds the second pass: corrections and fills checked against
+// official sources. Each item names a file and an entry id and the fields to set.
+const fixes = new Map();
+const added = { 'blood-donation': [], branches: [] };
+const verifyDir = new URL('../research/verify/', import.meta.url);
+for (const name of existsSync(verifyDir) ? readdirSync(verifyDir).filter((n) => n.endsWith('.json')) : []) {
+  const pass = JSON.parse(readFileSync(new URL(name, verifyDir), 'utf8'));
+  for (const item of pass.items ?? []) {
+    if (item.status === 'unverified') continue;
+    const key = `${item.file}:${item.id}`;
+    const before = fixes.get(key) ?? { set: {}, sources: [] };
+    fixes.set(key, {
+      set: { ...before.set, ...(item.set ?? {}), ...(item.status === 'remove' ? { remove: true } : {}) },
+      sources: [...before.sources, ...(item.sources ?? [])],
+    });
+  }
+  if (pass.new) added['blood-donation'].push(...pass.new);
+  if (pass.branches) added.branches.push(...pass.branches);
+}
+const used = new Set();
+function verified(file, list) {
+  return list
+    .map((r) => {
+      const fix = fixes.get(`${file}:${r.id}`);
+      if (!fix) return r;
+      used.add(`${file}:${r.id}`);
+      return { ...r, ...fix.set, sources: [...fix.sources, ...(r.sources ?? [])] };
+    })
+    .filter((r) => !r.remove);
+}
 
 const inRiyadh = (lat, lng) => lat >= 24.3 && lat <= 25.2 && lng >= 46.3 && lng <= 47.1;
 const hasArabic = (s) => /[؀-ۿ]/.test(s ?? '');
@@ -21,21 +53,14 @@ function metres(a, b) {
   return Math.sqrt(x * x + y * y) * 6371000;
 }
 
-// a few OpenStreetMap districts carry a Latin name in the Arabic slot
-const districts = (read('districts')?.districts ?? []).map((d) => ({
-  ...d,
-  name_ar: hasArabic(d.name_ar) ? d.name_ar : null,
-  name_en: d.name_en ?? (hasArabic(d.name_ar) ? null : d.name_ar),
-}));
+const districts = read('districts')?.districts ?? [];
 function nearestDistrict(p) {
   let best = null;
   for (const d of districts) {
     const m = metres(p, d);
     if (m < 5000 && (!best || m < best.m)) best = { m, d };
   }
-  return best
-    ? { ar: best.d.name_ar?.replace(/^حي\s+/, '') ?? null, en: best.d.name_en?.replace(/`/g, '') ?? null }
-    : { ar: null, en: null };
+  return best ? districtName(best.d) : { ar: null, en: null };
 }
 
 // Sites that research found had been taken over; never link them.
@@ -96,7 +121,7 @@ const nearSame = (cat, p, limit) => places.some((q) => q.cat === cat && q.lat !=
 // Hospitals with an emergency department
 // (entries research marked low confidence are left out: a wrong hospital is worse than a missing one)
 const sure = (r) => r.confidence !== 'low';
-for (const r of (read('hospitals')?.places ?? []).filter(sure)) {
+for (const r of verified('hospitals', read('hospitals')?.places ?? []).filter(sure)) {
   add('hospitals', { ...r, hours: r.hours ?? (r.er_24h ? '24/7' : null), phone: r.er_phone ?? r.phone }, {
     own: r.ownership ?? null,
     flags: r.flags ?? [],
@@ -104,16 +129,16 @@ for (const r of (read('hospitals')?.places ?? []).filter(sure)) {
 }
 
 // Blood donation
-for (const r of (read('blood-donation')?.places ?? []).filter(sure)) {
+for (const r of verified('blood-donation', [...(read('blood-donation')?.places ?? []), ...added['blood-donation']]).filter(sure)) {
   add('blood-donation', r, { booking: r.booking ?? null, bookingUrl: safeUrl(r.booking_url) });
 }
 
 // Urgent care, dialysis, mental health
 const MEDICAL = { urgent_care: 'urgent-care', dialysis: 'dialysis', mental_health: 'mental-health' };
-for (const r of read('other-medical')?.places ?? []) add(MEDICAL[r.category], r);
+for (const r of verified('other-medical', read('other-medical')?.places ?? [])) add(MEDICAL[r.category], r);
 
 // Embassies
-for (const r of read('embassies')?.places ?? []) {
+for (const r of verified('embassies', read('embassies')?.places ?? [])) {
   add('embassies', { ...r, name_ar: r.name_ar ?? `سفارة ${r.country_ar}` }, {
     country: { ar: r.country_ar, en: r.country_en },
     phone2: r.emergency_phone && r.emergency_phone !== r.phone ? r.emergency_phone : null,
@@ -122,7 +147,11 @@ for (const r of read('embassies')?.places ?? []) {
 
 // Chain branches from the chains' own store locators
 const retail = read('retail-chains') ?? { chains: [], branches: [] };
+retail.chains = verified('retail-chains', retail.chains);
+retail.branches = [...retail.branches, ...added.branches.map((b, i) => ({ id: `${b.chain_id}-v${i}`, ...b }))];
 const chainById = Object.fromEntries(retail.chains.map((c) => [c.id, c]));
+// a chain's usual hours stand in for a branch only when the chain itself published them
+const usualHours = (chain) => (chain?.confidence === 'high' ? (chain.typical_hours ?? null) : null);
 const RETAIL = { supermarket: 'supermarkets', pharmacy: 'pharmacies', fuel: 'fuel' };
 for (const b of retail.branches) {
   const cat = RETAIL[b.type];
@@ -135,7 +164,11 @@ for (const b of retail.branches) {
   };
   const [name_ar, addr_ar] = split(tidy(b.name_ar ?? chain?.name_ar));
   const [name_en, addr_en] = split(tidy(b.name_en ?? chain?.name_en));
-  add(cat, { ...b, name_ar, name_en }, addr_ar || addr_en ? { addr: { ar: addr_ar, en: addr_en } } : {});
+  const usual = !b.hours ? usualHours(chain) : null;
+  add(cat, { ...b, name_ar, name_en, hours: b.hours ?? usual }, {
+    ...(addr_ar || addr_en ? { addr: { ar: addr_ar, en: addr_en } } : {}),
+    ...(usual ? { usual: true } : {}),
+  });
 }
 
 // OpenStreetMap fills the gaps the locators left
@@ -149,12 +182,15 @@ for (const o of read('osm-places')?.places ?? []) {
   const name_ar = o.name_ar ?? (hasArabic(o.name) ? o.name : null) ?? chain?.name_ar ?? GENERIC[cat]?.ar ?? null;
   const name_en = o.name_en ?? (o.name && !hasArabic(o.name) ? o.name : null) ?? chain?.name_en ?? GENERIC[cat]?.en ?? null;
   if (!name_ar && !name_en) continue;
-  const usual = !o.hours && chain?.confidence === 'high' ? chain.typical_hours : null;
+  const usual = !o.hours ? usualHours(chain) : null;
   add(cat, { id: o.osm, name_ar, name_en, lat: o.lat, lng: o.lng, phone: o.phone, hours: o.hours ?? usual, website: o.website }, usual ? { usual: true } : {});
 }
 
 for (const c of CATEGORIES) {
   if (!places.some((p) => p.cat === c.id)) warn(`category ${c.id} has no places`);
+}
+for (const key of fixes.keys()) {
+  if (!used.has(key)) warn(`verify: no entry matches ${key}`);
 }
 
 places.sort((a, b) => a.cat.localeCompare(b.cat) || (a.name.en ?? a.name.ar).localeCompare(b.name.en ?? b.name.ar));
