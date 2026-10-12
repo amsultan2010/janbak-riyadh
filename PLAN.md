@@ -10,30 +10,38 @@ Arabic is the default at `/`, English is the same path under `/en/`.
 
 | Page | Path | What is on it |
 | --- | --- | --- |
-| Places (home) | `/` | The explorer: map, search and filters over all 2,003 places |
+| Places (home) | `/` | The explorer, opening on hospitals; all 2,003 places are one tap away in the type picker |
 | One category | `/places/<category>/` | The same explorer preset to one category, with a plain list as fallback |
 | Numbers | `/numbers/` | Emergency, health, mental health, family, utilities, residents; search and section filter |
 | Ways to help | `/help/` | Blood donation, volunteering, licensed donation platforms |
 | Official links | `/links/` | Government sites and apps, grouped |
 | About | `/about/` | What it is, data sources, limits, privacy |
 
-Every page starts with the emergency bar: 911, 997, 937 as tap-to-call. It stays on screen
-and tightens as the page scrolls. In Riyadh 911
+Every page starts with the name row (site name, location, language), the four sections as one
+tab bar, and three emergency tickets: 911, 997, 937 as tap-to-call. The tickets stay on screen
+and tighten as the page scrolls. In Riyadh 911
 covers police, Civil Defense and traffic; 998 and 999 are for regions without a 911 centre.
 
 ## How the explorer works
 
-- The map is always on screen: under the search and category strip on a phone, beside the
-  list at full height on a wide screen. Pins carry the category icon and cluster when dense.
+- On a phone the map fills the screen under the header. A type picker and an Open now switch
+  sit over its top; a deck of cards, one place per card, sits over its bottom and is swiped
+  sideways or stepped with its arrows. The full list follows below the map. On a wide screen
+  the list sits beside a full-height map. Pins carry the category icon and cluster when dense.
 - Search covers name, district, address and type in both languages, and ignores Arabic
   spelling variants (hamza, ta marbuta, diacritics).
-- Filters: any mix of the eight categories, a district (193 Riyadh districts, 148 with drawn
-  boundaries from OpenStreetMap), open now, open 24 hours, and "only inside the map view".
-  Choosing a district also moves the map to it. The current filters live in the address bar, so a view can be shared as a link.
+- One type of place is on show at a time, or all of them. The type sheet holds the search,
+  the eight categories with their kinds, a district (193 Riyadh districts, 148 with drawn
+  boundaries from OpenStreetMap), open 24 hours, and "only inside the map view". A search
+  looks through every category. Choosing a district also moves the map to it. The current
+  view lives in the address bar, so it can be shared as a link.
 - Location: browser GPS, one of 150 districts, or a tap on the map. Saved on the device only.
   With a location set, results sort nearest first and show straight-line distance.
-- Each result has Call, Directions (Google Maps with the route filled in, no API key) and
-  a button that flies the map to it. Tapping a pin shows the same actions.
+- Each card has Call, Directions (Google Maps with the route filled in, no API key) and
+  Hours and details, which opens the place's own page as a sheet: hours table, website, source.
+  Tapping a pin brings its card to the front; in the list a button moves the map to the place.
+- Sheets (type, location, one place) open under the emergency tickets and are not modal, so
+  the numbers and the tabs keep working while one is open.
 - Marked zones (`research/zones.json`): a red shape over an area with a warning sign that grows
   with the map and a dated note on tap. King Khalid International Airport is marked as a danger
   zone as of 12 October 2026. This is a manual, dated claim: remove the entry when it stops being true.
@@ -60,9 +68,9 @@ covers police, Civil Defense and traffic; 998 and 999 are for regions without a 
 | Embassies | 128 | 91 | 57 | Embassy sites, OpenStreetMap |
 
 A category can hold more than one kind of place (`kinds` in `src/categories.js`). Each kind
-keeps its own pictogram and label on every row and pin, and the category page has a strip to
-pick one kind. The old single pages (`/places/urgent-care/` and so on) redirect in `vercel.json`.
-A place open round the clock gets the one filled amber label in its row.
+keeps its own pictogram and label on every card and pin, and the type sheet lists a category's
+kinds under it. The old single pages (`/places/urgent-care/` and so on) redirect in `vercel.json`.
+An open place gets an orange square in front of its status; a closed or unconfirmed one a grey square.
 
 `research/*.json` is the first pass, with a source per entry. `research/verify/*.json` is the
 second pass: each entry re-checked against the facility's own site or the Ministry, with
@@ -119,13 +127,14 @@ Other known gaps:
 ## Design
 
 Each category and each emergency number has a full-colour pictogram (red cross, blue and
-yellow capsule, blood drop and so on, in `src/icons.js`), shown on a light tile in lists and a
-light disc on the map. Everything else keeps to the palette below.
+yellow capsule, blood drop and so on, in `src/icons.js`), shown as they are on white cards and
+on a white disc on the map. Everything else keeps to the palette below.
 
-Green ground, off-white text, one amber accent for "open" and focus. Square corners, one
-line weight, no shadows, no gradients. Bilingual road-sign discipline: big type, short
-lines, one column. IBM Plex Sans Arabic for both scripts, self-hosted. Motion is limited
-to 150 ms state changes and is off under reduced-motion.
+Ice ground, deep blue ink, white cards, one orange accent for the main action, "open" and
+the place on show. Two radii (cards, controls), one 2px line, no shadows, no gradients.
+Markazi Text for the site name, numerals and place names; IBM Plex Sans Arabic for everything
+else; both cover both scripts and are self-hosted. Motion is limited to 150 ms state changes
+and the tightening emergency tickets, and is off under reduced-motion.
 
 ## Tech
 

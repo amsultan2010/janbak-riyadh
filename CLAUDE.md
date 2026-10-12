@@ -10,8 +10,10 @@ essential places with hours and directions, phone lines, official links. See `PL
   `src/content.js`, always with both `ar` and `en`.
 - Phone numbers and official links must come from an official source recorded in
   `research/`. Never add one from memory.
-- Green ground, off-white ink, amber accent, square corners, no shadows or gradients, no
-  decorative animation. Colour lives only in the pictograms in `src/icons.js` (categories and emergency numbers). Tokens are at the top of `src/styles/global.css`.
+- Ice ground, deep blue ink, white cards, one orange accent; headings in Markazi Text.
+  Two radii (cards and controls), one 2px line, no shadows or gradients, no decorative
+  animation. Other colour lives only in the pictograms in `src/icons.js` (categories and
+  emergency numbers). Tokens are at the top of `src/styles/global.css`.
 - No em or en dashes and no emoji in copy or comments.
 
 ## Commands
@@ -28,8 +30,11 @@ essential places with hours and directions, phone lines, official links. See `PL
 - `scripts/build-data.mjs`: validation and merge; also copies MapLibre into `public/vendor/`.
 - `src/pages/[...lang]/`: one file per page, rendered once per language.
 - `src/lib/hours.js`: opening-hours parsing and open-now logic, shared by build and browser.
-- `src/components/Explorer.astro` with `src/scripts/explorer.js` and `map.js`: the map-first
-  finder used on the home page and on every category page.
+- `src/components/Explorer.astro` with `src/scripts/explorer.js` and `map.js`: the finder
+  used on the home page and on every category page. A map with a deck of cards on a phone,
+  a list beside the map on a wide screen.
+- `src/scripts/sheet.js`: the sheets (type picker, location, one place) that open under the
+  emergency numbers.
 - `src/pages/data/[lang].json.js`: the compact per-language data file the explorer fetches.
 - `src/components/Directory.astro` with `src/scripts/directory.js`: the searchable lists on
   the Numbers, Help and Links pages.
