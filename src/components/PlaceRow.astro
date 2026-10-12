@@ -1,5 +1,4 @@
 ---
-import Icon from './Icon.astro';
 import { translator, pick, DAYS } from '../i18n.js';
 import { CATEGORIES } from '../categories.js';
 import { hoursLines } from '../lib/hours-text.js';
@@ -25,26 +24,21 @@ const fixed = p.hours === '*' ? ['is-open is-always', t(er ? 'place.erAlways' : 
 const note = p.note?.[lang];
 ---
 
-<li class="place" id={p.id} data-lat={p.lat} data-lng={p.lng} data-h={p.hours} data-q={search}>
-  <div class="place-head">
-    <div>
-      {kind && <p class="kind">{kind[lang]}</p>}
-      <h2><bdi>{name}</bdi></h2>
-      {addr && <p><bdi>{addr}</bdi></p>}
-      <p class="meta">
-        {district && <span><bdi>{district}</bdi></span>}
-        {tags.map((tag) => <span>{tag}</span>)}
-      </p>
-      <p class:list={['status', fixed[0]]}>{fixed[1]}</p>
-    </div>
-    <span class="place-icon"><Icon name={p.kind} /></span>
-  </div>
+<li class="place card" id={p.id} data-lat={p.lat} data-lng={p.lng} data-h={p.hours} data-q={search}>
+  {kind && <p class="card-top"><span class="kind">{kind[lang]}</span></p>}
+  <h2><bdi>{name}</bdi></h2>
+  {addr && <p class="meta"><bdi>{addr}</bdi></p>}
+  <p class="meta">
+    {district && <span><bdi>{district}</bdi></span>}
+    {tags.map((tag) => <span>{tag}</span>)}
+  </p>
+  <p class:list={['status', fixed[0]]}>{fixed[1]}</p>
   {note && <p class="place-note">{note}</p>}
   <div class="actions">
     {
       p.phone && (
         <a class="btn btn-fill" href={tel(p.phone)}>
-          {t('place.call')} <bdi dir="ltr">{p.phone}</bdi>
+          <span>{t('place.call')}</span> <bdi dir="ltr">{p.phone}</bdi>
         </a>
       )
     }

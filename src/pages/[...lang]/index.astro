@@ -15,8 +15,6 @@ const count = (id) => places.filter((p) => p.cat === id).length;
 
 <Base lang={lang} title={t('home.title')} description={t('home.desc')} wide>
   <Explorer lang={lang}>
-    <h1>{t('home.h1')}</h1>
-    <p class="lead">{t('home.intro')}</p>
     <section slot="after" class="browse">
       <h2 class="label">{t('cat.browse')}</h2>
       {
@@ -26,10 +24,10 @@ const count = (id) => places.filter((p) => p.cat === id).length;
             <ul class="rows">
               {CATEGORIES.filter((c) => c.group === g.id).map((c) => (
                 <li>
-                  <a href={path(lang, `places/${c.id}`)}>
-                    <Icon name={c.id} tile />
+                  <a class="row" href={path(lang, `places/${c.id}`)}>
+                    <Icon name={c.id} />
                     {c[lang]}
-                    <span class="count">{count(c.id)}</span>
+                    <span class="n">{count(c.id)}</span>
                     <Icon name="chevron" flip />
                   </a>
                 </li>

@@ -9,10 +9,9 @@ const AROUND_RIYADH = [
   [45.4, 23.8],
   [48.0, 25.8],
 ];
-const GROUND = '#0a4b2c';
-const INK = '#f5f2e7';
-const ACCENT = '#f4d058';
-const DEEP = '#06281a';
+const INK = '#0f2540';
+const SURFACE = '#ffffff';
+const ACCENT = '#ff8a3d';
 const RED = '#e03131';
 
 const AR_GESTURES = {
@@ -65,7 +64,7 @@ async function loadStyle(satellite) {
 function lookFor(id, satellite) {
   if (id === 'imagery') return { visibility: satellite ? 'visible' : 'none' };
   const plain = drawn.get(id);
-  if (plain.type === 'symbol') return { visibility: plain.visibility, text: satellite ? [INK, 'rgba(6, 40, 26, 0.9)', 1.5] : plain.text };
+  if (plain.type === 'symbol') return { visibility: plain.visibility, text: satellite ? [SURFACE, 'rgba(15, 37, 64, 0.9)', 1.5] : plain.text };
   return { visibility: satellite && plain.type !== 'background' ? 'none' : plain.visibility };
 }
 
@@ -81,9 +80,9 @@ function setMode(map, satellite) {
   }
 }
 
-// A round light pin carrying the kind's colour pictogram, drawn at twice the size for sharp screens.
+// A round white pin carrying the kind's colour pictogram, drawn at twice the size for sharp screens.
 function pinImage(markup) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="38.5" fill="${INK}" stroke="${DEEP}" stroke-width="5"/><g transform="translate(18 18) scale(2)">${markup}</g></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="38.5" fill="${SURFACE}" stroke="${INK}" stroke-width="5"/><g transform="translate(18 18) scale(2)">${markup}</g></svg>`;
   const image = new Image(84, 84);
   image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
   return image.decode().then(() => image);
@@ -91,7 +90,7 @@ function pinImage(markup) {
 
 // The sign for a marked zone: a yellow triangle, drawn large so it stays sharp as it grows with the map.
 function signImage() {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 24 24"><path fill="#fcc419" stroke="${DEEP}" stroke-width="1.5" stroke-linejoin="round" d="M12 2.8L22.3 20.6H1.7z"/><path fill="${DEEP}" d="M10.9 8.8h2.2v6.2h-2.2zM10.9 16.4h2.2v2.2h-2.2z"/></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 24 24"><path fill="#fcc419" stroke="${INK}" stroke-width="1.5" stroke-linejoin="round" d="M12 2.8L22.3 20.6H1.7z"/><path fill="${INK}" d="M10.9 8.8h2.2v6.2h-2.2zM10.9 16.4h2.2v2.2h-2.2z"/></svg>`;
   const image = new Image(512, 512);
   image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
   return image.decode().then(() => image);
@@ -99,7 +98,7 @@ function signImage() {
 
 const loadZones = () => fetch('/data/zones.json').then((res) => (res.ok ? res.json() : [])).catch(() => []);
 
-export async function createMap(container, { kinds, popup, onMove, satellite }) {
+export async function createMap(container, { kinds, onPick, onMove, satellite, pad }) {
   const [gl, style, zones] = await Promise.all([loadLibrary(), loadStyle(satellite), loadZones()]);
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const map = new gl.Map({
@@ -166,7 +165,7 @@ export async function createMap(container, { kinds, popup, onMove, satellite }) 
     type: 'circle',
     source: 'places',
     filter: ['all', ['has', 'point_count'], ['!', oneKind]],
-    paint: { 'circle-color': GROUND, 'circle-radius': ['step', ['get', 'point_count'], 16, 20, 20, 100, 25], 'circle-stroke-width': 2, 'circle-stroke-color': INK },
+    paint: { 'circle-color': INK, 'circle-radius': ['step', ['get', 'point_count'], 16, 20, 20, 100, 25], 'circle-stroke-width': 2, 'circle-stroke-color': SURFACE },
   });
   map.addLayer({
     id: 'cluster-count',
@@ -174,7 +173,7 @@ export async function createMap(container, { kinds, popup, onMove, satellite }) 
     source: 'places',
     filter: ['all', ['has', 'point_count'], ['!', oneKind]],
     layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-font': ['Noto Sans Bold'], 'text-size': 13, 'text-allow-overlap': true },
-    paint: { 'text-color': INK },
+    paint: { 'text-color': SURFACE },
   });
   // clusters of one kind: that kind's pin with the count on a small badge
   map.addLayer({
@@ -189,7 +188,7 @@ export async function createMap(container, { kinds, popup, onMove, satellite }) 
     type: 'circle',
     source: 'places',
     filter: ['all', ['has', 'point_count'], oneKind],
-    paint: { 'circle-color': INK, 'circle-radius': 11, 'circle-stroke-width': 2, 'circle-stroke-color': GROUND, 'circle-translate': [17, -17] },
+    paint: { 'circle-color': SURFACE, 'circle-radius': 11, 'circle-stroke-width': 2, 'circle-stroke-color': INK, 'circle-translate': [17, -17] },
   });
   map.addLayer({
     id: 'kind-count',
@@ -197,9 +196,9 @@ export async function createMap(container, { kinds, popup, onMove, satellite }) 
     source: 'places',
     filter: ['all', ['has', 'point_count'], oneKind],
     layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-font': ['Noto Sans Bold'], 'text-size': 11, 'text-offset': [1.55, -1.55], 'text-allow-overlap': true },
-    paint: { 'text-color': GROUND },
+    paint: { 'text-color': INK },
   });
-  map.addLayer({ id: 'chosen', type: 'circle', source: 'chosen', paint: { 'circle-color': ACCENT, 'circle-radius': 29 } });
+  map.addLayer({ id: 'chosen', type: 'circle', source: 'chosen', paint: { 'circle-color': ACCENT, 'circle-radius': 27, 'circle-stroke-width': 2, 'circle-stroke-color': INK } });
   map.addLayer({
     id: 'points',
     type: 'symbol',
@@ -207,16 +206,28 @@ export async function createMap(container, { kinds, popup, onMove, satellite }) 
     filter: ['!', ['has', 'point_count']],
     layout: { 'icon-image': ['concat', 'pin-', ['get', 'kind']], 'icon-allow-overlap': true },
   });
+  // the place on the front card keeps its own pin on top, even where its neighbours are clustered
+  map.addLayer({
+    id: 'chosen-pin',
+    type: 'symbol',
+    source: 'chosen',
+    layout: { 'icon-image': ['concat', 'pin-', ['get', 'kind']], 'icon-allow-overlap': true, 'icon-ignore-placement': true },
+  });
 
   let open = null;
   let picking = null;
 
-  function show(id, at, move) {
-    open?.remove();
-    map.getSource('chosen').setData({ type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: at } });
-    open = new gl.Popup({ offset: 24, maxWidth: '280px' }).setLngLat(at).setDOMContent(popup(id)).addTo(map);
-    open.on('close', () => map.getSource('chosen').setData(empty));
-    if (move) map.easeTo({ center: at, zoom: Math.max(map.getZoom(), 15), animate: !still });
+  // Rings the place on the front card. `how` moves the map to it: 'near' goes right up to it,
+  // 'view' only brings it back when it has slipped under the controls or off the edge.
+  function choose(row, how) {
+    map.getSource('chosen').setData(row ? { type: 'Feature', properties: { kind: row.kind.id }, geometry: { type: 'Point', coordinates: [row.lng, row.lat] } } : empty);
+    if (!row || !how) return;
+    const at = [row.lng, row.lat];
+    const room = pad();
+    if (how === 'near') return map.easeTo({ center: at, zoom: Math.max(map.getZoom(), 15), padding: room, animate: !still });
+    const spot = map.project(at);
+    const out = spot.x < room.left || spot.x > container.clientWidth - room.right || spot.y < room.top || spot.y > container.clientHeight - room.bottom;
+    if (out) map.easeTo({ center: at, padding: room, animate: !still });
   }
 
   // a tap on a marked zone (and not on a place) says what the zone is
@@ -247,7 +258,7 @@ export async function createMap(container, { kinds, popup, onMove, satellite }) 
     }
     const [feature] = map.queryRenderedFeatures(e.point, { layers: ['points', 'clusters', 'kind-clusters'] });
     if (!feature) return showZone(e);
-    if (feature.properties.cluster_id === undefined) return show(feature.properties.id, feature.geometry.coordinates, false);
+    if (feature.properties.cluster_id === undefined) return onPick(feature.properties.id);
     map
       .getSource('places')
       .getClusterExpansionZoom(feature.properties.cluster_id)
@@ -265,8 +276,8 @@ export async function createMap(container, { kinds, popup, onMove, satellite }) 
   return {
     bounds: () => map.getBounds(),
     setSatellite: (on) => setMode(map, on),
-    lookAt: (bbox) => map.fitBounds(bbox, { padding: 40, maxZoom: 15, animate: !still }),
-    select: (row) => show(row.id, [row.lng, row.lat], true),
+    lookAt: (bbox) => map.fitBounds(bbox, { padding: pad(), maxZoom: 15, animate: !still }),
+    choose,
     pick(done) {
       picking = done;
       container.classList.add('picking');
@@ -290,7 +301,7 @@ export async function createMap(container, { kinds, popup, onMove, satellite }) 
       const bounds = new gl.LngLatBounds();
       for (const r of frame) bounds.extend([r.lng, r.lat]);
       if (home) bounds.extend([home.lng, home.lat]);
-      map.fitBounds(bounds, { padding: 56, maxZoom: 15, animate: !still });
+      map.fitBounds(bounds, { padding: pad(), maxZoom: 15, animate: !still });
     },
   };
 }

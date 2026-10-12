@@ -1,38 +1,48 @@
-// The finder: one list and one map over every place, narrowed by search,
-// category and opening hours, and sorted by distance once a location is set.
+// The finder. On a phone: a map with a deck of cards over it, one place per card, and the
+// full list below. On a wide screen: the list beside the map. One type of place at a time,
+// narrowed by search, kind, opening hours and district, sorted by distance once a location is set.
 import { decodeWeek, openState, formatTime } from '../lib/hours.js';
 import { hoursLines } from '../lib/hours-text.js';
 import { getHome, setHome, lang, say, strings, fold } from './home.js';
+import { openSheet } from './sheet.js';
 
 const PAGE = 30;
+const DECK = 12;
 const sep = lang === 'ar' ? '، ' : ', ';
+const rtl = document.documentElement.dir === 'rtl';
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const wide = matchMedia('(min-width: 62rem)');
 const words = { days: strings.days, to: say('place.to'), everyDay: say('place.everyDay'), always: say('place.always'), closed: say('place.closed') };
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-const icon = (d) => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"></path></svg>`;
+const icon = (d, flip) => `<svg class="icon${flip ? ' flip' : ''}" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"></path></svg>`;
 const pic = (markup) => `<svg class="pic" viewBox="0 0 24 24" aria-hidden="true">${markup}</svg>`;
 const tel = (n) => 'tel:' + n.replace(/\s*(?:ext\.?|x)\s*\d.*$/i, '').replace(/[^\d+]/g, '');
 
 async function start(root) {
   const config = JSON.parse(document.getElementById('explorer-config').textContent);
-  const { cats, kinds } = config;
+  const { cats, kinds, icons, site } = config;
   const preset = root.dataset.cat ?? null;
   const $ = (name) => root.querySelector(`[data-${name}]`);
-  const controls = $('controls');
+  const stage = $('stage');
+  const title = $('title');
+  const deck = $('deck');
+  const sheet = $('cat-sheet');
+  const detail = $('detail');
   const search = $('search');
-  const openOnly = $('open-only');
+  const openButton = $('open-only');
   const alwaysOnly = $('always-only');
   const inView = $('in-view');
   const areaSelect = $('area');
   const note = $('cat-note');
-  const mapCol = $('map-col');
   const mapBox = $('map');
   const results = $('results');
   const list = $('places');
   const none = $('none');
   const more = $('more');
-  const allButton = $('cat-all');
   const catButtons = [...root.querySelectorAll('[data-cat-btn]')];
+  const kindButtons = [...root.querySelectorAll('[data-kind-btn]')];
+  const kindGroups = [...root.querySelectorAll('[data-kinds]')];
   const langLink = document.querySelector('a.lang');
   const hasFallback = list.children.length > 0;
 
@@ -48,7 +58,7 @@ async function start(root) {
     return;
   }
 
-  let rows = data.map(([id, k, name, addr, district, lat, lng, phone, hours, usual, phone2, website, source, tags, alt, note, area], order) => ({
+  const rows = data.map(([id, k, name, addr, district, lat, lng, phone, hours, usual, phone2, website, source, tags, alt, note, area], order) => ({
     id,
     order,
     cat: cats[kinds[k].cat],
@@ -75,23 +85,31 @@ async function start(root) {
     state: null,
     km: null,
   }));
-  if (preset) rows = rows.filter((r) => r.cat.id === preset);
   const byId = new Map(rows.map((r) => [r.id, r]));
+  const catOf = (id) => cats.find((c) => c.id === id);
+  const sizes = new Map(cats.map((c) => [c.id, rows.filter((r) => r.cat === c).length]));
 
-  // filters start from the address bar, so a filtered view can be shared as a link
+  // What is on show. `type` is one category, or '' for every place. It starts from the page
+  // (a category page, or the first category on the home page) and from the address bar,
+  // so a filtered view can be shared as a link.
   const params = new URLSearchParams(location.search);
-  // the strip picks categories on the home page and kinds on a category page
-  const pickable = preset ? kinds.filter((k) => cats[k.cat].id === preset) : cats;
-  const picked = (r) => (preset ? r.kind.id : r.cat.id);
-  const selected = new Set((params.get('type') ?? '').split(',').filter((id) => pickable.some((c) => c.id === id)));
+  const asked = (params.get('type') ?? '').split(',').filter(Boolean);
+  const want = byId.get(decodeURIComponent(location.hash.slice(1)));
+  let type = preset ?? site.first;
+  const kindsOn = new Set();
+  if (preset) for (const k of kinds) if (asked.includes(k.id) && cats[k.cat].id === preset) kindsOn.add(k.id);
+  if (!preset) type = asked.includes('all') || params.has('q') ? '' : (asked.find(catOf) ?? want?.cat.id ?? type);
   search.value = params.get('q') ?? '';
-  openOnly.checked = params.has('open');
+  let openOnly = params.has('open');
   alwaysOnly.checked = params.has('24h');
   if ([...areaSelect.options].some((o) => o.value === params.get('area'))) areaSelect.value = params.get('area');
 
   let home = getHome();
   let limit = PAGE;
   let map = null;
+  let found = [];
+  let current = want?.id ?? null; // the place on the front card
+  let shown = 0; // cards drawn in the deck so far
 
   function statusOf(r) {
     if (!r.week) return r.kind.untimed ? ['', ''] : ['is-unknown', say(r.er ? 'place.erUnknown' : 'place.unknown')];
@@ -130,155 +148,296 @@ async function start(root) {
     return `https://www.google.com/maps/dir/?api=1&destination=${r.lat}%2C${r.lng}${origin}&hl=${lang}`;
   }
 
-  function rowHtml(r, showKind) {
+  const spans = (parts) => parts.filter(Boolean).map((m) => `<span><bdi>${esc(m)}</bdi></span>`).join('');
+  const kmOf = (r) => (r.km === null ? null : say('place.km', { n: r.km < 10 ? Math.max(0.1, r.km).toFixed(1) : Math.round(r.km) }));
+  const callHtml = (r) => (r.phone ? `<a class="btn btn-fill" href="${tel(r.phone)}"><span>${esc(say('place.call'))}</span> <bdi dir="ltr">${esc(r.phone)}</bdi></a>` : '');
+  const goHtml = (r) => `<a class="btn" href="${mapsUrl(r)}" target="_blank" rel="noopener">${esc(say(r.lat === null ? 'place.find' : 'place.directions'))}</a>`;
+  const showHtml = (r) =>
+    r.lat === null ? '' : `<button type="button" class="btn btn-icon" data-show="${r.id}" aria-label="${esc(say('place.onMap'))}" title="${esc(say('place.onMap'))}">${icon(icons.pin)}</button>`;
+
+  // One place as a card. In the deck (`at` is its position there) it carries the step buttons.
+  function cardHtml(r, at = null) {
     const [cls, status] = statusOf(r);
-    const km = r.km === null ? null : say('place.km', { n: r.km < 10 ? Math.max(0.1, r.km).toFixed(1) : Math.round(r.km) });
-    const meta = [r.district, ...r.tags, km].filter(Boolean).map((m) => `<span><bdi>${esc(m)}</bdi></span>`).join('');
-    const lines = r.week && !r.always ? hoursLines(r.hours, lang, words) : [];
-    const facts =
-      lines.map((l) => `<dt>${esc(l.days)}</dt><dd>${esc(l.times)}</dd>`).join('') +
-      (r.usual ? `<dd class="full small">${esc(say('place.usual'))}</dd>` : '') +
-      (r.phone2 ? `<dt>${esc(say('place.citizens'))}</dt><dd><a href="${tel(r.phone2)}"><bdi dir="ltr">${esc(r.phone2)}</bdi></a></dd>` : '') +
-      (r.website ? `<dd class="full"><a href="${esc(r.website)}" target="_blank" rel="noopener">${esc(say('place.website'))}</a></dd>` : '') +
-      (r.source ? `<dd class="full"><a href="${esc(r.source)}" target="_blank" rel="noopener">${esc(say('place.source'))}</a></dd>` : '');
-    return `<li class="place" id="${r.id}">
-      <div class="place-head">
-        <div>
-          ${showKind || r.cat.multi ? `<p class="kind">${esc(r.kind.name)}</p>` : ''}
-          <h2><bdi>${esc(r.name)}</bdi></h2>
-          ${r.addr ? `<p><bdi>${esc(r.addr)}</bdi></p>` : ''}
-          <p class="meta">${meta}</p>
-          <p class="status ${cls}">${esc(status)}</p>
-        </div>
-        <span class="place-icon">${pic(r.kind.pic)}</span>
-      </div>
-      ${r.note ? `<p class="place-note">${esc(r.note)}</p>` : ''}
-      <div class="actions">
-        ${r.phone ? `<a class="btn btn-fill" href="${tel(r.phone)}">${esc(say('place.call'))} <bdi dir="ltr">${esc(r.phone)}</bdi></a>` : ''}
-        <a class="btn" href="${mapsUrl(r)}" target="_blank" rel="noopener">${esc(say(r.lat === null ? 'place.find' : 'place.directions'))}</a>
-        ${r.lat === null ? '' : `<button type="button" class="btn btn-icon" data-show="${r.id}" aria-label="${esc(say('place.onMap'))}" title="${esc(say('place.onMap'))}">${icon(config.pin)}</button>`}
-      </div>
-      ${facts ? `<details><summary>${esc(say('place.details'))}</summary><dl class="facts">${facts}</dl></details>` : ''}
-    </li>`;
+    const steps =
+      at === null
+        ? ''
+        : `<button type="button" class="ctl step" data-step="-1" aria-label="${esc(say('place.prev'))}"${at === 0 ? ' disabled' : ''}>${icon(icons.back, true)}</button>
+          <bdi class="pos" dir="ltr">${at + 1} / ${found.length}</bdi>
+          <button type="button" class="ctl step" data-step="1" aria-label="${esc(say('place.next'))}"${at === found.length - 1 ? ' disabled' : ''}>${icon(icons.chevron, true)}</button>`;
+    return `<div class="card-top"><span class="kind">${esc(r.kind.name)}</span>${steps}</div>
+      <h2><bdi>${esc(r.name)}</bdi></h2>
+      ${at === null && r.addr ? `<p class="meta"><bdi>${esc(r.addr)}</bdi></p>` : ''}
+      <p class="meta">${spans([r.district, ...r.tags, kmOf(r)])}</p>
+      <p class="status ${cls}">${esc(status)}</p>
+      ${at === null && r.note ? `<p class="place-note">${esc(r.note)}</p>` : ''}
+      <div class="actions">${callHtml(r)}${goHtml(r)}${at === null ? showHtml(r) : ''}</div>
+      <button type="button" class="text-btn" data-details="${r.id}">${esc(say('place.details'))}</button>`;
   }
 
-  function popupFor(id) {
-    const r = byId.get(id);
+  // The page of one place: everything a card leaves out.
+  function detailHtml(r) {
     const [cls, status] = statusOf(r);
-    const box = document.createElement('div');
-    box.className = 'pop';
-    box.innerHTML = `<p class="kind">${pic(r.kind.pic)}${esc(r.kind.name)}</p><strong><bdi>${esc(r.name)}</bdi></strong>
+    const lines = r.week ? hoursLines(r.hours, lang, words) : [];
+    const hours = lines.map((l) => `<div><span>${esc(l.days)}</span><span>${esc(l.times)}</span></div>`).join('') || (status ? `<p>${esc(status)}</p>` : '');
+    const out = (url, key) => `<a class="ctl" href="${esc(url)}" target="_blank" rel="noopener">${esc(say(key))}${icon(icons.open, true)}</a>`;
+    return `<div class="sheet-body">
+      <button type="button" class="ctl" data-close>${icon(icons.back, true)}${esc(say('place.back'))}</button>
+      <p class="kind">${esc(r.kind.name)}</p>
+      <h2 id="detail-name"><bdi>${esc(r.name)}</bdi></h2>
+      ${r.addr ? `<p class="meta"><bdi>${esc(r.addr)}</bdi></p>` : ''}
+      <p class="meta">${spans([r.district, ...r.tags, kmOf(r)])}</p>
       <p class="status ${cls}">${esc(status)}</p>
-      <p class="pop-actions">${r.phone ? `<a href="${tel(r.phone)}">${esc(say('place.call'))}</a>` : ''}<a href="${mapsUrl(r)}" target="_blank" rel="noopener">${esc(say('place.directions'))}</a></p>`;
-    return box;
+      <div class="actions">${callHtml(r)}${goHtml(r)}${showHtml(r)}</div>
+      ${hours || r.usual || r.note ? `<div class="card hours"><h3>${esc(say('place.hours'))}</h3>${hours}${r.usual ? `<p class="small">${esc(say('place.usual'))}</p>` : ''}${r.note ? `<p>${esc(r.note)}</p>` : ''}</div>` : ''}
+      <div class="links">
+        ${r.phone2 ? `<a class="ctl" href="${tel(r.phone2)}">${esc(say('place.citizens'))} <bdi dir="ltr">${esc(r.phone2)}</bdi></a>` : ''}
+        ${r.website ? out(r.website, 'place.website') : ''}
+        ${r.source ? out(r.source, 'place.source') : ''}
+      </div>
+      <p class="small caveat">${esc(say('cat.caveat'))}</p>
+    </div>`;
   }
 
   function matches() {
     const tokens = fold(search.value).split(/\s+/).filter(Boolean);
     const box = inView.checked && map ? map.bounds() : null;
-    const found = rows.filter(
+    const hits = rows.filter(
       (r) =>
-        (!selected.size || selected.has(picked(r))) &&
-        (!openOnly.checked || r.open) &&
+        (!type || r.cat.id === type) &&
+        (!kindsOn.size || kindsOn.has(r.kind.id)) &&
+        (!openOnly || r.open) &&
         (!alwaysOnly.checked || r.always) &&
         (!areaSelect.value || r.area === areaSelect.value) &&
         (!box || (r.lat !== null && box.contains([r.lng, r.lat]))) &&
         tokens.every((t) => r.q.includes(t)),
     );
-    return found.sort((a, b) => (home ? (a.km ?? 1e9) - (b.km ?? 1e9) : 0) || a.order - b.order);
+    return hits.sort((a, b) => (home ? (a.km ?? 1e9) - (b.km ?? 1e9) : 0) || a.order - b.order);
   }
 
-  function syncUrl() {
+  function tail() {
     const next = new URLSearchParams();
+    if (!type) next.set('type', 'all');
+    else if (kindsOn.size) next.set('type', [...kindsOn].join(','));
     if (search.value.trim()) next.set('q', search.value.trim());
-    if (selected.size) next.set('type', [...selected].join(','));
-    if (openOnly.checked) next.set('open', '1');
+    if (openOnly) next.set('open', '1');
     if (alwaysOnly.checked) next.set('24h', '1');
     if (areaSelect.value) next.set('area', areaSelect.value);
     const query = next.toString();
-    history.replaceState(null, '', location.pathname + (query ? `?${query}` : '') + location.hash);
-    if (langLink) langLink.href = langLink.pathname + (query ? `?${query}` : '');
+    return (type ? `places/${type}/` : '') + (query ? `?${query}` : '');
   }
 
-  function apply({ fit = true } = {}) {
-    const found = matches();
-    const single = preset ?? (selected.size === 1 ? [...selected][0] : null);
-    list.innerHTML = found.slice(0, limit).map((r) => rowHtml(r, !single)).join('');
-    results.textContent = say('cat.results', { n: found.length, total: rows.length });
+  // the language switch carries the view over to the other language
+  const syncLang = () => langLink && (langLink.href = site.other + tail());
+
+  // once something is changed, the address, the title and the heading follow the type on show
+  function syncUrl() {
+    const cat = catOf(type);
+    history.replaceState(null, '', site.path + tail());
+    document.title = cat ? `${cat.name} | ${site.name}` : site.title;
+    title.textContent = cat ? cat.name : site.h1;
+    syncLang();
+  }
+
+  function drawControls() {
+    const cat = catOf(type);
+    $('cat-pic').innerHTML = cat ? pic(cat.pic) : icon(icons.pin);
+    $('cat-name').textContent = cat ? cat.short : say('cat.back');
+    $('cat-count').textContent = cat ? sizes.get(cat.id) : rows.length;
+    openButton.setAttribute('aria-pressed', String(openOnly));
+    for (const b of catButtons) b.setAttribute('aria-pressed', String(b.dataset.catBtn === type));
+    for (const g of kindGroups) g.hidden = g.dataset.kinds !== type;
+    for (const b of kindButtons) b.setAttribute('aria-pressed', String(kindsOn.has(b.dataset.kindBtn)));
+    note.textContent = cat ? cat.note : site.intro;
+    results.textContent = say('cat.results', { n: found.length, total: cat ? sizes.get(cat.id) : rows.length });
     if (home) results.append(Object.assign(document.createElement('span'), { textContent: ' ' + say('cat.near') }));
+  }
+
+  function drawList() {
+    list.innerHTML = found.slice(0, limit).map((r) => `<li class="place card${r.id === current ? ' is-current' : ''}" id="${r.id}">${cardHtml(r)}</li>`).join('');
     none.hidden = found.length > 0;
     more.hidden = found.length <= limit;
-    allButton?.setAttribute('aria-pressed', String(selected.size === 0));
-    for (const b of catButtons) b.setAttribute('aria-pressed', String(selected.has(b.dataset.catBtn)));
-    if (!preset) {
-      note.hidden = !single;
-      if (single) note.textContent = cats.find((c) => c.id === single).note;
-    }
-    syncUrl();
-    map?.setPoints(found.filter((r) => r.lat !== null), home, fit && !inView.checked && !areaSelect.value);
   }
 
-  const reset = () => {
+  const deckCard = (r, at) => `<article class="place card">${cardHtml(r, at)}</article>`;
+
+  // the deck draws a dozen cards and adds more as the front card nears the end
+  function growDeck(upTo) {
+    const next = Math.min(found.length, Math.max(upTo, shown + DECK));
+    if (upTo <= shown || next <= shown) return;
+    deck.insertAdjacentHTML('beforeend', found.slice(shown, next).map((r, i) => deckCard(r, shown + i)).join(''));
+    shown = next;
+  }
+
+  function deckTo(at, smooth) {
+    growDeck(at + 4);
+    const card = deck.children[at];
+    if (!card) return;
+    const a = card.getBoundingClientRect();
+    const b = deck.getBoundingClientRect();
+    const pad = parseFloat(getComputedStyle(deck).paddingInlineStart) || 0;
+    deck.scrollBy({ left: rtl ? a.right - b.right + pad : a.left - b.left - pad, behavior: smooth && !still ? 'smooth' : 'auto' });
+  }
+
+  function drawDeck() {
+    const at = Math.max(0, found.findIndex((r) => r.id === current));
+    shown = Math.min(found.length, Math.max(DECK, at + 4));
+    deck.innerHTML = found.length
+      ? found.slice(0, shown).map(deckCard).join('')
+      : `<div class="card empty"><p>${esc(say(openOnly ? 'cat.noneOpen' : 'cat.none'))}</p>${openOnly ? `<button type="button" class="btn btn-fill" data-show-all>${esc(say('cat.showAll'))}</button>` : ''}</div>`;
+    deck.scrollLeft = 0;
+    deckTo(at, false);
+  }
+
+  // `how` says whether the map should move to the place: not at all, only if it is out of view, or right up to it
+  function setCurrent(id, how) {
+    current = id;
+    for (const li of list.children) li.classList.toggle('is-current', li.id === id);
+    const r = byId.get(id);
+    map?.choose(r && r.lat !== null ? r : null, how);
+  }
+
+  function apply({ fit = true, keep = false } = {}) {
+    found = matches();
+    if (!keep || !found.some((r) => r.id === current)) current = found[0]?.id ?? null;
+    drawControls();
+    drawList();
+    drawDeck();
+    map?.setPoints(found.filter((r) => r.lat !== null), home, fit && !inView.checked && !areaSelect.value);
+    setCurrent(current, false);
+  }
+
+  const change = () => {
     limit = PAGE;
     apply();
+    syncUrl();
   };
+
+  function openDetail(r) {
+    detail.innerHTML = detailHtml(r);
+    openSheet(detail);
+  }
+
+  function showOnMap(r) {
+    if (detail.open) detail.close();
+    const at = found.indexOf(r);
+    if (at >= 0) deckTo(at, false);
+    setCurrent(r.id, 'near');
+    if (!wide.matches) stage.scrollIntoView({ block: 'start', behavior: still ? 'auto' : 'smooth' });
+  }
+
+  // a tap on a pin brings its card to the front
+  function pickPin(id) {
+    const at = found.findIndex((r) => r.id === id);
+    if (at < 0) return;
+    if (at >= limit) {
+      limit = at + 1;
+      drawList();
+    }
+    deckTo(at, false);
+    setCurrent(id, false);
+    if (wide.matches) document.getElementById(id)?.scrollIntoView({ block: 'nearest', behavior: still ? 'auto' : 'smooth' });
+  }
+
+  let frame = 0;
+  deck.addEventListener(
+    'scroll',
+    () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const first = deck.firstElementChild;
+        if (!found.length || !first) return;
+        const step = first.offsetWidth + (parseFloat(getComputedStyle(deck).columnGap) || 0);
+        const at = Math.min(found.length - 1, Math.round(Math.abs(deck.scrollLeft) / step));
+        growDeck(at + 4);
+        if (found[at].id !== current) setCurrent(found[at].id, 'view');
+      });
+    },
+    { passive: true },
+  );
+
   let typing;
   search.addEventListener('input', () => {
+    // a search looks through every type of place
+    if (search.value.trim() && type) {
+      type = '';
+      kindsOn.clear();
+    }
     clearTimeout(typing);
-    typing = setTimeout(reset, 140);
+    typing = setTimeout(change, 140);
   });
-  for (const box of [openOnly, alwaysOnly, inView]) box.addEventListener('change', reset);
+  search.addEventListener('keydown', (e) => e.key === 'Enter' && sheet.close());
+  for (const box of [alwaysOnly, inView]) box.addEventListener('change', change);
   // choosing a district narrows the list to it and moves the map there
   const showArea = () => {
     const bbox = areaSelect.selectedOptions[0]?.dataset.bbox?.split(',').map(Number);
     if (bbox && map) map.lookAt([[bbox[0], bbox[1]], [bbox[2], bbox[3]]]);
   };
   areaSelect.addEventListener('change', () => {
-    reset();
+    change();
     showArea();
   });
-  allButton?.addEventListener('click', () => {
-    selected.clear();
-    reset();
+  openButton.addEventListener('click', () => {
+    openOnly = !openOnly;
+    change();
   });
+  $('cat-open').addEventListener('click', () => openSheet(sheet));
   for (const b of catButtons) {
     b.addEventListener('click', () => {
-      const id = b.dataset.catBtn;
-      if (selected.has(id)) selected.delete(id);
-      else selected.add(id);
-      reset();
+      type = b.dataset.catBtn;
+      kindsOn.clear();
+      change();
+      sheet.close();
+    });
+  }
+  for (const b of kindButtons) {
+    b.addEventListener('click', () => {
+      const id = b.dataset.kindBtn;
+      if (kindsOn.has(id)) kindsOn.delete(id);
+      else kindsOn.add(id);
+      change();
     });
   }
   more.addEventListener('click', () => {
     limit += PAGE;
-    apply({ fit: false });
+    apply({ fit: false, keep: true });
   });
-  list.addEventListener('click', (e) => {
-    const button = e.target.closest('[data-show]');
-    if (!button || !map) return;
-    map.select(byId.get(button.dataset.show));
-    mapBox.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  root.addEventListener('click', (e) => {
+    const hit = (name) => e.target.closest(`[data-${name}]`);
+    const step = hit('step');
+    const details = hit('details');
+    const show = hit('show');
+    if (step) {
+      const at = found.findIndex((r) => r.id === current) + Number(step.dataset.step);
+      if (found[at]) deckTo(at, true);
+    } else if (details) openDetail(byId.get(details.dataset.details));
+    else if (show) showOnMap(byId.get(show.dataset.show));
+    else if (hit('show-all')) {
+      openOnly = false;
+      change();
+    }
   });
   document.addEventListener('homechange', (e) => {
     home = e.detail;
     refreshDistance();
-    reset();
+    limit = PAGE;
+    apply();
   });
   document.addEventListener('pickstart', () => {
     if (!map) return;
-    mapBox.scrollIntoView({ block: 'nearest' });
+    stage.scrollIntoView({ block: 'start' });
     map.pick((at) => setHome({ lat: +at.lat.toFixed(5), lng: +at.lng.toFixed(5), picked: true }));
   });
 
-  controls.hidden = false;
-  $('refine').hidden = false;
-  mapCol.hidden = false;
+  stage.hidden = false;
   refreshStatus();
   refreshDistance();
-  apply();
+  apply({ keep: true });
+  if (location.search) syncLang();
+  if (want && found.includes(want)) openDetail(want);
   setInterval(() => {
     refreshStatus();
-    apply({ fit: false });
+    apply({ fit: false, keep: true });
   }, 60000);
 
   try {
@@ -296,7 +455,9 @@ async function start(root) {
       modeButton.textContent = say(satellite ? 'cat.modePlain' : 'cat.modeSat');
       credit.textContent = satellite ? 'Esri, Maxar, Earthstar Geographics · © OpenStreetMap' : '© OpenStreetMap · OpenMapTiles · OpenFreeMap';
     };
-    map = await createMap(mapBox, { kinds, popup: popupFor, onMove: () => inView.checked && apply({ fit: false }), satellite });
+    // the room the map keeps clear: on a phone the type picker covers its top and the deck its bottom
+    const pad = () => (wide.matches ? { top: 56, bottom: 56, left: 56, right: 56 } : { top: 80, bottom: deck.offsetHeight + 48, left: 40, right: 40 });
+    map = await createMap(mapBox, { kinds, onPick: pickPin, onMove: () => inView.checked && apply({ fit: false, keep: true }), satellite, pad });
     showMode();
     modeButton.hidden = false;
     modeButton.addEventListener('click', () => {
@@ -309,14 +470,14 @@ async function start(root) {
         // not saved, still switched
       }
     });
-    root.classList.add('has-map');
     $('in-view-label').hidden = false;
     document.dispatchEvent(new CustomEvent('mapready'));
-    apply();
+    apply({ keep: true });
     showArea();
   } catch {
     mapBox.hidden = true;
     $('map-error').hidden = false;
+    root.classList.add('no-map');
   }
 }
 

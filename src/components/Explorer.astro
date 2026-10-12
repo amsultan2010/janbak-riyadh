@@ -1,105 +1,126 @@
 ---
-// The map-first finder. On the home page it covers every category; on a category
-// page it is preset to one, and the server-rendered list stays as the fallback.
+// The finder. On the home page it opens on the first category; on a category page it is
+// preset to that one, and the server-rendered list stays as the fallback.
 import Icon from './Icon.astro';
-import LocationSetter from './LocationSetter.astro';
 import PlaceRow from './PlaceRow.astro';
 import places from '../data/places.json';
 import areas from '../data/areas.json';
-import { CATEGORIES, KINDS } from '../categories.js';
+import { CATEGORIES, GROUPS, KINDS } from '../categories.js';
 import { CATEGORY_NOTES } from '../content.js';
 import { ICONS, PICTURES } from '../icons.js';
-import { translator, otherLang, pick } from '../i18n.js';
+import { SITE, translator, otherLang, pick, path } from '../i18n.js';
 
 const { lang, cat = null } = Astro.props;
 const t = translator(lang);
 const other = otherLang(lang);
+const first = cat ?? CATEGORIES[0];
 const count = (id) => places.filter((p) => p.cat === id).length;
 const countKind = (id) => places.filter((p) => p.kind === id).length;
 const sortKey = (p) => (p.country ? pick(p.country, lang) : pick(p.name, lang));
 const fallback = cat ? places.filter((p) => p.cat === cat.id).sort((a, b) => sortKey(a).localeCompare(sortKey(b), lang)) : [];
 const areaList = areas.filter((a) => a.n > 0).sort((a, b) => a[lang].localeCompare(b[lang], lang));
 const config = {
-  pin: ICONS.pin,
-  cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], alt: c[other], note: CATEGORY_NOTES[c.id][lang], multi: !!c.kinds })),
+  icons: { pin: ICONS.pin, back: ICONS.back, chevron: ICONS.chevron, open: ICONS.open },
+  site: { first: CATEGORIES[0].id, path: path(lang), other: path(other), name: SITE[lang], title: t('home.title'), h1: t('home.h1'), intro: t('home.intro') },
+  cats: CATEGORIES.map((c) => ({ id: c.id, name: c[lang], short: c.short[lang], alt: c[other], note: CATEGORY_NOTES[c.id][lang], pic: PICTURES[c.id] })),
   kinds: KINDS.map((k) => ({ id: k.id, cat: CATEGORIES.findIndex((c) => c.id === k.cat), name: k[lang], alt: k[other], pic: PICTURES[k.id], untimed: k.untimed })),
 };
 ---
 
 <div class="explorer" data-explorer data-cat={cat?.id}>
-  <div class="explorer-head">
-    <slot />
+  <h1 class="title" data-title>{cat ? cat[lang] : t('home.h1')}</h1>
+  <div class="stage" data-stage hidden>
+    <div class="map-col">
+      <div id="map" class="map" data-map data-loading={t('cat.mapLoading')} role="region" aria-label={t('cat.mapLabel')}></div>
+      <button type="button" class="ctl map-mode" data-map-mode hidden></button>
+      <p class="map-credit"><bdi dir="ltr" data-map-credit>Esri, Maxar, Earthstar Geographics · © OpenStreetMap</bdi></p>
+      <p class="small" data-map-error hidden>{t('cat.mapFail')}</p>
+    </div>
+    <div class="tools">
+      <button type="button" class="ctl type" data-cat-open aria-haspopup="dialog">
+        <span class="slot" data-cat-pic><Icon name={first.id} /></span>
+        <span data-cat-name>{first.short[lang]}</span>
+        <span class="n" data-cat-count>{count(first.id)}</span>
+        <Icon name="down" />
+      </button>
+      <button type="button" class="ctl" data-open-only aria-pressed="false">{t('cat.openShort')}</button>
+    </div>
+    <div class="deck" data-deck></div>
   </div>
-  <div class="controls" data-controls hidden>
-    <label class="search">
-      <span class="vh">{t('cat.search')}</span>
-      <input type="search" data-search placeholder={t('cat.search')} autocomplete="off" enterkeyhint="search" />
-    </label>
-    {
-      !cat && (
-        <div class="cats" role="group" aria-label={t('cat.kinds')}>
-          <button type="button" data-cat-all aria-pressed="true">
-            {t('cat.all')}
-          </button>
-          {CATEGORIES.map((c) => (
-            <button type="button" data-cat-btn={c.id} aria-pressed="false">
-              <Icon name={c.id} tile />
-              {c.short[lang]}
-              <span class="n">{count(c.id)}</span>
-            </button>
-          ))}
-        </div>
-      )
-    }
-    {
-      cat?.kinds && (
-        <div class="cats" role="group" aria-label={t('cat.kinds')}>
-          <button type="button" data-cat-all aria-pressed="true">
-            {t('cat.all')}
-          </button>
-          {cat.kinds.map((k) => (
-            <button type="button" data-cat-btn={k.id} aria-pressed="false">
-              <Icon name={k.id} tile />
-              {k[lang]}
-              <span class="n">{countKind(k.id)}</span>
-            </button>
-          ))}
-        </div>
-      )
-    }
+  <div class="listing">
+    <p class="note" data-cat-note>{cat ? CATEGORY_NOTES[cat.id][lang] : t('home.intro')}</p>
+    <p class="results" data-results aria-live="polite">
+      {cat ? t('cat.results', { n: fallback.length, total: fallback.length }) : ''}
+    </p>
+    <ol class="places" data-places>
+      {fallback.map((p) => <PlaceRow p={p} lang={lang} />)}
+    </ol>
+    <p class="note" data-none hidden>{t('cat.none')}</p>
+    <div class="more-wrap"><button type="button" class="btn more" data-more hidden>{t('cat.more')}</button></div>
+    <p class="small caveat">{t('cat.caveat')}</p>
+    <slot name="after" />
   </div>
-  <div class="map-col" data-map-col hidden>
-    <div id="map" class="map" data-map data-loading={t('cat.mapLoading')} role="region" aria-label={t('cat.mapLabel')}></div>
-    <button type="button" class="map-mode" data-map-mode hidden></button>
-    <p class="map-credit" data-map-credit>© OpenStreetMap · OpenMapTiles · OpenFreeMap</p>
-    <p class="small" data-map-error hidden>{t('cat.mapFail')}</p>
-  </div>
-  <div class="refine" data-refine hidden>
-    <div class="opts">
-      <label class="check"><input type="checkbox" data-open-only />{t('cat.openNow')}</label>
+
+  <dialog class="sheet" data-cat-sheet aria-labelledby="cat-title">
+    <div class="sheet-body">
+      <div class="sheet-head">
+        <h2 id="cat-title">{t('cat.kinds')}</h2>
+        <button type="button" class="ctl" data-close>{t('close')}</button>
+      </div>
+      <label class="search">
+        <span class="vh">{t('cat.search')}</span>
+        <input type="search" data-search placeholder={t('cat.search')} autocomplete="off" enterkeyhint="search" />
+      </label>
+      <h3>{t('nav.places')}</h3>
+      <div class="rows">
+        <button type="button" class="row" data-cat-btn="" aria-pressed="false">
+          <Icon name="pin" />
+          {t('cat.back')}
+          <span class="n">{places.length}</span>
+        </button>
+      </div>
+      {
+        GROUPS.map((g) => (
+          <>
+            <h3>{g[lang]}</h3>
+            <div class="rows">
+              {CATEGORIES.filter((c) => c.group === g.id).map((c) => (
+                <>
+                  <button type="button" class="row" data-cat-btn={c.id} aria-pressed="false">
+                    <Icon name={c.id} />
+                    {c[lang]}
+                    <span class="n">{count(c.id)}</span>
+                  </button>
+                  {c.kinds && (
+                    <div class="kinds" data-kinds={c.id} role="group" aria-label={c[lang]} hidden>
+                      {c.kinds.map((k) => (
+                        <button type="button" class="ctl" data-kind-btn={k.id} aria-pressed="false">
+                          <Icon name={k.id} />
+                          {k[lang]}
+                          <span class="n">{countKind(k.id)}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ))}
+            </div>
+          </>
+        ))
+      }
+      <h3>{t('cat.refine')}</h3>
       <label class="check"><input type="checkbox" data-always-only />{t('cat.always')}</label>
       <label class="check" data-in-view-label hidden><input type="checkbox" data-in-view />{t('cat.inView')}</label>
+      <label class="field area">
+        <span>{t('cat.area')}</span>
+        <select data-area>
+          <option value="">{t('cat.areaAll')}</option>
+          {areaList.map((a) => <option value={a.id} data-bbox={a.bbox.join(',')}>{a[lang]}</option>)}
+        </select>
+      </label>
     </div>
-    <label class="field area">
-      <span>{t('cat.area')}</span>
-      <select data-area>
-        <option value="">{t('cat.areaAll')}</option>
-        {areaList.map((a) => <option value={a.id} data-bbox={a.bbox.join(',')}>{a[lang]}</option>)}
-      </select>
-    </label>
-    <LocationSetter lang={lang} />
-    <p class="note" data-cat-note hidden></p>
-  </div>
-  <p class="results" data-results aria-live="polite">
-    {cat ? t('cat.results', { n: fallback.length, total: fallback.length }) : ''}
-  </p>
-  <ol class="places" data-places>
-    {fallback.map((p) => <PlaceRow p={p} lang={lang} />)}
-  </ol>
-  <p class="note" data-none hidden>{t('cat.none')}</p>
-  <div class="more-wrap"><button type="button" class="btn more" data-more hidden>{t('cat.more')}</button></div>
-  <p class="small caveat">{t('cat.caveat')}</p>
-  <slot name="after" />
+  </dialog>
+  <dialog class="sheet detail" data-detail aria-labelledby="detail-name"></dialog>
 </div>
 <script type="application/json" id="explorer-config" set:html={JSON.stringify(config)} />
 
