@@ -803,7 +803,8 @@ input::placeholder {
   z-index: 1;
   padding: 0.0625rem 0.5rem;
   background: var(--surface);
-  font-size: 0.6875rem;
+  /* one line under the deck, so it shrinks with a narrow phone */
+  font-size: min(0.6875rem, 2.9vw);
   line-height: 1.5;
 }
 
