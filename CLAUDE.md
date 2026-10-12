@@ -1,4 +1,4 @@
-# Riyadh Guide
+# Janbak (جنبك)
 
 Static, bilingual (Arabic default at `/`, English at `/en/`) reference site for Riyadh:
 essential places with hours and directions, phone lines, official links. See `PLAN.md`.
