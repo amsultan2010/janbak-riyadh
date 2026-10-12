@@ -22,6 +22,7 @@ const districts = data.districts
         <option value="">{t('loc.district')}</option>
         {districts.map((d) => <option value={`${d.lat},${d.lng}`} data-ar={d.ar} data-en={d.en}>{d[lang]}</option>)}
       </select>
+    <button type="button" class="btn" data-loc-pick hidden>{t('loc.pickMap')}</button>
     <button type="button" class="text-btn" data-loc-remove hidden>{t('loc.remove')}</button>
     <p class="small" data-loc-msg role="status">{t('loc.privacy')}</p>
   </div>
