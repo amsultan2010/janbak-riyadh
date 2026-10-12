@@ -144,11 +144,16 @@ async function start(root) {
       (r.website ? `<dd class="full"><a href="${esc(r.website)}" target="_blank" rel="noopener">${esc(say('place.website'))}</a></dd>` : '') +
       (r.source ? `<dd class="full"><a href="${esc(r.source)}" target="_blank" rel="noopener">${esc(say('place.source'))}</a></dd>` : '');
     return `<li class="place" id="${r.id}">
-      ${showKind ? `<p class="kind">${icon(r.cat.icon)}${esc(r.cat.name)}</p>` : ''}
-      <h2><bdi>${esc(r.name)}</bdi></h2>
-      ${r.addr ? `<p><bdi>${esc(r.addr)}</bdi></p>` : ''}
-      <p class="meta">${meta}</p>
-      <p class="status ${cls}">${esc(status)}</p>
+      <div class="place-head">
+        <div>
+          ${showKind ? `<p class="kind">${esc(r.cat.name)}</p>` : ''}
+          <h2><bdi>${esc(r.name)}</bdi></h2>
+          ${r.addr ? `<p><bdi>${esc(r.addr)}</bdi></p>` : ''}
+          <p class="meta">${meta}</p>
+          <p class="status ${cls}">${esc(status)}</p>
+        </div>
+        <span class="place-icon">${icon(r.cat.icon)}</span>
+      </div>
       ${r.note ? `<p class="place-note">${esc(r.note)}</p>` : ''}
       <div class="actions">
         ${r.phone ? `<a class="btn btn-fill" href="${tel(r.phone)}">${esc(say('place.call'))} <bdi dir="ltr">${esc(r.phone)}</bdi></a>` : ''}
@@ -164,7 +169,7 @@ async function start(root) {
     const [cls, status] = statusOf(r);
     const box = document.createElement('div');
     box.className = 'pop';
-    box.innerHTML = `<p class="kind">${esc(r.cat.name)}</p><strong><bdi>${esc(r.name)}</bdi></strong>
+    box.innerHTML = `<p class="kind">${icon(r.cat.icon)}${esc(r.cat.name)}</p><strong><bdi>${esc(r.name)}</bdi></strong>
       <p class="status ${cls}">${esc(status)}</p>
       <p class="pop-actions">${r.phone ? `<a href="${tel(r.phone)}">${esc(say('place.call'))}</a>` : ''}<a href="${mapsUrl(r)}" target="_blank" rel="noopener">${esc(say('place.directions'))}</a></p>`;
     return box;
