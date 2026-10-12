@@ -47,10 +47,10 @@ const share = ({ lang, name, title, labels }) => {
   </svg>`;
 };
 
-await sharp(Buffer.from(share({ lang: 'ar', name: 'دليل الرياض', title: ['الأماكن الأساسية', 'في الرياض'], labels: ['الطوارئ', 'الإسعاف', 'استشارة صحية'] })))
+await sharp(Buffer.from(share({ lang: 'ar', name: 'جنبك', title: ['الأماكن الأساسية', 'في الرياض'], labels: ['الطوارئ', 'الإسعاف', 'استشارة صحية'] })))
   .png()
   .toFile(out('og-ar.png').pathname);
-await sharp(Buffer.from(share({ lang: 'en', name: 'Riyadh Guide', title: ['Essential places', 'in Riyadh'], labels: ['Emergency', 'Ambulance', 'Health advice'] })))
+await sharp(Buffer.from(share({ lang: 'en', name: 'Janbak', title: ['Essential places', 'in Riyadh'], labels: ['Emergency', 'Ambulance', 'Health advice'] })))
   .png()
   .toFile(out('og-en.png').pathname);
 console.log('images written');
