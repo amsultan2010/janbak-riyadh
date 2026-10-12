@@ -934,6 +934,20 @@ main.wide {
   color: var(--ground);
 }
 
+.pop .zone-tag {
+  display: inline-block;
+  margin-block-end: 0.3rem;
+  padding: 0.05rem 0.5rem;
+  background: #e03131;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.pop .small {
+  padding: 0.25rem 0 0;
+  color: var(--ground);
+}
+
 .pop-actions {
   display: flex;
   gap: 1.25rem;
