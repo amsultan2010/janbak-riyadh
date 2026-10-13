@@ -8,6 +8,7 @@ import '@fontsource/ibm-plex-sans-arabic/latin-700.css';
 import '@fontsource/markazi-text/arabic-700.css';
 import '@fontsource/markazi-text/latin-700.css';
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 import Header from '../components/Header.astro';
 import Icon from '../components/Icon.astro';
 import { SITE, DAYS, translator, clientStrings, path, otherLang } from '../i18n.js';
@@ -88,6 +89,7 @@ const siteData = {
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json" set:html={JSON.stringify(siteData)} />
+    <Analytics />
   </head>
   <body>
     <a class="skip" href="#main">{t('skip')}</a>

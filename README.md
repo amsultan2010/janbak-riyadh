@@ -23,7 +23,8 @@ they are open, how far they are, and which numbers to call. Arabic at `/`, Engli
 - Emergency and service phone lines, ways to help, and official links, each taken from an
   official page.
 - A map with search, an open-now switch, a district filter and nearest-first sorting.
-- No accounts, no backend, no tracking. A location you set stays on your device.
+- No accounts, no backend. Page views are counted with Vercel Web Analytics, without
+  cookies. A location you set stays on your device.
 
 It is Riyadh only, and it carries no news, live status, alerts or crowd-sourced content.
 See [PLAN.md](PLAN.md) for the full description and the known gaps.
