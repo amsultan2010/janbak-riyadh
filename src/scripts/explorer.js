@@ -444,6 +444,7 @@ async function start(root) {
   apply({ keep: true });
   if (location.search) syncLang();
   if (want && found.includes(want)) openDetail(want);
+  document.dispatchEvent(new CustomEvent('finderready'));
   setInterval(() => {
     refreshStatus();
     apply({ fit: false, keep: true });

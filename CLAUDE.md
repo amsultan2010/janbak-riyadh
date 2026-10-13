@@ -35,8 +35,8 @@ essential places with hours and directions, phone lines, official links. See `PL
   a list beside the map on a wide screen.
 - `src/scripts/sheet.js`: the sheets (type picker, location, one place) that open under the
   header.
-- `src/scripts/tour.js`: the tour opened by the question mark in the header; its steps skip
-  any control the page does not have.
+- `src/scripts/tour.js`: the tour, opened on arriving at the site and by the question mark
+  in the header; its steps skip any control the page does not have.
 - `src/logo.js`: the logo's mark and wordmark, used by the header and by `scripts/make-images.mjs`.
 - `src/pages/data/[lang].json.js`: the compact per-language data file the explorer fetches.
 - `src/components/Directory.astro` with `src/scripts/directory.js`: the searchable lists on

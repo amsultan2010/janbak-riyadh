@@ -77,12 +77,14 @@ function show(n) {
   place();
 }
 
-button.addEventListener('click', () => {
+function start() {
   document.querySelector('.sheet[open]')?.close();
   steps = STEPS.filter((step) => (step.sheet ? document.querySelector(step.sheet) : find(step)));
   tour.showModal();
   show(0);
-});
+}
+
+button.addEventListener('click', start);
 back.addEventListener('click', () => show(at - 1));
 next.addEventListener('click', () => (at === steps.length - 1 ? tour.close() : show(at + 1)));
 tour.addEventListener('close', () => {
@@ -91,4 +93,14 @@ tour.addEventListener('close', () => {
 });
 addEventListener('resize', place);
 addEventListener('scroll', place, { passive: true });
+// the page can still settle under a tour that opened by itself: a font arriving moves the controls
+new ResizeObserver(place).observe(document.body);
 button.hidden = false;
+
+// The tour opens by itself on arriving at the site, not on moving between its pages.
+// It waits for the page's other scripts to show their controls, and a link to one place
+// opens on that place instead.
+if (!document.referrer.startsWith(location.origin)) {
+  const ready = document.querySelector('[data-explorer]') ? 'finderready' : 'DOMContentLoaded';
+  document.addEventListener(ready, () => document.querySelector('.sheet[open]') || start(), { once: true });
+}
