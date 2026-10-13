@@ -35,7 +35,7 @@ if (sheet && opener) {
     setHome({ lat, lng, ar: option.dataset.ar, en: option.dataset.en });
   });
 
-  gps.addEventListener('click', () => {
+  function locate() {
     if (!navigator.geolocation) {
       msg.textContent = say('loc.denied');
       return;
@@ -54,7 +54,11 @@ if (sheet && opener) {
       },
       { timeout: 15000, maximumAge: 300000 },
     );
-  });
+  }
+
+  gps.addEventListener('click', locate);
+  // closing the tour asks for the location, unless one is already set
+  document.querySelector('[data-tour]').addEventListener('close', () => current || locate());
 
   // the explorer turns this on once its map is ready, and answers "pickstart"
   document.addEventListener('mapready', () => (pick.hidden = false));
