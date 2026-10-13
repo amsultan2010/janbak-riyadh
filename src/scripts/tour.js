@@ -93,6 +93,8 @@ tour.addEventListener('close', () => {
 });
 addEventListener('resize', place);
 addEventListener('scroll', place, { passive: true });
+// the page can still settle under a tour that opened by itself: a font arriving moves the controls
+new ResizeObserver(place).observe(document.body);
 button.hidden = false;
 
 // The tour opens by itself on arriving at the site, not on moving between its pages.
