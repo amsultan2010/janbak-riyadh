@@ -1,6 +1,6 @@
 // The map. MapLibre is served as its own files from /vendor so it never weighs
 // on the first paint; the list is usable before it arrives and without it.
-import { lang, say } from './home.js';
+import { lang } from './home.js';
 
 const STYLE = 'https://tiles.openfreemap.org/styles/positron';
 const IMAGERY = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
@@ -12,7 +12,6 @@ const AROUND_RIYADH = [
 const INK = '#0f2540';
 const SURFACE = '#ffffff';
 const ACCENT = '#ff8a3d';
-const DANGER = '#e03131';
 const URGENT = '#cc2823';
 
 const AR_GESTURES = {
@@ -56,10 +55,8 @@ function pinImage({ pic: markup, urgent }) {
   return image.decode().then(() => image);
 }
 
-const loadZones = () => fetch('/data/zones.json').then((res) => (res.ok ? res.json() : [])).catch(() => []);
-
 export async function createMap(container, { kinds, onPick, onMove, onTilt, pad }) {
-  const [gl, style, zones] = await Promise.all([loadLibrary(), loadStyle(), loadZones()]);
+  const [gl, style] = await Promise.all([loadLibrary(), loadStyle()]);
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const map = new gl.Map({
     container,
@@ -82,19 +79,6 @@ export async function createMap(container, { kinds, onPick, onMove, onTilt, pad 
   container.classList.add('is-ready');
   const pins = await Promise.all(kinds.map(pinImage));
   kinds.forEach((kind, i) => map.addImage(`pin-${kind.id}`, pins[i], { pixelRatio: 2 }));
-
-  // Marked zones: a red shape over the area, under the place pins.
-  if (zones.length) {
-    map.addSource('zones', {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: zones.map((z) => ({ type: 'Feature', properties: { id: z.id }, geometry: { type: 'Polygon', coordinates: [z.ring] } })),
-      },
-    });
-    map.addLayer({ id: 'zone-fill', type: 'fill', source: 'zones', paint: { 'fill-color': DANGER, 'fill-opacity': 0.38 } });
-    map.addLayer({ id: 'zone-edge', type: 'line', source: 'zones', paint: { 'line-color': DANGER, 'line-width': 3 } });
-  }
 
   const empty = { type: 'FeatureCollection', features: [] };
   // Each cluster counts its places per kind, so a cluster of one kind can wear that kind's icon.
@@ -158,7 +142,6 @@ export async function createMap(container, { kinds, onPick, onMove, onTilt, pad 
     layout: { 'icon-image': ['concat', 'pin-', ['get', 'kind']], 'icon-allow-overlap': true, 'icon-ignore-placement': true },
   });
 
-  let open = null;
   let picking = null;
 
   // Rings the place on the front card. `how` moves the map to it: 'near' goes right up to it,
@@ -174,24 +157,6 @@ export async function createMap(container, { kinds, onPick, onMove, onTilt, pad 
     if (out) map.easeTo({ center: at, padding: room, animate: !still });
   }
 
-  // a tap on a marked zone (and not on a place) says what the zone is
-  function showZone(e) {
-    if (!zones.length) return;
-    const [hit] = map.queryRenderedFeatures(e.point, { layers: ['zone-fill'] });
-    const zone = hit && zones.find((z) => z.id === hit.properties.id);
-    if (!zone) return;
-    const box = Object.assign(document.createElement('div'), { className: 'pop' });
-    const date = new Date(`${zone.marked}T12:00:00`).toLocaleDateString(lang === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-    box.append(
-      Object.assign(document.createElement('p'), { className: 'zone-tag', textContent: say('zone.caution') }),
-      Object.assign(document.createElement('strong'), { textContent: zone[`name_${lang}`] }),
-      Object.assign(document.createElement('p'), { textContent: say('zone.text') }),
-      Object.assign(document.createElement('p'), { className: 'small', textContent: say('zone.marked', { date }) }),
-    );
-    open?.remove();
-    open = new gl.Popup({ offset: 12, maxWidth: '280px' }).setLngLat(e.lngLat).setDOMContent(box).addTo(map);
-  }
-
   map.on('click', (e) => {
     if (picking) {
       const done = picking;
@@ -201,7 +166,7 @@ export async function createMap(container, { kinds, onPick, onMove, onTilt, pad 
       return;
     }
     const [feature] = map.queryRenderedFeatures(e.point, { layers: ['points', 'clusters', 'kind-clusters'] });
-    if (!feature) return showZone(e);
+    if (!feature) return;
     if (feature.properties.cluster_id === undefined) return onPick(feature.properties.id);
     map
       .getSource('places')
