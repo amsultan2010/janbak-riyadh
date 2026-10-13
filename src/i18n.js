@@ -98,9 +98,6 @@ const T = {
   'cat.tilt': { ar: 'عرض ثلاثي الأبعاد', en: '3D view' },
   'cat.area': { ar: 'الحي', en: 'District' },
   'cat.areaAll': { ar: 'كل أحياء الرياض', en: 'All of Riyadh' },
-  'zone.caution': { ar: 'تنبيه', en: 'Caution' },
-  'zone.text': { ar: 'تحقّق من الإعلانات الرسمية قبل التوجه إلى هذه المنطقة.', en: 'Check official announcements before going to this area.' },
-  'zone.marked': { ar: 'حُدّدت بتاريخ {date}', en: 'Marked on {date}' },
   'dir.search': { ar: 'ابحث في هذه الصفحة', en: 'Search this page' },
   'dir.all': { ar: 'الكل', en: 'All' },
   'dir.filter': { ar: 'تصفية حسب القسم', en: 'Filter by section' },
@@ -260,7 +257,7 @@ export function translator(lang) {
 
 // The strings the browser scripts need, for one language.
 export function clientStrings(lang) {
-  const keys = Object.keys(T).filter((k) => /^(place|cat|loc|dir|zone|tour)\./.test(k));
+  const keys = Object.keys(T).filter((k) => /^(place|cat|loc|dir|tour)\./.test(k));
   return Object.fromEntries(keys.map((k) => [k, T[k][lang]]));
 }
 
