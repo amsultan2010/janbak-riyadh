@@ -1,3 +1,5 @@
+@AGENTS.md
+
 # Janbak (جنبك)
 
 Static, bilingual (Arabic default at `/`, English at `/en/`) reference site for Riyadh:
@@ -10,10 +12,7 @@ essential places with hours and directions, phone lines, official links. See `PL
   `src/content.js`, always with both `ar` and `en`.
 - Phone numbers and official links must come from an official source recorded in
   `research/`. Never add one from memory.
-- Ice ground, deep blue ink, white cards, one orange accent; headings in Markazi Text.
-  Two radii (cards and controls), one 2px line, no shadows or gradients, no decorative
-  animation. Other colour lives only in the pictograms in `src/icons.js` (categories and
-  emergency numbers). Tokens are at the top of `src/styles/global.css`.
+- Visual design (colours, type, radii, lines, motion) is in `DESIGN.md`. Tokens are at the top of `src/styles/global.css`.
 - No em or en dashes and no emoji in copy or comments.
 
 ## Commands
